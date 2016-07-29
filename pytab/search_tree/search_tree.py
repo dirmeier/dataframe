@@ -3,6 +3,7 @@
 
 from pytab.search_tree.search_tree_node import SearchTreeNode
 
+
 class SearchTree:
     def __init__(self):
         self.__grp_idx = 0
@@ -24,13 +25,13 @@ class SearchTree:
             child = SearchTreeNode(key)
             curr_node.add_child(child)
             if idx == len(args) - 1:
-                child.value(self.idx())
+                child.value(self.__idx())
                 return child.value()
             else:
                 self.__traverse(child, idx + 1, args)
 
-    def idx(self):
-        self.idx += 1
-        return self.idx
+    def __idx(self):
+        self.__idx += 1
+        return self.__idx
 
 
