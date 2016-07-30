@@ -1,7 +1,8 @@
-.. code-block:: html
-   :linenos:
+.. class:: center
 
-	<h1 align="center"> pytab </h1>
+*****
+pytab
+*****
 
 	[![Build Status](https://travis-ci.org/rafstraumur/pytab.svg?branch=master)](https://travis-ci.org/rafstraumur/pytab.svg?branch=master)
 	[![codecov](https://codecov.io/gh/rafstraumur/pytab/branch/master/graph/badge.svg)](https://codecov.io/gh/rafstraumur/pytab)
