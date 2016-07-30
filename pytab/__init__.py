@@ -6,3 +6,4 @@ from pytab.table_grouping import TableGrouping
 from pytab.table_row import TableRow
 from pytab.table_column import TableColumn
 from pytab.table import Table
+from pytab.grouped_table import GroupedTable

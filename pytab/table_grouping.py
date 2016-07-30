@@ -1,7 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
 
-from pytab import SearchTree
+from pytab.search_tree.search_tree import SearchTree
 import numpy
 
 class TableGrouping:
@@ -18,7 +18,7 @@ class TableGrouping:
         self.__grouping[grp_idx].add(row)
 
     @staticmethod
-    def group_by(obj=None, *args):
+    def group_by(obj, *args):
         grp = TableGrouping(obj.nrow())
         for row in obj:
             grp.__add_grp(row, *args)
