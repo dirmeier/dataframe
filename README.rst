@@ -1,3 +1,6 @@
+.. code-block:: html
+   :linenos:
+
 <h1 align="center"> pytab </h1>
 
 [![Build Status](https://travis-ci.org/rafstraumur/pytab.svg?branch=master)](https://travis-ci.org/rafstraumur/pytab.svg?branch=master)
