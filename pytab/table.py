@@ -1,9 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon.dirmeier.net'
 
-
-from pytab.group_by import group_by_
-from pytab.table_row import TableRow
+from pytab import TableRow, TableGrouping
 
 
 class Table:
@@ -17,5 +15,11 @@ class Table:
             yield TableRow([x[i] for x in self._data_columns.values()])
 
     def group_by(self, *args):
-        return group_by_(self, *args)
+        grp, grping = TableGrouping.group_by(self, *args)
+        return GroupedTable(self, grp, grping)
 
+class GroupedTable(Table):
+    def __init__(self, groups, grouping):
+        super().__init__()
+        self.groups = groups
+        self.grouping = grouping

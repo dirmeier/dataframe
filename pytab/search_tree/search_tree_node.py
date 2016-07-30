@@ -5,21 +5,28 @@
 class SearchTreeNode:
     def __init__(self, id):
         self.__id = id
-        self.__children = set()
+        self.__children = dict()
         self.__value = -1
+
+    def __hash__(self):
+        return hash(self.__id)
 
     def __eq__(self, other):
         if isinstance(other, SearchTreeNode):
-            return self.__value == other.__value
+            return self.__id == other.__id
         return False
 
-    def value(self, val=None):
-        if val is not None:
-            self.__value = val
+    def get_value(self):
         return self.__value
 
+    def set_value(self, val):
+        self.__value = val
+
     def add_child(self, node):
-        self.__children.add(node)
+        self.__children[node.__id] = node
 
     def has_child(self, val):
         return val in self.__children
+
+    def get_child(self, id):
+        return self.__children[id]
