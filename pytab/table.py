@@ -1,18 +1,21 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon.dirmeier.net'
 
-from pytab.table_grouping import TableGrouping
+from pytab.table_row import TableRow
 from pytab.table_column import TableColumn
 from pytab.grouped_table import GroupedTable
 
 class Table:
     def __init__(self, **kwargs):
         lens = set()
-        self.__data_columns = {}
+        self.__data_columns = []
         self.__colnames = []
-        for k, v in kwargs.items():
+        keys = [x for x in kwargs.keys()]
+        keys.sort()
+        for k in keys:
+            v = kwargs.get(k)
             self.__colnames.append(k)
-            self.__data_columns[k] = TableColumn(k, v)
+            self.__data_columns.append(TableColumn(k, v))
             lens.add(len(v))
         if len(lens) != 1:
             raise ValueError("Columns don't have equal sizes!")
@@ -22,7 +25,7 @@ class Table:
 
     def __iter__(self):
         for i in range(self.__nrow):
-            yield Table(i, [x[i] for x in self.__data_columns.values()])
+            yield TableRow(i, [x[i] for x in self.__data_columns], self.__colnames)
 
     def nrow(self):
         return self.__nrow
@@ -40,7 +43,16 @@ class Table:
     def colnames(self):
         return self.__colnames
 
+    def columns(self):
+        return self.__data_columns
+
+    def _which_colnames(self, *args):
+        idx = []
+        for i in range(len(self.__colnames)):
+            if self.__colnames[i] in args:
+                idx.append(i)
+        return idx
+
     def group_by(self, *args):
-        grp, grping = TableGrouping.group_by(self, *args)
-        return GroupedTable(self, grp, grping)
+        return GroupedTable(self, *args)
 

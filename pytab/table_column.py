@@ -8,3 +8,9 @@ class TableColumn:
 
     def values(self):
         return self.__vals
+
+    def colname(self):
+        return self.__colname
+
+    def __getitem__(self, index):
+        return self.__vals[index]

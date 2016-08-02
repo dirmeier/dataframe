@@ -4,7 +4,6 @@
 import unittest
 from pytab import Table
 
-
 class TestTable(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
