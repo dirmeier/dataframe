@@ -11,11 +11,11 @@ class TestGroup(unittest.TestCase):
                              b=["a", "b", "c", "c", "a", "b"],
                              c=["x", "x", "x", "x", "x", "x"])
 
-    def test_grp(self):
+    def test_grp_size(self):
         tab = self.__table.group_by("a")
-        for k, v in tab:
-            print(k, v)
-            for a in v:
-                print(a)
-            print("")
+        assert len(tab._groups()) == 3
 
+    def test_grp_elems(self):
+        tab = self.__table.group_by("a")
+        v = tab.__iter__().__next__()
+        assert len(v._values()) == 2

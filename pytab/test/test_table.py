@@ -26,4 +26,4 @@ class TestTable(unittest.TestCase):
         assert self.__selected.ncol() == 1
 
     def test_selected_colnames(self):
-        assert self.__selected.colnames() == ["a"]
+        assert self.__selected._colnames() == ["a"]

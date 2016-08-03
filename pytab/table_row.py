@@ -13,7 +13,7 @@ class TableRow:
     def values(self):
         return self.__vals
 
-    def colnames(self):
+    def _colnames(self):
         return self.__colnames
 
     def __hash__(self):

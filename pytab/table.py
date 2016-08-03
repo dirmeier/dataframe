@@ -37,7 +37,7 @@ class Table:
         cols = {}
         for k in self.__colnames:
             if k in args:
-                cols[k] = self.__data_columns[k].values()
+                cols[k] = self.__data_columns[k]._values()
         return Table(**cols)
 
     def colnames(self):
@@ -46,6 +46,12 @@ class Table:
     def columns(self):
         return self.__data_columns
 
+    def mutate(self):
+        pass
+
+    def group_by(self, *args):
+        return GroupedTable(self, *args)
+
     def _which_colnames(self, *args):
         idx = []
         for i in range(len(self.__colnames)):
@@ -53,6 +59,4 @@ class Table:
                 idx.append(i)
         return idx
 
-    def group_by(self, *args):
-        return GroupedTable(self, *args)
 

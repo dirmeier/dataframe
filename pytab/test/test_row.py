@@ -36,4 +36,4 @@ class TestRow(unittest.TestCase):
     def test_iter(self):
         itr = self.__table.__iter__()
         row = itr.__next__()
-        assert row.idx() == 0 and self.compare(row.values(), [1, "a"])
+        assert row.idx() == 0 and self.compare(row._values(), [1, "a"])
