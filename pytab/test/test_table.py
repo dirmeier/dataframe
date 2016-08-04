@@ -11,19 +11,19 @@ class TestTable(unittest.TestCase):
         self.__selected = self.__table.select("a")
 
     def test_nrow(self):
-        assert self.__table.nrow() == 3
+        assert self.__table._nrow() == 3
 
     def test_ncol(self):
-        assert self.__table.ncol() == 2
+        assert self.__table._ncol() == 2
 
     def test_colnames(self):
-        assert self.__table.colnames() == ["a", "b"]
+        assert self.__table._colnames() == ["a", "b"]
 
     def test_select_nrow(self):
-            assert self.__selected.nrow() == 3
+            assert self.__selected._nrow() == 3
 
     def test_select_ncol(self):
-        assert self.__selected.ncol() == 1
+        assert self.__selected._ncol() == 1
 
     def test_selected_colnames(self):
         assert self.__selected._colnames() == ["a"]

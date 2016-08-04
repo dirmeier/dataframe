@@ -10,7 +10,7 @@ class TestRow(unittest.TestCase):
         unittest.TestCase.setUp(self)
         self.compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
         self.__table = Table(a=[1, 2, 3], b=["a", "b", "c"])
-        self.__row = TableRow(1, [1, 2, 3], self.__table.colnames())
+        self.__row = TableRow(1, [1, 2, 3], self.__table._colnames())
 
     def test_idx(self):
         assert self.__row.idx() == 1
@@ -26,11 +26,11 @@ class TestRow(unittest.TestCase):
     def test_set(self):
         s = set()
         s.add(self.__row)
-        s.add(TableRow(1, [1, 2, 3], self.__table.colnames()))
+        s.add(TableRow(1, [1, 2, 3], self.__table._colnames()))
         assert len(s) == 1
 
     def test_eq(self):
-        r1 = TableRow(1, [1, 2, 3], self.__table.colnames())
+        r1 = TableRow(1, [1, 2, 3], self.__table._colnames())
         assert self.__row == r1
 
     def test_iter(self):

@@ -10,7 +10,7 @@ class GroupedTable:
         self.__table = obj
         self.__search_col_idx = obj._which_colnames(*args)
         self.__search_tree = SearchTree()
-        self.__group_idxs = numpy.zeros(obj.nrow()).astype(int)
+        self.__group_idxs = numpy.zeros(obj._nrow()).astype(int)
         self.__grouping = {}
         self.__group_by()
 
