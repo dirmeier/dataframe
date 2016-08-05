@@ -3,13 +3,13 @@
 
 import unittest
 import collections
-from pytab import TableRow, Table
+from pytab import TableRow, table_abstract
 
 class TestRow(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
         self.compare = lambda x, y: collections.Counter(x) == collections.Counter(y)
-        self.__table = Table(a=[1, 2, 3], b=["a", "b", "c"])
+        self.__table = table_abstract(a=[1, 2, 3], b=["a", "b", "c"])
         self.__row = TableRow(1, [1, 2, 3], self.__table._colnames())
 
     def test_idx(self):

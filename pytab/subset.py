@@ -1,17 +1,17 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
-from pytab import Table
+from pytab.table_plain import PlainTable
 from pytab._check import _is_table
 
 
-def columns(obj, *args):
+def subset(obj, *args):
     if _is_table(obj):
-        return __columns(obj, *args)
+        return _subset_plain_table(obj, *args)
 
-def __columns(obj, *args):
+def _subset_plain_table(obj, *args):
     cols = {}
     for k in obj.__colnames:
         if k in args:
             cols[k] = obj.__data_columns[k]._values()
-    return Table(**cols)
+    return PlainTable(**cols)
 
