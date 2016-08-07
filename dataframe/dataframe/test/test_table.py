@@ -2,13 +2,14 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 
 import unittest
-from pytab import table_abstract
+from dataframe.dataframe import DataFrame
+
 
 class TestTable(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.__table = table_abstract(a=[1, 2, 3], b=["a", "b", "c"])
-        self.__selected = self.__table.select("a")
+        self.__table = DataFrame(a=[1, 2, 3], b=["a", "b", "c"])
+        self.__selected = self.__table.subset("a")
 
     def test_nrow(self):
         assert self.__table._nrow() == 3

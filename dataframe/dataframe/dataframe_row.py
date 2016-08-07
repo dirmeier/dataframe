@@ -1,7 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
 
-class TableRow:
+class DataFrameRow:
     def __init__(self, idx, vals, colnames):
         self.__idx = idx
         self.__colnames = colnames
@@ -20,7 +20,7 @@ class TableRow:
         return hash(self.__idx)
 
     def __eq__(self, other):
-        if isinstance(other, TableRow):
+        if isinstance(other, DataFrameRow):
             return self.__idx == other.__idx
         return False
 

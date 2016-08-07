@@ -1,7 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
 
-class TableColumn:
+class DataFrameColumn:
     def __init__(self, colname, vals):
         self.__colname = colname
         self.__vals = vals

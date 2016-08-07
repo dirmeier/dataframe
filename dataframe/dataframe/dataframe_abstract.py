@@ -4,7 +4,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class Table(metaclass=ABCMeta):
+class ADataFrame(metaclass=ABCMeta):
     @abstractmethod
     def subset(self):
         pass
@@ -14,7 +14,7 @@ class Table(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def aggregate(self):
+    def aggregate(self, f, new_col, *args):
         pass
 
     @abstractmethod

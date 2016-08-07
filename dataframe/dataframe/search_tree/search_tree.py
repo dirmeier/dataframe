@@ -1,7 +1,6 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
-
-from pytab.search_tree.search_tree_node import SearchTreeNode
+from dataframe.search_tree.search_tree_node import SearchTreeNode
 
 
 class SearchTree:

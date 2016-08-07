@@ -2,10 +2,12 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 
 import numpy
-from pytab.search_tree.search_tree import SearchTree
 from io import StringIO
+from dataframe.dataframe_abstract import ADataFrame
+from dataframe.search_tree.search_tree import SearchTree
 
-class GroupedTable:
+
+class GroupedDataFrame(ADataFrame):
     def __init__(self, obj, *args):
         self.__table = obj
         self.__search_col_idx = obj._which_colnames(*args)
@@ -20,6 +22,18 @@ class GroupedTable:
 
     def __getitem__(self, idx):
         return self.__grouping[idx]
+
+    def subset(self):
+        pass
+
+    def group(self, *args):
+        pass
+
+    def modify(self, f, new_col, *args):
+        pass
+
+    def aggregate(self, f, new_col, *args):
+        pass
 
     def _group_indexes(self):
         return self.__group_idxs

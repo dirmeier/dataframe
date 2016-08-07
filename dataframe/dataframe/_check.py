@@ -1,14 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
+from dataframe._callable import Callable
 
-from pytab import table_abstract
-from pytab._callable import Callable
-
-
-def _is_table(obj):
-    if not isinstance(obj, table_abstract):
-        raise TypeError("Not a table!")
-    return True
 
 def _is_callable(f):
     if not issubclass(f, Callable):

@@ -6,13 +6,13 @@ def readme():
         return f.read()
 
 
-setup(name='datatable',
+setup(name='dataframe',
       version='0.1',
-      description='Efficient data table implementation in python',
+      description='Efficient data frame implementation in python',
       long_description=readme(),      
       keywords='datatable python',
-      url='http://github.com/rafstraumur/datatable',
+      url='http://github.com/rafstraumur/dataframe',
       author='Simon Dirmeier',
       author_email='datatable@simon-dirmeier.net',
-      packages=['datatable']
+      packages=['dataframe']
       )
