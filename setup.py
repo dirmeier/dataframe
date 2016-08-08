@@ -17,7 +17,8 @@ setup(name='dataframe',
       packages=['dataframe'],
       install_requires=[
           'scipy',
-          'numpy'
+          'numpy',
+          'nose'
       ],
       classifiers=[ 
     	'Development Status :: 3 - Alpha',
