@@ -10,22 +10,24 @@ Efficient data-tables in python.
 Introduction
 ============
 
-Programming in <code>R</code> has become way nicer since Hadley Wickham's excellent <code>data.table</code> and <code>dplyr</code>, <code>tidyr</code>, etc. libraries (if you maybe don't like <code>R</code>, you will still love those). The same should exist for python!! Altough there probably is software that does the same exact thing, already, here is another one! <code>pytab</code> is easy to use, has basic *grouping*, *summarizing* and *mutating* functions and is (in the near future maybe) extended to C++ or FORTRAN.
+Programming in <code>R</code> has become way nicer since Hadley Wickham's ``data.table`` and ``dplyr``, ``tidyr``, etc. libraries (if you did't like ``R``, you will now). The same should exist for python!! Altough there probably is software that does the same exact thing, already, here is another one (primalrily for me to check out *pypi*! ``dataframe`` is easy to use, has basic *grouping*, *aggregation* and *modify* functions and is (in the near future maybe) extended to C++ or FORTRAN.
 
 Installation
 ============
 
-Using <code>pip</code> just call:
+Using ``pip`` just call:
 
-```sh
-pip install git+https://github.com/rafstraumur/pytab.git
-```
+.. code-block:: bash
+
+	pip install dataframe
+
 
 Alternatively clone the repository and run:
 
-```sh
-python setup.py install
-```
+.. code-block:: bash
+
+	python setup.py install
+
 
 Usage
 =====
