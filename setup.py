@@ -6,13 +6,14 @@ def readme():
 
 setup(name='datatable',
       version='0.1',
-      description='Efficient data table implementation in python',
+      description='Efficient data-frame implementation in python',
       long_description=readme(), 
-      url='http://github.com/rafstraumur/dataframe',
+      url='https://github.com/rafstraumur/dataframe',
+      download_url = 'https://github.com/rafstraumur/dataframe/tarball/0.1'
       author='Simon Dirmeier',
       author_email='simon.dirmeier@gmx.de',
       keywords = ['table'],
-      packages=['datatable'],
+      packages=['dataframe'],
        install_requires=[
           'scipy',
           'numpy'
