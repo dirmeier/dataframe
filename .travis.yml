@@ -14,9 +14,9 @@ addons:
     - graphviz
 
 before_install:
- - sudo apt-get install -qq python-numpy python-scipy
- - pip install numpy
- - pip install scipy
+  - sudo apt-get build-dep python-scipy python-numpy
+  - pip install numpy
+  - pip install scipy
 
 install:
   - pip install .
