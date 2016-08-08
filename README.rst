@@ -4,7 +4,7 @@ pytab
 
 .. image:: https://travis-ci.org/rafstraumur/dataframe.svg?branch=master
    :target: https://travis-ci.org/rafstraumur/dataframe/
-.. image:: (https://codecov.io/gh/rafstraumur/dataframe/branch/master/graph/badge.svg
+.. image:: https://codecov.io/gh/rafstraumur/dataframe/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/rafstraumur/dataframe
 
 
