@@ -12,10 +12,20 @@ setup(name='dataframe',
       download_url = 'https://github.com/rafstraumur/dataframe/tarball/0.1',
       author='Simon Dirmeier',
       author_email='simon.dirmeier@gmx.de',
+      license='MIT',
       keywords = ['table', 'dataframe'],
       packages=['dataframe'],
-       install_requires=[
+      install_requires=[
           'scipy',
           'numpy'
-      ]
+      ],
+      classifiers=[ 
+    	'Development Status :: 3 - Alpha',
+    	'Intended Audience :: Developers',   
+    	'License :: OSI Approved :: MIT License',
+    	'Programming Language :: Python :: 3',
+    	'Programming Language :: Python :: 3.2',
+    	'Programming Language :: Python :: 3.3',
+    	'Programming Language :: Python :: 3.4',
+],
 )
