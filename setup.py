@@ -7,9 +7,8 @@ def readme():
 setup(name='datatable',
       version='0.1',
       description='Efficient data table implementation in python',
-      long_description=readme(),      
-      keywords='datatable python',
-      url='http://github.com/rafstraumur/datatable',
+      long_description=readme(), 
+      url='http://github.com/rafstraumur/dataframe',
       author='Simon Dirmeier',
       author_email='simon.dirmeier@gmx.de',
       keywords = ['table'],
@@ -18,18 +17,4 @@ setup(name='datatable',
           'scipy',
           'numpy'
       ]
-)
-
-from distutils.core import setup
-setup(
-  name = 'mypackage',
-  packages = ['mypackage'], # this must be the same as the name above
-  version = '0.1',
-  description = 'A random test lib',
-  author = 'Peter Downs',
-  author_email = 'peterldowns@gmail.com',
-  url = 'https://github.com/peterldowns/mypackage', # use the URL to the github repo
-  download_url = 'https://github.com/peterldowns/mypackage/tarball/0.1', # I'll explain this in a second
-  keywords = ['testing', 'logging', 'example'], # arbitrary keywords
-  classifiers = [],
 )
