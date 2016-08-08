@@ -14,5 +14,10 @@ setup(name='datatable',
       url='http://github.com/rafstraumur/datatable',
       author='Simon Dirmeier',
       author_email='datatable@simon-dirmeier.net',
-      packages=['datatable']
-      )
+      keywords = ['table'],
+      packages=['datatable'],
+       install_requires=[
+          'scipy',
+          'numpy'
+      ],
+)

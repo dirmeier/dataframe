@@ -1,6 +1,6 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
-from dataframe._callable import Callable
+from dataframe.callable import Callable
 
 
 def _is_callable(f):

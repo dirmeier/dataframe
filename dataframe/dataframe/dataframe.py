@@ -1,4 +1,4 @@
-from dataframe._check import _is_none, _is_callable, _has_elements
+from dataframe.check import _is_none, _is_callable, _has_elements
 from dataframe.dataframe_abstract import ADataFrame
 from dataframe.dataframe_column import DataFrameColumn
 from dataframe.dataframe_grouped import GroupedDataFrame
