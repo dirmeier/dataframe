@@ -12,7 +12,7 @@ setup(name='datatable',
       download_url = 'https://github.com/rafstraumur/dataframe/tarball/0.1'
       author='Simon Dirmeier',
       author_email='simon.dirmeier@gmx.de',
-      keywords = ['table'],
+      keywords = ['table', _'dataframe'],
       packages=['dataframe'],
        install_requires=[
           'scipy',
