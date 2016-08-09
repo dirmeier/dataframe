@@ -2,6 +2,7 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 
 import unittest
+
 from dataframe.dataframe import DataFrame
 
 

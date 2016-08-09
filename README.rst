@@ -1,5 +1,6 @@
 *****
-pytab
+.. class:: center
+  dataframe
 *****
 
 .. image:: https://travis-ci.org/rafstraumur/dataframe.svg?branch=master
