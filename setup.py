@@ -23,7 +23,7 @@ setup(name='dataframe',
       classifiers=[ 
     	'Development Status :: 3 - Alpha',
     	'Intended Audience :: Developers',
-    	'License :: OSI Approved :: GNU General Public  License v3 (GPL3)',
+    	'License :: OSI Approved :: GNU General Public License (GPL)',
     	'Programming Language :: Python :: 3',
     	'Programming Language :: Python :: 3.2',
     	'Programming Language :: Python :: 3.3',
