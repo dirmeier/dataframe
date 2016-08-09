@@ -19,7 +19,7 @@ install:
   - pip install codecov
 
 script: 
-  - nosetests --with-coverage dataframe
+  - nosetests --with-coverage
 
 after_success:
   - codecov
