@@ -1,7 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
-from dataframe.search_tree.search_tree_node import SearchTreeNode
 
+from .search_tree_node import SearchTreeNode
 
 class SearchTree:
     def __init__(self):

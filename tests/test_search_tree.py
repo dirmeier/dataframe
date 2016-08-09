@@ -3,7 +3,7 @@
 # __date__   = 29/07/16
 
 import unittest
-from dataframe.search_tree.search_tree import SearchTree
+from dataframe.search_tree import SearchTree
 
 
 class TestSearchTree(unittest.TestCase):

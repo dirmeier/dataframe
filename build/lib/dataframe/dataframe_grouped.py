@@ -3,8 +3,8 @@
 
 import numpy
 from io import StringIO
-from ._dataframe_abstract import ADataFrame
-from .search_tree.search_tree import SearchTree
+from dataframe.dataframe_abstract import ADataFrame
+from dataframe.search_tree.search_tree import SearchTree
 
 
 class GroupedDataFrame(ADataFrame):

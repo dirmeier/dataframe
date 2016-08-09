@@ -1,8 +1,8 @@
-from ._check import is_none, is_callable, has_elements
-from ._dataframe_abstract import ADataFrame
-from ._dataframe_column import DataFrameColumn
-from .dataframe_grouped import GroupedDataFrame
-from ._dataframe_row import DataFrameRow
+from dataframe.check import _is_none, _is_callable, _has_elements
+from dataframe.dataframe_abstract import ADataFrame
+from dataframe.dataframe_column import DataFrameColumn
+from dataframe.dataframe_grouped import GroupedDataFrame
+from dataframe.dataframe_row import DataFrameRow
 
 
 class DataFrame(ADataFrame):
@@ -21,20 +21,8 @@ class DataFrame(ADataFrame):
             return self.__data_columns[item]
         return None
 
-    def __repr__(self):
-        return self.__str__()
-
-    def __str__(self):
-        s = "\t" + "\t".join(self.__colnames) + "\n"
-        sit = self.__iter__()
-        for i in range(10):
-            st = sit.__next__().__str__()
-            if st is not None:
-                s += st + "\n"
-        return s
-
     def aggregate(self, f, new_col, *args):
-        if is_callable(f) and not is_none(new_col) and has_elements(*args):
+        if _is_callable(f) and not _is_none(new_col) and _has_elements(*args):
             self.__do_aggregate(f, new_col, *args)
         return self
 
@@ -58,7 +46,7 @@ class DataFrame(ADataFrame):
         return GroupedDataFrame(self, *args)
 
     def modify(self, f, new_col, *args):
-        if is_callable(f) and not is_none(new_col) and has_elements(*args):
+        if _is_callable(f) and not _is_none(new_col) and _has_elements(*args):
             self.__do_modify(f, new_col, *args)
         return self
 

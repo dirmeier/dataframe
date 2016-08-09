@@ -1,4 +1,6 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
 
-from dataframe.search_tree.search_tree import SearchTree
+class Callable:
+    def __call__(self, *args):
+        pass
