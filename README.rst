@@ -1,6 +1,5 @@
 *****
-.. class:: center
-  dataframe
+                         dataframe
 *****
 
 .. image:: https://travis-ci.org/rafstraumur/dataframe.svg?branch=master

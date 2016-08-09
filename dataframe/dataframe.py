@@ -6,25 +6,63 @@ from ._dataframe_row import DataFrameRow
 
 
 class DataFrame(ADataFrame):
+    """
+    The base DataFrame class
+    """
+
     def __init__(self, **kwargs):
+        """
+        Constructor for DataFrame.
+
+        :param kwargs: standard named vargs argument, i.e. list of named lists
+        :type kwargs: list of named lists
+        :return: returns a new DataFrame object
+        :rtype: DataFrame
+        """
         self.__data_columns = []
         self.__colnames = []
         self.__ncol = len(kwargs)
         self.__append(**kwargs)
 
     def __iter__(self):
+        """
+        Iterator implementation for DataFrame. Every iteration yields one row of the DataFrame.
+
+        :return: returns a row from the DataFrame
+        :rtype: DataFrameRow
+        """
         for i in range(self.__nrow):
             yield DataFrameRow(i, [x[i] for x in self.__data_columns], self.__colnames)
 
     def __getitem__(self, item):
+        """
+        Getter method for DataFrame. Returns the column with name item.
+
+        :param item: the name of a column
+        :type item: str
+        :return: returns a column from the DataFrame
+        :rtype: DataFrameColumn
+        """
         if item in self.__colnames:
-            return self.__data_columns[item]
+            return self.__data_columns[self.__colnames.index(item)]
         return None
 
     def __repr__(self):
+        """
+        String representation of DataFrame when print is called.
+
+        :return: returns the string representation
+        :rtype: str
+        """
         return self.__str__()
 
     def __str__(self):
+        """
+        ToString method for DataFrame
+
+        :return: returns the string representation
+        :rtype: str
+        """
         s = "\t" + "\t".join(self.__colnames) + "\n"
         sit = self.__iter__()
         for i in range(10):
@@ -34,6 +72,13 @@ class DataFrame(ADataFrame):
         return s
 
     def aggregate(self, f, new_col, *args):
+        """
+
+        :param f:
+        :param new_col:
+        :param args:
+        :return:
+        """
         if is_callable(f) and not is_none(new_col) and has_elements(*args):
             self.__do_aggregate(f, new_col, *args)
         return self
