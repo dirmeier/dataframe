@@ -4,20 +4,16 @@ def readme():
     with open('README.rst') as f:
         return f.read()
 
-def license():
-    with open('LICENSE') as f:
-        return f.read()
-
 setup(
     name='dataframe',
-    version='0.1',
+    version='0.1.1',
     description='Efficient data-frame implementation in python',
     long_description=readme(),
     url='https://github.com/rafstraumur/dataframe',
-    download_url='https://github.com/rafstraumur/dataframe/tarball/0.1',
+    download_url='https://github.com/rafstraumur/dataframe/tarball/0.1.1',
     author='Simon Dirmeier',
     author_email='simon.dirmeier@gmx.de',
-    license=license(),
+    license="GPL3",
     keywords=['table', 'dataframe'],
     packages=['dataframe'],
     install_requires=[

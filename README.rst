@@ -1,6 +1,6 @@
-*****
-                         dataframe
-*****
+*********
+dataframe
+*********
 
 .. image:: https://travis-ci.org/rafstraumur/dataframe.svg?branch=master
    :target: https://travis-ci.org/rafstraumur/dataframe/
@@ -25,12 +25,13 @@ Using ``pip`` just call:
 	pip install dataframe
 
 
-Alternatively clone the repository and run:
+Alternatively just run:
 
 .. code-block:: bash
 
-	python setup.py install
+	pip install git+git://github.com/rafstraumur/dataframe.git
 
+These two are equivalent, so it doesnt matter what you take. However, the git version is always the newer but *not* necessarily more stable version.
 
 Usage
 =====
