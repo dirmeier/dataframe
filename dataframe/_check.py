@@ -1,5 +1,6 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
+
 from .callable import Callable
 
 

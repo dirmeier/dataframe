@@ -6,7 +6,7 @@ from abc import ABCMeta, abstractmethod
 
 class ADataFrame(metaclass=ABCMeta):
     @abstractmethod
-    def subset(self):
+    def subset(self, *args):
         pass
 
     @abstractmethod
@@ -14,10 +14,10 @@ class ADataFrame(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def aggregate(self, f, new_col, *args):
+    def aggregate(self, clazz, new_col, *args):
         pass
 
     @abstractmethod
-    def modify(self, f, new_col, *args):
+    def modify(self, clazz, new_col, *args):
         pass
 

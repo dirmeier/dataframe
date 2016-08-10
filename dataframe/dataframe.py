@@ -71,28 +71,44 @@ class DataFrame(ADataFrame):
                 s += st + "\n"
         return s
 
-    def aggregate(self, f, new_col, *args):
+    def aggregate(self, clazz, new_col, *args):
         """
+        Aggregate the rows of the dataframe into a single value.
 
-        :param f:
-        :param new_col:
-        :param args:
-        :return:
+        :param clazz: name of a class that extends class Callable
+        :type clazz: class
+        :param new_col: name of the new column
+        :type new_col: str
+        :param args: list of column names of the object that function should be applied to
+        :type args: varargs
+        :return: returns a new dataframe object with the aggregated value
+        :rtype: DataFrame
         """
-        if is_callable(f) and not is_none(new_col) and has_elements(*args):
-            self.__do_aggregate(f, new_col, *args)
+        if is_callable(clazz) and not is_none(new_col) and has_elements(*args):
+            self.__do_aggregate(clazz, new_col, *args)
         return self
 
-    def __do_aggregate(self, f, new_col, *col_names):
+    def __do_aggregate(self, clazz, new_col, *col_names):
+        # get columns
         colvals = [self[x] for x in col_names]
         if colvals is None:
             return
-        res = f()(colvals)
+        # instantiate class and call
+        res = clazz()(colvals)
         if res.size != 1:
            raise ValueError("The function you provided yields an array of false length!")
-        self._cbind(**{new_col: res})
+        # TODO: do this right
+        self.__cbind(**{new_col: res})
 
     def subset(self, *args):
+        """
+        Subset only some of the columns of the dataframe
+
+        :param args: list of column names of the object that should be subsetted
+        :type args: varargs
+        :return: returns dataframe with only the columns you selected
+        :rtype: DataFrame
+        """
         cols = {}
         for k in self.__colnames:
             if k in args:
@@ -100,11 +116,31 @@ class DataFrame(ADataFrame):
         return DataFrame(**cols)
 
     def group(self, *args):
+        """
+        Group the dataframe into row-subsets.
+
+        :param args: list of column names taht should be used for grouping
+        :type args: varargs
+        :return: returns a dataframe that has grouping information
+        :rtype: GroupedDataFrame
+        """
         return GroupedDataFrame(self, *args)
 
-    def modify(self, f, new_col, *args):
-        if is_callable(f) and not is_none(new_col) and has_elements(*args):
-            self.__do_modify(f, new_col, *args)
+    def modify(self, clazz, new_col, *args):
+        """
+        Modify some columns (i.e. apply a function) and add the result to the table
+
+        :param clazz: name of a class that extends class Callable
+        :type clazz: class
+        :param new_col: name of the new column
+        :type new_col: str
+        :param args: list of column names of the object that function should be applied to
+        :type args: varargs
+        :return: returns a new dataframe object with the aggregated value
+        :rtype: DataFrame
+        """
+        if is_callable(clazz) and not is_none(new_col) and has_elements(*args):
+            self.__do_modify(clazz, new_col, *args)
         return self
 
     def __do_modify(self, f, new_col, *col_names):
@@ -114,29 +150,55 @@ class DataFrame(ADataFrame):
         res = f()(colvals)
         if res.size != len(colvals):
             raise ValueError("The function you provided yields an array of false length!")
-        self._cbind(**{new_col: res})
+        self.__cbind(**{new_col: res})
 
-    def _nrow(self):
+    def nrow(self):
+        """
+        Getter for the number of rows in the dataframe.
+
+        :return: returns the number of rows
+        :rtype: int
+        """
         return self.__nrow
 
-    def _ncol(self):
+    def ncol(self):
+        """
+        Getter for the number of columns in the dataframe.
+
+        :return: returns the number of columns
+        :rtype: int
+        """
         return self.__ncol
 
-    def _cbind(self, **kwargs):
-        self.__append(**kwargs)
+    def colnames(self):
+        """
+        Getter for the columns names of the dataframe
 
-    def _colnames(self):
+        :return: returns a list of column names
+        :rtype: list(str)
+        """
         return self.__colnames
 
-    def _columns(self):
+    def __columns(self):
         return self.__data_columns
 
-    def _which_colnames(self, *args):
+    def which_colnames(self, *args):
+        """
+        Computes the indexes of the columns in the dataframe
+
+        :param args: list of columnnames
+        :type args: varargs
+        :return: returns a list of indexes
+        :rtype: list(int)
+        """
         idx = []
         for i in range(len(self.__colnames)):
             if self.__colnames[i] in args:
                 idx.append(i)
         return idx
+
+    def __cbind(self, **kwargs):
+        self.__append(**kwargs)
 
     def __append(self, **kwargs):
         keys = [x for x in kwargs.keys()]
