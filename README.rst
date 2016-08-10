@@ -7,7 +7,6 @@ dataframe
 .. image:: https://codecov.io/gh/rafstraumur/dataframe/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/rafstraumur/dataframe
 
-
 Efficient data-frame implementations in python.
 
 Introduction
@@ -18,27 +17,36 @@ Programming in ``R`` has become way nicer since Hadley Wickham's ``data.table`` 
 Installation
 ============
 
-Using ``pip`` just call:
+There are three ways to install the library. Either you can install directly from ``pip`` using:
 
 .. code-block:: bash
+ 
+   pip install dataframe
 
-	pip install dataframe
-
-
-Alternatively just run:
+Alternatively just call:
 
 .. code-block:: bash
+ 
+   pip install git+git://github.com/rafstraumur/dataframe.git
 
-	pip install git+git://github.com/rafstraumur/dataframe.git
+The third option is two clone or download the repository and install with ``setup.py``, for example when you want to fork the library:
 
-These two are equivalent, so it doesnt matter what you take. However, the git version is always the newer but *not* necessarily more stable version.
+.. code-block:: bash
+ 
+   pip setup.py install
 
 Usage
 =====
 
-TODO
+Detailed documentation is found at `pythonhosted.org <http://pythonhosted.org/dataframe/>`. If you want to have the docs locally, you can also install the documentation using `sphinx`. Change folder to ``docs`` and use:
+
+.. code-block:: bash
+ 
+   make html
+
+Then open ``docs/build/html/index.html`` using the web-browers of your choice. 
 
 Author
-============
+======
 
 - Simon Dirmeier <simon.dirmeier@gmx.de>

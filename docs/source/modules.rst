@@ -1,8 +1,14 @@
-..
-==
+The dataframe package
+=====================
 
-.. toctree::
-   :maxdepth: 4
+dataframe module
+----------------
 
-   dataframe
-  
+.. automodule:: dataframe.dataframe
+    :members:
+
+dataframe_grouped module
+------------------------
+
+.. automodule:: dataframe.dataframe_grouped
+    :members:

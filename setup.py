@@ -1,8 +1,11 @@
 from setuptools import setup
+from pip.req import parse_requirements
 
 def readme():
     with open('README.rst') as f:
         return f.read()
+        
+reqs = [str(ir.req) for ir in parse_requirements('requirements.txt', session=False)]
 
 setup(
     name='dataframe',
@@ -16,12 +19,7 @@ setup(
     license="GPL3",
     keywords=['table', 'dataframe'],
     packages=['dataframe'],
-    install_requires=[
-        'scipy',
-        'numpy',
-        'nose',
-        'sphinx'
-    ],
+    install_requires=reqs,
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
