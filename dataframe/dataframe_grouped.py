@@ -82,7 +82,7 @@ class GroupedDataFrame(ADataFrame):
     def __group_indexes(self):
         return self.__group_idxs
 
-    def __groups(self):
+    def groups(self):
         return self.__grouping.values()
 
     def __group_by(self, ):
@@ -96,7 +96,7 @@ class GroupedDataFrame(ADataFrame):
         if grp_idx not in self.__grouping:
             # TODO: more clever idea here
             self.__grouping[grp_idx] = Group(grp_idx)
-        self.__grouping[grp_idx].__append(row)
+        self.__grouping[grp_idx].append(row)
 
 
 class Group:
@@ -121,11 +121,11 @@ class Group:
         for i in self.__rows:
             yield i
 
-    def __append(self, el):
+    def append(self, el):
         self.__rows.append(el)
 
     def __grp_index(self):
         return self.__grp_idx
 
-    def __values(self):
+    def values(self):
         return self.__rows

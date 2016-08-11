@@ -1,3 +1,5 @@
+from prettytable import PrettyTable
+from itertools import chain
 from ._check import is_none, is_callable, has_elements
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_column import DataFrameColumn
@@ -63,13 +65,13 @@ class DataFrame(ADataFrame):
         :return: returns the string representation
         :rtype: str
         """
-        s = "\t" + "\t".join(self.__colnames) + "\n"
-        sit = self.__iter__()
-        for i in range(10):
-            st = sit.__next__().__str__()
-            if st is not None:
-                s += st + "\n"
-        return s
+        pt = PrettyTable()
+        for e in self.__data_columns:
+            vals = e.values()
+            if len(vals) > 10:
+                vals = list(chain(vals[:3], "...", vals[-3:]))
+            pt.add_column(e.colname(), vals)
+        return pt.__str__()
 
     def aggregate(self, clazz, new_col, *args):
         """
@@ -85,20 +87,19 @@ class DataFrame(ADataFrame):
         :rtype: DataFrame
         """
         if is_callable(clazz) and not is_none(new_col) and has_elements(*args):
-            self.__do_aggregate(clazz, new_col, *args)
-        return self
+            return self.__do_aggregate(clazz, new_col, *args)
 
     def __do_aggregate(self, clazz, new_col, *col_names):
         # get columns
         colvals = [self[x] for x in col_names]
+        print(colvals)
         if colvals is None:
-            return
+            return None
         # instantiate class and call
-        res = clazz()(colvals)
-        if res.size != 1:
-           raise ValueError("The function you provided yields an array of false length!")
-        # TODO: do this right
-        self.__cbind(**{new_col: res})
+        res = [clazz()(*colvals)]
+        if len(res) != 1:
+            raise ValueError("The function you provided yields an array of false length!")
+        return DataFrame(**{new_col: res})
 
     def subset(self, *args):
         """
@@ -143,12 +144,15 @@ class DataFrame(ADataFrame):
             self.__do_modify(clazz, new_col, *args)
         return self
 
-    def __do_modify(self, f, new_col, *col_names):
+    def __do_modify(self, clazz, new_col, *col_names):
         colvals = [self[x] for x in col_names]
         if colvals is None:
-            return
-        res = f()(colvals)
-        if res.size != len(colvals):
+            return None
+        # instantiate class and call
+        res = clazz()(*colvals)
+        if not isinstance(res, list):
+            res = [res]
+        if len(res) != len(colvals[0].values()):
             raise ValueError("The function you provided yields an array of false length!")
         self.__cbind(**{new_col: res})
 
@@ -215,3 +219,4 @@ class DataFrame(ADataFrame):
         if len(lens) != 1:
             raise ValueError("Columns don't have equal sizes!")
         self.__nrow = list(lens).pop()
+        self.__ncol = len(self.__colnames)
