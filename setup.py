@@ -16,7 +16,7 @@ setup(
     download_url='https://github.com/rafstraumur/dataframe/tarball/0.1.1',
     author='Simon Dirmeier',
     author_email='simon.dirmeier@gmx.de',
-    license="GPL3",
+    license='GPLv3',
     keywords=['table', 'dataframe'],
     packages=['dataframe'],
     install_requires=reqs,
