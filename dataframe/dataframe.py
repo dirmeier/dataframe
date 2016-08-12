@@ -1,5 +1,6 @@
 from prettytable import PrettyTable
 from itertools import chain
+
 from ._check import is_none, is_callable, has_elements
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_column import DataFrameColumn
@@ -92,7 +93,6 @@ class DataFrame(ADataFrame):
     def __do_aggregate(self, clazz, new_col, *col_names):
         # get columns
         colvals = [self[x] for x in col_names]
-        print(colvals)
         if colvals is None:
             return None
         # instantiate class and call

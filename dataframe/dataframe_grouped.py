@@ -1,8 +1,9 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
-
+from itertools import chain
 import numpy
-from io import StringIO
+from prettytable import PrettyTable
+
 from ._dataframe_abstract import ADataFrame
 from .search_tree.search_tree import SearchTree
 
@@ -19,6 +20,28 @@ class GroupedDataFrame(ADataFrame):
         self.__group_idxs = numpy.zeros(obj.nrow()).astype(int)
         self.__grouping = {}
         self.__group_by()
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __str__(self):
+        """
+        ToString method for GroupedDataFrame
+
+        :return: returns the string representation
+        :rtype: str
+        """
+        pt = PrettyTable(self.__table.colnames())
+        for i, groups in enumerate(self.__grouping.values()):
+            if i > 1:
+                break
+            rows = groups.values()
+            for j, row in enumerate(rows):
+                if j < 5:
+                    pt.add_row(row.values())
+            if i == 0:
+                pt.add_row(["---"] * len(self.__table.colnames()))
+        return pt.__str__()
 
     def __iter__(self):
         for _, v in self.__grouping.items():
@@ -105,11 +128,10 @@ class Group:
         self.__rows = []
 
     def __str__(self):
-        buf = StringIO()
-        buf.write("Group " + str(self.__grp_idx) + ":")
+        buf = "Group " + str(self.__grp_idx) + ":"
         for i in self.__rows:
-            buf.write(" " + i.__str__())
-        return buf.getvalue()
+            buf += " " + i.__str__()
+        return buf
 
     def __repr__(self):
         return self.__str__()
