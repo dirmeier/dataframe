@@ -1,10 +1,10 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
-from itertools import chain
 import numpy
 from prettytable import PrettyTable
 
 from ._dataframe_abstract import ADataFrame
+from ._check import is_callable, is_none, has_elements
 from .search_tree.search_tree import SearchTree
 
 
@@ -16,6 +16,7 @@ class GroupedDataFrame(ADataFrame):
     def __init__(self, obj, *args):
         self.__table = obj
         self.__search_col_idx = obj.which_colnames(*args)
+        self.__group_col_names = args
         self.__search_tree = SearchTree()
         self.__group_idxs = numpy.zeros(obj.nrow()).astype(int)
         self.__grouping = {}
@@ -49,6 +50,15 @@ class GroupedDataFrame(ADataFrame):
 
     def __getitem__(self, idx):
         return self.__grouping[idx]
+
+    def ungroup(self):
+        """
+        Undo the grouping and return the DataFrame.
+
+        :return: returns the original DataFrame
+        :rtype: DataFrame
+        """
+        return self.__table
 
     def subset(self, *args):
         """
@@ -100,7 +110,26 @@ class GroupedDataFrame(ADataFrame):
         :return: returns a new dataframe object with the aggregated value
         :rtype: DataFrame
         """
-        pass
+        if is_callable(clazz) and not is_none(new_col) and has_elements(*args):
+            return self.__do_aggregate(clazz, new_col, *args)
+
+    def __do_aggregate(self, clazz, new_col, *col_names):
+        gr = []
+        new_col_names = [x for x in self.__group_col_names if x not in col_names]
+        # get columns
+        df = self.__table.subset(*col_names)
+        for group_idx in numpy.unique(self.__group_idxs):
+            # get the rows that have index group_idx
+            row_idxs = numpy.where(self.__group_idxs == group_idx)[0]
+            colvals = [df[colname][row_idxs]for colname in df.colnames()]
+            if colvals is None:
+                return None
+            # instantiate class and call
+            res = [clazz()(*colvals)]
+            if len(res) != 1:
+                raise ValueError("The function you provided yields an array of false length!")
+
+        #return DataFrame(**{new_col: res})
 
     def __group_indexes(self):
         return self.__group_idxs
@@ -108,7 +137,7 @@ class GroupedDataFrame(ADataFrame):
     def groups(self):
         return self.__grouping.values()
 
-    def __group_by(self, ):
+    def __group_by(self ):
         for row in self.__table:
             self.__add_grp(row)
 
@@ -125,7 +154,7 @@ class GroupedDataFrame(ADataFrame):
 class Group:
     def __init__(self, grp_idx):
         self.__grp_idx = grp_idx
-        self.__rows = []
+        self.__data
 
     def __str__(self):
         buf = "Group " + str(self.__grp_idx) + ":"

@@ -3,7 +3,7 @@ from itertools import chain
 
 from ._check import is_none, is_callable, has_elements
 from ._dataframe_abstract import ADataFrame
-from ._dataframe_column import DataFrameColumn
+from ._dataframe_column import DataFrameColumnSet, DataFrameColumn
 from .dataframe_grouped import GroupedDataFrame
 from ._dataframe_row import DataFrameRow
 
@@ -22,10 +22,8 @@ class DataFrame(ADataFrame):
         :return: returns a new DataFrame object
         :rtype: DataFrame
         """
-        self.__data_columns = []
-        self.__colnames = []
-        self.__ncol = len(kwargs)
-        self.__append(**kwargs)
+        self.__data_columns = DataFrameColumnSet()
+        self.__cbind(**kwargs)
 
     def __iter__(self):
         """
@@ -34,8 +32,8 @@ class DataFrame(ADataFrame):
         :return: returns a row from the DataFrame
         :rtype: DataFrameRow
         """
-        for i in range(self.__nrow):
-            yield DataFrameRow(i, [x[i] for x in self.__data_columns], self.__colnames)
+        for i in range(self.nrow()):
+            yield self.__row(i)
 
     def __getitem__(self, item):
         """
@@ -46,8 +44,17 @@ class DataFrame(ADataFrame):
         :return: returns a column from the DataFrame
         :rtype: DataFrameColumn
         """
-        if item in self.__colnames:
-            return self.__data_columns[self.__colnames.index(item)]
+
+        if isinstance(item, str) and item in self.colnames():
+            return self.__data_columns[self.colnames().index(item)]
+        elif isinstance(item, int):
+            return self.__row(item)
+        elif isinstance(item, slice):
+            return self.__rows(list(range(*item.indices(self.nrow()))))
+        elif isinstance(item, tuple):
+            return self.__rows(list(item))
+        elif isinstance(item, list):
+            return self.__rows(item)
         return None
 
     def __repr__(self):
@@ -111,9 +118,9 @@ class DataFrame(ADataFrame):
         :rtype: DataFrame
         """
         cols = {}
-        for k in self.__colnames:
+        for k in self.colnames():
             if k in args:
-                cols[str(k)] = self.__data_columns[self.__colnames.index(k)].values()
+                cols[str(k)] = self.__data_columns[self.colnames().index(k)].values()
         return DataFrame(**cols)
 
     def group(self, *args):
@@ -141,8 +148,7 @@ class DataFrame(ADataFrame):
         :rtype: DataFrame
         """
         if is_callable(clazz) and not is_none(new_col) and has_elements(*args):
-            self.__do_modify(clazz, new_col, *args)
-        return self
+            return self.__do_modify(clazz, new_col, *args)
 
     def __do_modify(self, clazz, new_col, *col_names):
         colvals = [self[x] for x in col_names]
@@ -150,11 +156,12 @@ class DataFrame(ADataFrame):
             return None
         # instantiate class and call
         res = clazz()(*colvals)
-        if not isinstance(res, list):
-            res = [res]
+        res = [res] if not isinstance(res, list) else res
         if len(res) != len(colvals[0].values()):
             raise ValueError("The function you provided yields an array of false length!")
-        self.__cbind(**{new_col: res})
+        cols = {column.colname(): column.values() for column in self.__data_columns}
+        cols[new_col] = res
+        return DataFrame(**cols)
 
     def nrow(self):
         """
@@ -163,7 +170,7 @@ class DataFrame(ADataFrame):
         :return: returns the number of rows
         :rtype: int
         """
-        return self.__nrow
+        return self.__data_columns.nrow()
 
     def ncol(self):
         """
@@ -172,7 +179,7 @@ class DataFrame(ADataFrame):
         :return: returns the number of columns
         :rtype: int
         """
-        return self.__ncol
+        return self.__data_columns.ncol()
 
     def colnames(self):
         """
@@ -181,10 +188,7 @@ class DataFrame(ADataFrame):
         :return: returns a list of column names
         :rtype: list(str)
         """
-        return self.__colnames
-
-    def __columns(self):
-        return self.__data_columns
+        return self.__data_columns.colnames()
 
     def which_colnames(self, *args):
         """
@@ -196,27 +200,18 @@ class DataFrame(ADataFrame):
         :rtype: list(int)
         """
         idx = []
-        for i in range(len(self.__colnames)):
-            if self.__colnames[i] in args:
+        for i in range(len(self.__data_columns.colnames())):
+            if self.__data_columns.colnames()[i] in args:
                 idx.append(i)
         return idx
 
     def __cbind(self, **kwargs):
-        self.__append(**kwargs)
-
-    def __append(self, **kwargs):
-        keys = [x for x in kwargs.keys()]
-        keys.sort()
-        lens = set()
+        keys = sorted([x for x in kwargs.keys()])
         for k in keys:
-            k = str(k)
-            v = kwargs.get(k)
-            if k in self.__colnames:
-                print("Appending duplicate colname!")
-            self.__colnames.append(k)
-            self.__data_columns.append(DataFrameColumn(k, v))
-            lens.add(len(v))
-        if len(lens) != 1:
-            raise ValueError("Columns don't have equal sizes!")
-        self.__nrow = list(lens).pop()
-        self.__ncol = len(self.__colnames)
+            self.__data_columns.append(DataFrameColumn(str(k), kwargs.get(k)))
+
+    def __rows(self, idxs):
+        return [self.__row(i) for i in idxs]
+
+    def __row(self, idx):
+        return DataFrameRow(idx, [x[idx] for x in self.__data_columns], self.__data_columns.colnames())

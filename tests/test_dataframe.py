@@ -62,3 +62,7 @@ class TestDataFrame(unittest.TestCase):
     def test_modify(self):
         v = self.__table.modify(Zscore, "zsc", "a")
         assert v["zsc"][1] == 0
+
+    def test_modify(self):
+        v = self.__table.modify(Zscore, "zsc", "a")
+        assert v["zsc"][1] == 0
