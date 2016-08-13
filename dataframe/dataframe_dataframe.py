@@ -79,7 +79,7 @@ class DataFrame(ADataFrame):
         :param new_col: name of the new column
         :type new_col: str
         :param args: list of column names of the object that function should be applied to
-        :type args: varargs
+        :type args: tuple
         :return: returns a new dataframe object with the aggregated value
         :rtype: DataFrame
         """
@@ -102,7 +102,7 @@ class DataFrame(ADataFrame):
         Subset only some of the columns of the dataframe
 
         :param args: list of column names of the object that should be subsetted
-        :type args: varargs
+        :type args: tuple
         :return: returns dataframe with only the columns you selected
         :rtype: DataFrame
         """
@@ -117,7 +117,7 @@ class DataFrame(ADataFrame):
         Group the dataframe into row-subsets.
 
         :param args: list of column names taht should be used for grouping
-        :type args: varargs
+        :type args: tuple
         :return: returns a dataframe that has grouping information
         :rtype: GroupedDataFrame
         """
@@ -132,8 +132,8 @@ class DataFrame(ADataFrame):
         :param new_col: name of the new column
         :type new_col: str
         :param args: list of column names of the object that function should be applied to
-        :type args: varargs
-        :return: returns a new dataframe object with the aggregated value
+        :type args: tuple
+        :return: returns a new dataframe object with the modiefied values, i.e. the new column
         :rtype: DataFrame
         """
         if is_callable(clazz) and not is_none(new_col) and has_elements(*args):

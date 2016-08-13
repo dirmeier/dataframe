@@ -1,7 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
+import copy
 import itertools
-import numpy
 
 from ._dataframe_abstract import ADataFrame
 from ._check import is_callable, is_none, has_elements, disjoint
@@ -34,6 +34,12 @@ class GroupedDataFrame(ADataFrame):
             yield v
 
     def groups(self):
+        """
+        Getter for all groups
+
+        :return: returns the groups
+        :rtype: list(DataFrameGroup)
+        """
         return self.__grouping.groups()
 
     def ungroup(self):
@@ -50,7 +56,7 @@ class GroupedDataFrame(ADataFrame):
         Subset only some of the columns of the dataframe
 
         :param args: list of column names of the object that should be subsetted
-        :type args: varargs
+        :type args: tuple
         :return: returns dataframe with only the columns you selected
         :rtype: DataFrame
         """
@@ -62,7 +68,7 @@ class GroupedDataFrame(ADataFrame):
         Group the dataframe into row-subsets.
 
         :param args: list of column names taht should be used for grouping
-        :type args: varargs
+        :type args: tuple
         :return: returns a dataframe that has grouping information
         :rtype: GroupedDataFrame
         """
@@ -78,9 +84,9 @@ class GroupedDataFrame(ADataFrame):
         :param new_col: name of the new column
         :type new_col: str
         :param args: list of column names of the object that function should be applied to
-        :type args: varargs
-        :return: returns a new dataframe object with the aggregated value
-        :rtype: DataFrame
+        :type args: tuple
+        :return: returns a new GroupedDataFrame object with the modified values, i.e. the new column of values
+        :rtype: GroupedDataFrame
         """
         if is_callable(clazz) \
                 and not is_none(new_col) \
@@ -89,7 +95,14 @@ class GroupedDataFrame(ADataFrame):
             return self.__do_modify(clazz, new_col, *args)
 
     def __do_modify(self, clazz, new_col, *col_names):
-        pass
+        gdf = copy.deepcopy(self)
+        for _, group in gdf.__grouping:
+            colvals = [group[x] for x in col_names]
+            res = clazz()(*colvals)
+            if len(res) != len(colvals[0].values()):
+                raise ValueError("The function you provided yields an array of false length!")
+            group.cbind(**{new_col: res})
+        return gdf
 
     def aggregate(self, clazz, new_col, *args):
         """
@@ -111,13 +124,19 @@ class GroupedDataFrame(ADataFrame):
             return self.__do_aggregate(clazz, new_col, *args)
 
     def __do_aggregate(self, clazz, new_col, *col_names):
+        # init a dictionary of lists where the keys are the grouping colnames + the new column name
         resvals = {i: [] for i in itertools.chain(self.__grouping.grouping_colnames(), new_col)}
+        # iterate over every group
         for _, group in self.__grouping:
+            # get the columns that should be used for aggregation
             colvals = [group[x] for x in col_names]
+            # cal the result
             res = clazz()(*colvals)
             if hasattr(res, "__len__"):
                 raise ValueError("The function you provided yields an array of false length!")
+            # append the result and the grouping values to the dictionary values (i.e. the lists)
             resvals[new_col].append(res)
             for i, e in enumerate(group.grouping_colnames()):
                 resvals[e].append(group.grouping_values()[i])
+        # create a new UN-GROUPED data-frame object
         return dataframe.DataFrame(**resvals)

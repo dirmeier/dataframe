@@ -3,11 +3,11 @@
 
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
+from collections import Counter
 
 import unittest
-from nose.tools import raises
+import pytest
 from dataframe.dataframe_dataframe import DataFrame
-from dataframe.dataframe_grouped_dataframe import GroupedDataFrame
 from dataframe import Callable
 from statistics import mean
 import scipy.stats as sps
@@ -27,7 +27,15 @@ class TestGroupedDataFrame(unittest.TestCase):
         unittest.TestCase.setUp(self)
         self.__table = DataFrame(a=list(range(30)), b=["a", "b", "c"] * 10).group("b")
 
-    @raises(TypeError)
+    def test_aggregate_error(self):
+        with pytest.raises(TypeError):
+            self.__table.aggregate(Mean, "c",  "aa")
+
     def test_aggregate(self):
-        self.__table.aggregate(Mean, "c",  "aa")
+        a = self.__table.aggregate(Mean, "c",  "a")
+        assert Counter(a["c"]) == Counter([13.5, 14.5, 15.5])
+
+    def test_modify(self):
+        #a = self.__table.modify(Zscore, "ysc", "a")
+        print(1)
 

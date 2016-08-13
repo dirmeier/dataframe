@@ -29,6 +29,9 @@ class DataFrameGroup:
         for i in range(self.__data_columns.nrow()):
             yield self.__data_columns.row(i)
 
+    def cbind(self, **kwargs):
+        self.__data_columns.cbind(**kwargs)
+
     def grp_idx(self):
         return self.__grp_idx
 

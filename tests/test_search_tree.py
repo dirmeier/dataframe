@@ -3,8 +3,8 @@
 # __date__   = 29/07/16
 
 import unittest
+import pytest
 from dataframe.search_tree import SearchTree
-
 
 class TestSearchTree(unittest.TestCase):
     def setUp(self):
@@ -19,7 +19,9 @@ class TestSearchTree(unittest.TestCase):
         self.tree.find(1, 4)
 
     def test_insert(self):
-        self.assertEquals(self.tree.find(1, 2), 0)
+        assert self.tree.find(1, 2) == 0
 
     def test_insert_error(self):
-        self.assertNotEqual(self.tree.find(1, 2), 2)
+        with pytest.raises(AssertionError):
+            assert self.tree.find(1, 2) == 1
+
