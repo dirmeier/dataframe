@@ -4,7 +4,7 @@ from itertools import chain
 from ._check import is_none, is_callable, has_elements
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_column import DataFrameColumnSet, DataFrameColumn
-from .dataframe_grouped import GroupedDataFrame
+from .dataframe_grouped_dataframe import GroupedDataFrame
 from ._dataframe_row import DataFrameRow
 
 

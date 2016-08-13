@@ -3,7 +3,7 @@
 
 import unittest
 from dataframe.dataframe import DataFrame
-from dataframe.dataframe_grouped import GroupedDataFrame
+from dataframe.dataframe_grouped_dataframe import GroupedDataFrame
 from dataframe import Callable
 from statistics import  mean
 import scipy.stats as sps
@@ -21,11 +21,11 @@ class Zscore(Callable):
 class TestDataFrame(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.__table = DataFrame(a=[1, 2, 3], b=["a", "b", "c"])
+        self.__table = DataFrame(a=[1, 2, 3] * 10, b=["a", "b", "c"] * 10)
         self.__selected = self.__table.subset("a")
 
     def test_nrow(self):
-        assert self.__table.nrow() == 3
+        assert self.__table.nrow() == 30
 
     def test_ncol(self):
         assert self.__table.ncol() == 2
@@ -34,7 +34,7 @@ class TestDataFrame(unittest.TestCase):
         assert self.__table.colnames() == ["a", "b"]
 
     def test_select_nrow(self):
-            assert self.__selected.nrow() == 3
+            assert self.__selected.nrow() == 30
 
     def test_select_ncol(self):
         assert self.__selected.ncol() == 1
@@ -53,7 +53,7 @@ class TestDataFrame(unittest.TestCase):
     def test_grp_elems(self):
         tab = self.__table.group("a")
         v = tab.__iter__().__next__()
-        assert len(v.values()) == 1
+        assert len(v.values()) == 10
 
     def test_aggregate(self):
         v = self.__table.aggregate(Mean, "mean", "a")

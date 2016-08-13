@@ -16,4 +16,4 @@ class TestSearchTree(unittest.TestCase):
         tree.find(2, 3)
         tree.find(2, 4)
         tree.find(1, 4)
-        assert(tree.find(1, 2) == 1)
+        assert(tree.find(1, 2) == 0)

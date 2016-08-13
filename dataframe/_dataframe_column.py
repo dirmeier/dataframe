@@ -15,11 +15,14 @@ class DataFrameColumnSet:
         for c in self.__data_columns:
             yield c
 
+    def nrow(self):
+        return self.__nrow
+
     def ncol(self):
         return len(self.colnames())
 
     def colnames(self):
-        return [x for x in self.__data_columns.colname()]
+        return [x.colname() for x in self.__data_columns]
 
     def append(self, column):
         if column.colname in self.colnames():
@@ -27,7 +30,7 @@ class DataFrameColumnSet:
         self.__data_columns.append(column)
         self.__nrow = self.__data_columns[-1].size()
         for col in self.__data_columns:
-            if col.size != self.__nrow:
+            if col.size() != self.__nrow:
                 raise ValueError("Columns do not have equal lengths!")
 
 
@@ -48,8 +51,8 @@ class DataFrameColumn:
     def __getitem__(self, index):
         if isinstance(index, slice) or isinstance(index, int):
             return self.__vals[index]
-        elif isinstance(tuple):
+        elif isinstance(index, tuple):
             return [self.__vals[x] for x in list(index)]
         elif isinstance(index, list):
             return [self.__vals[x] for x in index]
-        raise ValueError("Indexing not supported.")
+        return self.__vals[index]

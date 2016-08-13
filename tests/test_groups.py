@@ -6,7 +6,7 @@
 
 import unittest
 from dataframe.dataframe import DataFrame
-from dataframe.dataframe_grouped import GroupedDataFrame
+from dataframe.dataframe_grouped_dataframe import GroupedDataFrame
 from dataframe import Callable
 from statistics import  mean
 import scipy.stats as sps

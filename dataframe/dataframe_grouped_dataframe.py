@@ -5,6 +5,8 @@ from prettytable import PrettyTable
 
 from ._dataframe_abstract import ADataFrame
 from ._check import is_callable, is_none, has_elements
+from ._dataframe_group import DataFrameGroup
+from ._dataframe_grouping import DataFrameGrouping
 from .search_tree.search_tree import SearchTree
 
 
@@ -15,8 +17,8 @@ class GroupedDataFrame(ADataFrame):
 
     def __init__(self, obj, *args):
         self.__table = obj
-        self.__search_col_idx = obj.which_colnames(*args)
-        self.__group_col_names = args
+        self.__grouping_col_idx = obj.which_colnames(*args)
+        self.__grouping_col_names = args
         self.__search_tree = SearchTree()
         self.__group_idxs = numpy.zeros(obj.nrow()).astype(int)
         self.__grouping = {}
@@ -115,7 +117,7 @@ class GroupedDataFrame(ADataFrame):
 
     def __do_aggregate(self, clazz, new_col, *col_names):
         gr = []
-        new_col_names = [x for x in self.__group_col_names if x not in col_names]
+        new_col_names = [x for x in self.__grouping_col_names if x not in col_names]
         # get columns
         df = self.__table.subset(*col_names)
         for group_idx in numpy.unique(self.__group_idxs):
@@ -137,46 +139,14 @@ class GroupedDataFrame(ADataFrame):
     def groups(self):
         return self.__grouping.values()
 
-    def __group_by(self ):
+    def __group_by(self):
         for row in self.__table:
-            self.__add_grp(row)
+            self.__add_grp_idx(row)
+        for grp_idx in numpy.unique(self.__group_idxs):
+            row_idxs = list(numpy.where(self.__group_idxs == grp_idx)[0])
+            rows = self.__table[row_idxs]
+            self.__grouping[str(grp_idx)] = DataFrameGroup(grp_idx, rows)
 
-    def __add_grp(self, row):
-        els = [row[x] for x in self.__search_col_idx]
-        grp_idx = self.__search_tree.find(*els)
-        self.__group_idxs[row.idx()] = grp_idx
-        if grp_idx not in self.__grouping:
-            # TODO: more clever idea here
-            self.__grouping[grp_idx] = Group(grp_idx)
-        self.__grouping[grp_idx].append(row)
-
-
-class Group:
-    def __init__(self, grp_idx):
-        self.__grp_idx = grp_idx
-        self.__data
-
-    def __str__(self):
-        buf = "Group " + str(self.__grp_idx) + ":"
-        for i in self.__rows:
-            buf += " " + i.__str__()
-        return buf
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __getitem__(self, idx):
-        return self.__rows[idx]
-
-    def __iter__(self):
-        for i in self.__rows:
-            yield i
-
-    def append(self, el):
-        self.__rows.append(el)
-
-    def __grp_index(self):
-        return self.__grp_idx
-
-    def values(self):
-        return self.__rows
+    def __add_grp_idx(self, row):
+        els = [row[x] for x in self.__grouping_col_idx]
+        self.__group_idxs[row.idx()] = self.__search_tree.find(*els)

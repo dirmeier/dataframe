@@ -5,7 +5,7 @@ from .search_tree_node import SearchTreeNode
 
 class SearchTree:
     def __init__(self):
-        self.__grp_idx = 0
+        self.__grp_idx = -1
         self.__root = SearchTreeNode(None)
 
     def find(self, *args):
