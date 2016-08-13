@@ -21,19 +21,30 @@ import numpy
 # ii = numpy.where(a == s[0])[0]
 # print(ii)
 
-class C(object):
-    def l(self, *a):
-        print(a)
-    def __getitem__(self, val):
-        if isinstance(val, tuple):
-            print(list(val))
-        if isinstance(val, slice):
-            print(list(range(*val.indices(10))))
-            print(*val.indices(10))
-            print()
-c = C()
+# class C(object):
+#     def l(self, *a):
+#         print(a)
+#     def __getitem__(self, val):
+#         if isinstance(val, tuple):
+#             print(list(val))
+#         if isinstance(val, slice):
+#             print(list(range(*val.indices(10))))
+#             print(*val.indices(10))
+#             print()
+# c = C()
+#
+# s = ["a", "b", "c"]
+# print(s)
+# d = [x for x in s if x not in["a", "b"] ]
+# print(d)
 
-s = ["a", "b", "c"]
-print(s)
-d = [x for x in s if x not in["a", "b"] ]
-print(d)
+class B:
+    def __init__(self, *args,  **kwargs):
+        if kwargs:
+            print("dict")
+        elif args:
+            print("list")
+
+B(**{"a":1})
+print("ssssssssssssssssssss")
+B(*list(range(4)))

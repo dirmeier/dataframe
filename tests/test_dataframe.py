@@ -2,21 +2,24 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 
 import unittest
-from dataframe.dataframe import DataFrame
+from dataframe.dataframe_dataframe import DataFrame
 from dataframe.dataframe_grouped_dataframe import GroupedDataFrame
 from dataframe import Callable
-from statistics import  mean
+from statistics import mean
 import scipy.stats as sps
+
 
 class Mean(Callable):
     def __call__(self, *args):
         vals = args[0].values()
         return mean(vals)
 
+
 class Zscore(Callable):
     def __call__(self, *args):
         vals = args[0].values()
         return sps.zscore(vals).tolist()
+
 
 class TestDataFrame(unittest.TestCase):
     def setUp(self):
@@ -25,44 +28,39 @@ class TestDataFrame(unittest.TestCase):
         self.__selected = self.__table.subset("a")
 
     def test_nrow(self):
-        assert self.__table.nrow() == 30
+        self.assertEquals(self.__table.nrow(), 30)
 
     def test_ncol(self):
-        assert self.__table.ncol() == 2
+        self.assertEquals(self.__table.ncol(), 2)
 
     def test_colnames(self):
-        assert self.__table.colnames() == ["a", "b"]
+        self.assertEquals(self.__table.colnames(), ["a", "b"])
 
     def test_select_nrow(self):
-            assert self.__selected.nrow() == 30
+        self.assertEquals(self.__selected.nrow(), 30)
 
     def test_select_ncol(self):
-        assert self.__selected.ncol() == 1
+        self.assertEquals(self.__selected.ncol(), 1)
 
     def test_selected_colnames(self):
-        assert self.__selected.colnames() == ["a"]
+        self.assertEquals(self.__selected.colnames(), ["a"])
 
     def test_grouping_class(self):
         gr = self.__table.group("a")
-        assert isinstance(gr, GroupedDataFrame)
+        self.assertTrue(isinstance(gr, GroupedDataFrame))
 
     def test_grp_size(self):
         tab = self.__table.group("a")
-        assert len(tab.groups()) == 3
-
-    def test_grp_elems(self):
-        tab = self.__table.group("a")
-        v = tab.__iter__().__next__()
-        assert len(v.values()) == 10
+        self.assertEquals(len(tab.groups()), 3)
 
     def test_aggregate(self):
         v = self.__table.aggregate(Mean, "mean", "a")
-        assert v["mean"][0] == 2
+        self.assertEquals(v["mean"][0], 2)
 
     def test_modify(self):
         v = self.__table.modify(Zscore, "zsc", "a")
-        assert v["zsc"][1] == 0
+        self.assertEquals(v["zsc"][1], 0)
 
     def test_modify(self):
         v = self.__table.modify(Zscore, "zsc", "a")
-        assert v["zsc"][1] == 0
+        self.assertEquals(v["zsc"][1], 0)

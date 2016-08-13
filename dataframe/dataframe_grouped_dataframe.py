@@ -1,13 +1,12 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
+import itertools
 import numpy
-from prettytable import PrettyTable
 
 from ._dataframe_abstract import ADataFrame
-from ._check import is_callable, is_none, has_elements
-from ._dataframe_group import DataFrameGroup
+from ._check import is_callable, is_none, has_elements, disjoint
 from ._dataframe_grouping import DataFrameGrouping
-from .search_tree.search_tree import SearchTree
+import dataframe.dataframe_dataframe
 
 
 class GroupedDataFrame(ADataFrame):
@@ -16,13 +15,7 @@ class GroupedDataFrame(ADataFrame):
     """
 
     def __init__(self, obj, *args):
-        self.__table = obj
-        self.__grouping_col_idx = obj.which_colnames(*args)
-        self.__grouping_col_names = args
-        self.__search_tree = SearchTree()
-        self.__group_idxs = numpy.zeros(obj.nrow()).astype(int)
-        self.__grouping = {}
-        self.__group_by()
+        self.__grouping = DataFrameGrouping(obj, *args)
 
     def __repr__(self):
         return self.__str__()
@@ -34,24 +27,14 @@ class GroupedDataFrame(ADataFrame):
         :return: returns the string representation
         :rtype: str
         """
-        pt = PrettyTable(self.__table.colnames())
-        for i, groups in enumerate(self.__grouping.values()):
-            if i > 1:
-                break
-            rows = groups.values()
-            for j, row in enumerate(rows):
-                if j < 5:
-                    pt.add_row(row.values())
-            if i == 0:
-                pt.add_row(["---"] * len(self.__table.colnames()))
-        return pt.__str__()
+        return self.__grouping.__str__()
 
     def __iter__(self):
-        for _, v in self.__grouping.items():
+        for _, v in self.__grouping:
             yield v
 
-    def __getitem__(self, idx):
-        return self.__grouping[idx]
+    def groups(self):
+        return self.__grouping.groups()
 
     def ungroup(self):
         """
@@ -60,7 +43,7 @@ class GroupedDataFrame(ADataFrame):
         :return: returns the original DataFrame
         :rtype: DataFrame
         """
-        return self.__table
+        return self.__grouping.ungroup()
 
     def subset(self, *args):
         """
@@ -71,7 +54,8 @@ class GroupedDataFrame(ADataFrame):
         :return: returns dataframe with only the columns you selected
         :rtype: DataFrame
         """
-        pass
+        return GroupedDataFrame(self.__grouping.ungroup().subset(*args),
+                                *self.__grouping.grouping_column_names())
 
     def group(self, *args):
         """
@@ -82,7 +66,8 @@ class GroupedDataFrame(ADataFrame):
         :return: returns a dataframe that has grouping information
         :rtype: GroupedDataFrame
         """
-        pass
+        list(args).append(x for x in self.__grouping.grouping_column_names() if x not in args)
+        return GroupedDataFrame(self.__grouping.ungroup(), *args)
 
     def modify(self, clazz, new_col, *args):
         """
@@ -97,6 +82,13 @@ class GroupedDataFrame(ADataFrame):
         :return: returns a new dataframe object with the aggregated value
         :rtype: DataFrame
         """
+        if is_callable(clazz) \
+                and not is_none(new_col) \
+                and has_elements(*args) \
+                and disjoint(self.__grouping.grouping_colnames(), *args):
+            return self.__do_modify(clazz, new_col, *args)
+
+    def __do_modify(self, clazz, new_col, *col_names):
         pass
 
     def aggregate(self, clazz, new_col, *args):
@@ -112,41 +104,20 @@ class GroupedDataFrame(ADataFrame):
         :return: returns a new dataframe object with the aggregated value
         :rtype: DataFrame
         """
-        if is_callable(clazz) and not is_none(new_col) and has_elements(*args):
+        if is_callable(clazz) \
+                and not is_none(new_col) \
+                and has_elements(*args) \
+                and disjoint(self.__grouping.grouping_colnames(), *args):
             return self.__do_aggregate(clazz, new_col, *args)
 
     def __do_aggregate(self, clazz, new_col, *col_names):
-        gr = []
-        new_col_names = [x for x in self.__grouping_col_names if x not in col_names]
-        # get columns
-        df = self.__table.subset(*col_names)
-        for group_idx in numpy.unique(self.__group_idxs):
-            # get the rows that have index group_idx
-            row_idxs = numpy.where(self.__group_idxs == group_idx)[0]
-            colvals = [df[colname][row_idxs]for colname in df.colnames()]
-            if colvals is None:
-                return None
-            # instantiate class and call
-            res = [clazz()(*colvals)]
-            if len(res) != 1:
+        resvals = {i: [] for i in itertools.chain(self.__grouping.grouping_colnames(), new_col)}
+        for _, group in self.__grouping:
+            colvals = [group[x] for x in col_names]
+            res = clazz()(*colvals)
+            if hasattr(res, "__len__"):
                 raise ValueError("The function you provided yields an array of false length!")
-
-        #return DataFrame(**{new_col: res})
-
-    def __group_indexes(self):
-        return self.__group_idxs
-
-    def groups(self):
-        return self.__grouping.values()
-
-    def __group_by(self):
-        for row in self.__table:
-            self.__add_grp_idx(row)
-        for grp_idx in numpy.unique(self.__group_idxs):
-            row_idxs = list(numpy.where(self.__group_idxs == grp_idx)[0])
-            rows = self.__table[row_idxs]
-            self.__grouping[str(grp_idx)] = DataFrameGroup(grp_idx, rows)
-
-    def __add_grp_idx(self, row):
-        els = [row[x] for x in self.__grouping_col_idx]
-        self.__group_idxs[row.idx()] = self.__search_tree.find(*els)
+            resvals[new_col].append(res)
+            for i, e in enumerate(group.grouping_colnames()):
+                resvals[e].append(group.grouping_values()[i])
+        return dataframe.DataFrame(**resvals)

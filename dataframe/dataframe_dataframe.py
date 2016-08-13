@@ -1,16 +1,12 @@
-from prettytable import PrettyTable
-from itertools import chain
+from ._dataframe_abstract import ADataFrame
+from ._dataframe_column_set import DataFrameColumnSet, DataFrameColumn
+from .dataframe_grouped_dataframe import GroupedDataFrame
 
 from ._check import is_none, is_callable, has_elements
-from ._dataframe_abstract import ADataFrame
-from ._dataframe_column import DataFrameColumnSet, DataFrameColumn
-from .dataframe_grouped_dataframe import GroupedDataFrame
-from ._dataframe_row import DataFrameRow
-
 
 class DataFrame(ADataFrame):
     """
-    The base DataFrame class
+    The base DataFrame class.
     """
 
     def __init__(self, **kwargs):
@@ -22,8 +18,7 @@ class DataFrame(ADataFrame):
         :return: returns a new DataFrame object
         :rtype: DataFrame
         """
-        self.__data_columns = DataFrameColumnSet()
-        self.__cbind(**kwargs)
+        self.__data_columns = DataFrameColumnSet(**kwargs)
 
     def __iter__(self):
         """
@@ -73,13 +68,7 @@ class DataFrame(ADataFrame):
         :return: returns the string representation
         :rtype: str
         """
-        pt = PrettyTable()
-        for e in self.__data_columns:
-            vals = e.values()
-            if len(vals) > 10:
-                vals = list(chain(vals[:3], "...", vals[-3:]))
-            pt.add_column(e.colname(), vals)
-        return pt.__str__()
+        return self.__data_columns.__str__()
 
     def aggregate(self, clazz, new_col, *args):
         """
@@ -194,24 +183,15 @@ class DataFrame(ADataFrame):
         """
         Computes the indexes of the columns in the dataframe
 
-        :param args: list of columnnames
+        :param args: list of column names
         :type args: varargs
         :return: returns a list of indexes
         :rtype: list(int)
         """
-        idx = []
-        for i in range(len(self.__data_columns.colnames())):
-            if self.__data_columns.colnames()[i] in args:
-                idx.append(i)
-        return idx
-
-    def __cbind(self, **kwargs):
-        keys = sorted([x for x in kwargs.keys()])
-        for k in keys:
-            self.__data_columns.append(DataFrameColumn(str(k), kwargs.get(k)))
+        return self.__data_columns.which_colnames(*args)
 
     def __rows(self, idxs):
-        return [self.__row(i) for i in idxs]
+        return self.__data_columns.rows(idxs)
 
     def __row(self, idx):
-        return DataFrameRow(idx, [x[idx] for x in self.__data_columns], self.__data_columns.colnames())
+        return self.__data_columns.row(idx)

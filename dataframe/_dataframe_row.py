@@ -8,15 +8,6 @@ class DataFrameRow:
         self.__colnames = colnames
         self.__vals = vals
 
-    def idx(self):
-        return self.__idx
-
-    def values(self):
-        return self.__vals
-
-    def _colnames(self):
-        return self.__colnames
-
     def __hash__(self):
         return hash(self.__idx)
 
@@ -29,7 +20,16 @@ class DataFrameRow:
         return self.__vals[index]
 
     def __str__(self):
-        return str(self.idx()) + ":\t" + "\t".join(str(x) for x in self.values())
+        return str(self.idx()) + ":\t" + "\t".join(str(x) for x in self.__vals)
 
     def __repr__(self):
         return self.__str__()
+
+    def idx(self):
+        return self.__idx
+
+    def values(self):
+        return self.__vals
+
+    def colnames(self):
+        return self.__colnames
