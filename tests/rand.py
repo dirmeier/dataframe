@@ -3,6 +3,8 @@
 from dataframe import DataFrame
 from itertools import chain
 import numpy
+
+import dataframe
 # x = DataFrame(a=list(range(10)),b=[1, 28880000] * 5).group("b")
 # print(x)
 # a = ['a', 'b', 'c', 3, 4, 'd', 6, 7, 8]
@@ -48,3 +50,7 @@ class B:
 B(**{"a":1})
 print("ssssssssssssssssssss")
 B(*list(range(4)))
+
+
+
+s = dataframe.SearchTree()
