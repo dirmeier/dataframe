@@ -17,9 +17,10 @@ install:
   - conda install --yes python=$TRAVIS_PYTHON_VERSION atlas numpy scipy matplotlib nose dateutil pandas statsmodels
   - python setup.py install
   - pip install codecov
+  - pip install pytest-cov
 
 script: 
-  - nosetests --with-coverage
+  - py.test --cov=./
 
 after_success:
   - codecov
