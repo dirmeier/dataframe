@@ -21,3 +21,6 @@ class ADataFrame(metaclass=ABCMeta):
     def modify(self, clazz, new_col, *args):
         pass
 
+    @abstractmethod
+    def colnames(self):
+        pass

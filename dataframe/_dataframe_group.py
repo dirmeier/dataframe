@@ -5,8 +5,9 @@ from ._dataframe_column_set import DataFrameColumnSet
 
 
 class DataFrameGroup:
-    def __init__(self, grp_idx, grouping_values, grouping_colnames, **kwargs):
+    def __init__(self, grp_idx, row_idxs, grouping_values, grouping_colnames, **kwargs):
         self.__grp_idx = grp_idx
+        self.__row_idxs = row_idxs
         self.__grouping_values = grouping_values
         self.__grouping_colnames = grouping_colnames
         self.__data_columns = DataFrameColumnSet(**kwargs)
@@ -40,3 +41,6 @@ class DataFrameGroup:
 
     def grouping_colnames(self):
         return self.__grouping_colnames
+
+    def row_idxs(self):
+        return self.__row_idxs

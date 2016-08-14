@@ -17,10 +17,11 @@ class Mean(Callable):
         vals = args[0].values()
         return mean(vals)
 
-class Zscore(Callable):
+class Exp(Callable):
     def __call__(self, *args):
         vals = args[0].values()
-        return sps.zscore(vals).tolist()
+        a = map(lambda x: x * x, vals)
+        return list(a)
 
 class TestGroupedDataFrame(unittest.TestCase):
     def setUp(self):
@@ -35,7 +36,15 @@ class TestGroupedDataFrame(unittest.TestCase):
         a = self.__table.aggregate(Mean, "c",  "a")
         assert Counter(a["c"]) == Counter([13.5, 14.5, 15.5])
 
+    def test_subset_ncol(self):
+        a = self.__table.subset("b")
+        assert a.ungroup().ncol() == 1
+
+    def test_selected_colnames(self):
+        assert self.__table.subset("b").colnames() == ["b"]
+
     def test_modify(self):
-        #a = self.__table.modify(Zscore, "ysc", "a")
-        print(1)
+        a = self.__table.modify(Exp, "ysc", "a")
+        for i in a:
+            assert(i["ysc"][0] == i["a"][0] ** 2)
 

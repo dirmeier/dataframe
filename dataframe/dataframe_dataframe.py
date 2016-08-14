@@ -190,6 +190,18 @@ class DataFrame(ADataFrame):
         """
         return self.__data_columns.which_colnames(*args)
 
+    def cbind(self, **kwargs):
+        """
+        Bind a column to the DataFrame
+
+        :param kwargs: named list of elements you want to add
+        :type kwargs: keyword tuple
+        :return: self
+        :rtype: DataFrame
+        """
+        self.__data_columns.cbind(**kwargs)
+        return self
+
     def __rows(self, idxs):
         return self.__data_columns.rows(idxs)
 

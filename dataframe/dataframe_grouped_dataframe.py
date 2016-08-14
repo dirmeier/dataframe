@@ -33,6 +33,9 @@ class GroupedDataFrame(ADataFrame):
         for _, v in self.__grouping:
             yield v
 
+    def colnames(self):
+        return self.__grouping.ungroup().colnames()
+
     def groups(self):
         """
         Getter for all groups
@@ -61,7 +64,7 @@ class GroupedDataFrame(ADataFrame):
         :rtype: DataFrame
         """
         return GroupedDataFrame(self.__grouping.ungroup().subset(*args),
-                                *self.__grouping.grouping_column_names())
+                                *self.__grouping.grouping_colnames())
 
     def group(self, *args):
         """
@@ -72,7 +75,7 @@ class GroupedDataFrame(ADataFrame):
         :return: returns a dataframe that has grouping information
         :rtype: GroupedDataFrame
         """
-        list(args).append(x for x in self.__grouping.grouping_column_names() if x not in args)
+        list(args).append(x for x in self.__grouping.grouping_colnames() if x not in args)
         return GroupedDataFrame(self.__grouping.ungroup(), *args)
 
     def modify(self, clazz, new_col, *args):
@@ -95,14 +98,16 @@ class GroupedDataFrame(ADataFrame):
             return self.__do_modify(clazz, new_col, *args)
 
     def __do_modify(self, clazz, new_col, *col_names):
-        gdf = copy.deepcopy(self)
-        for _, group in gdf.__grouping:
+        df = copy.deepcopy(self.__grouping.ungroup())
+        new_rows = [None] * df.nrow()
+        for _, group in self.__grouping:
             colvals = [group[x] for x in col_names]
             res = clazz()(*colvals)
             if len(res) != len(colvals[0].values()):
                 raise ValueError("The function you provided yields an array of false length!")
-            group.cbind(**{new_col: res})
-        return gdf
+            for i, e in enumerate(group.row_idxs()):
+                new_rows[e] = res[i]
+        return df.cbind(**{new_col: new_rows}).group(*self.__grouping.grouping_colnames())
 
     def aggregate(self, clazz, new_col, *args):
         """
