@@ -3,7 +3,7 @@
 import numpy
 from prettytable import PrettyTable
 from ._dataframe_group import DataFrameGroup
-from .search_tree import SearchTree
+from .search_tree.search_tree import SearchTree
 
 
 class DataFrameGrouping:
