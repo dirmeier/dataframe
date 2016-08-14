@@ -11,6 +11,7 @@ Requirements
 * scipy 0.18.0
 * numpy 1.11.0
 * pytest 2.9.2
+* nose 1.3.7
 * sphinx 1.4.5
 * scikit-learn 0.17.0
 

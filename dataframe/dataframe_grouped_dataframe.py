@@ -1,13 +1,13 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
 import copy
-import itertools
 import dataframe
 
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_grouping import DataFrameGrouping
-from ._check import is_callable, is_none, has_elements, disjoint
+from ._check import is_callable, is_none, has_elements, is_disjoint
 
+__DISJOINT_SETS_ERROR__ = "Cannot aggregate grouping variable(s)!"
 
 class GroupedDataFrame(ADataFrame):
     """
@@ -63,6 +63,8 @@ class GroupedDataFrame(ADataFrame):
         :return: returns dataframe with only the columns you selected
         :rtype: DataFrame
         """
+        args = list(args)
+        args.extend([x for x in self.__grouping.grouping_colnames() if x not in args])
         return GroupedDataFrame(self.__grouping.ungroup().subset(*args),
                                 *self.__grouping.grouping_colnames())
 
@@ -75,7 +77,8 @@ class GroupedDataFrame(ADataFrame):
         :return: returns a dataframe that has grouping information
         :rtype: GroupedDataFrame
         """
-        list(args).append(x for x in self.__grouping.grouping_colnames() if x not in args)
+        args = list(args)
+        args.extend([x for x in self.__grouping.grouping_colnames() if x not in args])
         return GroupedDataFrame(self.__grouping.ungroup(), *args)
 
     def modify(self, clazz, new_col, *args):
@@ -94,7 +97,7 @@ class GroupedDataFrame(ADataFrame):
         if is_callable(clazz) \
                 and not is_none(new_col) \
                 and has_elements(*args) \
-                and disjoint(self.__grouping.grouping_colnames(), *args):
+                and is_disjoint(self.__grouping.grouping_colnames(), args, __DISJOINT_SETS_ERROR__):
             return self.__do_modify(clazz, new_col, *args)
 
     def __do_modify(self, clazz, new_col, *col_names):
@@ -125,12 +128,13 @@ class GroupedDataFrame(ADataFrame):
         if is_callable(clazz) \
                 and not is_none(new_col) \
                 and has_elements(*args) \
-                and disjoint(self.__grouping.grouping_colnames(), *args):
+                and is_disjoint(self.__grouping.grouping_colnames(), args, __DISJOINT_SETS_ERROR__):
             return self.__do_aggregate(clazz, new_col, *args)
 
     def __do_aggregate(self, clazz, new_col, *col_names):
         # init a dictionary of lists where the keys are the grouping colnames + the new column name
-        resvals = {i: [] for i in itertools.chain(self.__grouping.grouping_colnames(), new_col)}
+        resvals = {i: [] for i in self.__grouping.grouping_colnames() }
+        resvals[new_col] = []
         # iterate over every group
         for _, group in self.__grouping:
             # get the columns that should be used for aggregation

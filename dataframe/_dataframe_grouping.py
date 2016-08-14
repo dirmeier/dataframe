@@ -3,7 +3,10 @@
 import numpy
 from prettytable import PrettyTable
 from ._dataframe_group import DataFrameGroup
+from ._check import contains_all
 from dataframe.search_tree import SearchTree
+
+__DISJOINT_SETS_ERROR__ = "Subsetting on non-available columns!"
 
 
 class DataFrameGrouping:
@@ -13,10 +16,13 @@ class DataFrameGrouping:
 
     def __init__(self, obj, *args):
         self.__dataframe = obj
+        for arg in args:
+            if arg not in obj.colnames():
+                raise ValueError("Argument '{}' not in colnames".format(arg))
         # the indexes of the columns of the original table that are used for grouping
         self.__grouping_col_idx = obj.which_colnames(*args)
         # the column names of the original table that are used for grouping
-        self.__grouping_col_names = args
+        self.__grouping_col_names = [x for x in args]
         # the array if values that produces a group ( e.g. 0 -> [0,1], 1 -> [1,0], etc.)
         self.__grouping_values = {}
         # indexing tree for logarithmic lookup of group index

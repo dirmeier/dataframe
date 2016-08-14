@@ -17,7 +17,7 @@ setup(
     author='Simon Dirmeier',
     author_email='simon.dirmeier@gmx.de',
     license='GPLv3',
-    keywords=['table', 'dataframe'],
+    keywords=['table', 'dataframe', 'datatable'],
     packages=['dataframe'],
     install_requires=reqs,
     classifiers=[

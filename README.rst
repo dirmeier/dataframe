@@ -36,7 +36,7 @@ from command line. This will install the library in your local environment and g
 Documentation
 =============
 
-Detailed documentation is found at pythonhosted.org_. A more convenient way to learn the ``dataframe`` API, however, is to use the provided jupyter notebook in ``examples`` which you can use interactively.
+Detailed documentation is found at pythonhosted.org_. A more convenient way to learn the ``dataframe`` API, however, is to use the provided jupyter notebook in ``examples``:
 
 .. code-block:: bash
 

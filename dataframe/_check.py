@@ -19,8 +19,14 @@ def has_elements(*args):
         raise ValueError("No elements found!")
     return True
 
-def disjoint(set1, set2):
+def is_disjoint(set1, set2, warn):
     for el in set2:
         if el in set1:
-            raise ValueError("Cannot aggregate grouping variable(s)!")
+            raise ValueError(warn)
+    return True
+
+def contains_all(set1, set2, warn):
+    for el in set2:
+        if el not in set1:
+            raise ValueError(warn)
     return True

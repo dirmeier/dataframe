@@ -1,14 +1,14 @@
 The dataframe package
 =====================
 
-dataframe module
+DataFrame module
 ----------------
 
-.. automodule:: dataframe.dataframe
+.. automodule:: dataframe.dataframe_dataframe
     :members:
 
-dataframe_grouped module
+GroupedDataFrame module
 ------------------------
 
-.. automodule:: dataframe.dataframe_grouped
+.. automodule:: dataframe.dataframe_grouped_dataframe
     :members:
