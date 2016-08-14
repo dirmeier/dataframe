@@ -21,6 +21,7 @@ install:
 
 script: 
   - nosetests --with-coverage
+  - py.test
 
 after_success:
   - codecov

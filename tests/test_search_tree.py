@@ -4,12 +4,13 @@
 
 import unittest
 import pytest
-import dataframe
+from dataframe.search_tree import SearchTree
+
 
 class TestSearchTree(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.tree = dataframe.SearchTree()
+        self.tree = SearchTree()
         self.tree.find(1, 2)
         self.tree.find(13, 7)
         self.tree.find(2, 3)
