@@ -9,7 +9,6 @@ dataframe
 
 Efficient data-frame_ implementations in python.
 
-
 Introduction
 ============
 
@@ -31,7 +30,6 @@ from command line. This will install the library in your local environment and g
 .. code-block:: bash
 
    pip install dataframe
-
 
 Documentation
 =============
