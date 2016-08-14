@@ -1,5 +1,5 @@
-The dataframe package
-=====================
+API
+===
 
 DataFrame module
 ----------------
@@ -11,4 +11,10 @@ GroupedDataFrame module
 ------------------------
 
 .. automodule:: dataframe.dataframe_grouped_dataframe
+    :members:
+
+Callable module
+------------------------
+
+.. automodule:: dataframe.callable
     :members:

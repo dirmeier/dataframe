@@ -9,7 +9,7 @@ reqs = [str(ir.req) for ir in parse_requirements('requirements.txt', session=Fal
 
 setup(
     name='dataframe',
-    version='0.1.1',
+    version='0.1.2',
     description='Efficient data-frame implementation in python',
     long_description=readme(),
     url='https://github.com/rafstraumur/dataframe',

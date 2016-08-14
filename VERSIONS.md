@@ -1,11 +1,12 @@
 Versions
 ========
 
-### v0.1.1
-
-
 ### v0.1
 
+* Basic DataFrame and GroupedDataFrame utilities
+* Documentation for all classes and methods
+* Unit-tests
+* Config, Readme, ...
 
 ### Author
 

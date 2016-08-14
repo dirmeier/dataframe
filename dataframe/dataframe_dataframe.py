@@ -66,7 +66,7 @@ class DataFrame(ADataFrame):
 
     def __str__(self):
         """
-        ToString method for DataFrame
+        ToString method for DataFrame.
 
         :return: returns the string representation
         :rtype: str
@@ -75,7 +75,7 @@ class DataFrame(ADataFrame):
 
     def aggregate(self, clazz, new_col, *args):
         """
-        Aggregate the rows of the dataframe into a single value.
+        Aggregate the rows of the DataFrame into a single value.
 
         :param clazz: name of a class that extends class Callable
         :type clazz: class
@@ -102,7 +102,7 @@ class DataFrame(ADataFrame):
 
     def subset(self, *args):
         """
-        Subset only some of the columns of the dataframe
+        Subset only some of the columns of the DataFrame.
 
         :param args: list of column names of the object that should be subsetted
         :type args: tuple
@@ -128,7 +128,7 @@ class DataFrame(ADataFrame):
 
     def modify(self, clazz, new_col, *args):
         """
-        Modify some columns (i.e. apply a function) and add the result to the table
+        Modify some columns (i.e. apply a function) and add the result to the table.
 
         :param clazz: name of a class that extends class Callable
         :type clazz: class
@@ -157,7 +157,7 @@ class DataFrame(ADataFrame):
 
     def nrow(self):
         """
-        Getter for the number of rows in the dataframe.
+        Getter for the number of rows in the DataFrame.
 
         :return: returns the number of rows
         :rtype: int
@@ -166,7 +166,7 @@ class DataFrame(ADataFrame):
 
     def ncol(self):
         """
-        Getter for the number of columns in the dataframe.
+        Getter for the number of columns in the DataFrame.
 
         :return: returns the number of columns
         :rtype: int
@@ -175,7 +175,7 @@ class DataFrame(ADataFrame):
 
     def colnames(self):
         """
-        Getter for the columns names of the dataframe
+        Getter for the columns names of the DataFrame.
 
         :return: returns a list of column names
         :rtype: list(str)
@@ -184,10 +184,10 @@ class DataFrame(ADataFrame):
 
     def which_colnames(self, *args):
         """
-        Computes the indexes of the columns in the dataframe
+        Computes the indexes of the columns in the DataFrame.
 
         :param args: list of column names
-        :type args: varargs
+        :type args: tuple
         :return: returns a list of indexes
         :rtype: list(int)
         """
@@ -195,7 +195,7 @@ class DataFrame(ADataFrame):
 
     def cbind(self, **kwargs):
         """
-        Bind a column to the DataFrame
+        Bind a column to the DataFrame.
 
         :param kwargs: named list of elements you want to add
         :type kwargs: keyword tuple

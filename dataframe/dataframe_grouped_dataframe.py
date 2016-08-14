@@ -11,7 +11,7 @@ __DISJOINT_SETS_ERROR__ = "Cannot aggregate grouping variable(s)!"
 
 class GroupedDataFrame(ADataFrame):
     """
-    The base GroupedDataFrame class. Subsets a dataframe object into several groups given several columns.
+    The base GroupedDataFrame class. Subsets a DataFrame object into several groups given several columns.
     """
 
     def __init__(self, obj, *args):
@@ -22,7 +22,7 @@ class GroupedDataFrame(ADataFrame):
 
     def __str__(self):
         """
-        ToString method for GroupedDataFrame
+        ToString method for GroupedDataFrame.
 
         :return: returns the string representation
         :rtype: str
@@ -34,11 +34,17 @@ class GroupedDataFrame(ADataFrame):
             yield v
 
     def colnames(self):
+        """
+        Getter for the column names of the DataFrame.
+
+        :return: returns column names
+        :rtype: list(str)
+        """
         return self.__grouping.ungroup().colnames()
 
     def groups(self):
         """
-        Getter for all groups
+        Getter for all groups.
 
         :return: returns the groups
         :rtype: list(DataFrameGroup)
@@ -56,11 +62,11 @@ class GroupedDataFrame(ADataFrame):
 
     def subset(self, *args):
         """
-        Subset only some of the columns of the dataframe
+        Subset only some of the columns of the DataFrame.
 
         :param args: list of column names of the object that should be subsetted
         :type args: tuple
-        :return: returns dataframe with only the columns you selected
+        :return: returns DataFrame with only the columns you selected
         :rtype: DataFrame
         """
         args = list(args)
@@ -70,7 +76,7 @@ class GroupedDataFrame(ADataFrame):
 
     def group(self, *args):
         """
-        Group the dataframe into row-subsets.
+        Group the DataFrame into row-subsets.
 
         :param args: list of column names taht should be used for grouping
         :type args: tuple
@@ -83,7 +89,7 @@ class GroupedDataFrame(ADataFrame):
 
     def modify(self, clazz, new_col, *args):
         """
-        Modify some columns (i.e. apply a function) and add the result to the table
+        Modify some columns (i.e. apply a function) and add the result to the table.
 
         :param clazz: name of a class that extends class Callable
         :type clazz: class

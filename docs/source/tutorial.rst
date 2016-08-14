@@ -9,23 +9,17 @@ The tutorial pages will explain how ``dataframe`` is used. The library exports t
 Installation
 ------------
 
-There are three ways to install the library. Either you can install directly from ``pip`` using:
-
-.. code-block:: bash
- 
-   pip install dataframe
-
-Alternatively just call:
+Install the library using:
 
 .. code-block:: bash
  
    pip install git+git://github.com/rafstraumur/dataframe.git
 
-The third option is two clone or download the repository and install with ``setup.py``, for example when you want to fork the library:
+from command line. This will install the library in your local environment and gives you the newest *git commit*. You can of course also install using ``pip``:
 
 .. code-block:: bash
- 
-   pip setup.py install
+
+   pip install dataframe
 
 Usage
 -----
