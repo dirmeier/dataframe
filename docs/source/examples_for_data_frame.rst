@@ -7,13 +7,19 @@ This is a short tutorial with examples for the ``dataframe`` library.
 Creating a DataFrame object
 ---------------------------
 
-If you want to use data frames, first import it. For demonstration
-purposes we also include some datasets:
+If we want to use ``dataframe``, we first import the two central
+classes:
 
 .. code:: python
 
     from dataframe import DataFrame
     from dataframe import GroupedDataFrame
+
+For demonstration purposes we also include some datasets (and ``regex``
+for parsing):
+
+.. code:: python
+
     from sklearn import datasets
     import re
     iris_data = datasets.load_iris()
@@ -36,18 +42,24 @@ put it into a dictionary.
 
 .. code:: python
 
-    data = { features[i]: iris_data.data[:,i] for i in range(len(iris_data.data[1,:])) }
+    data = {features[i]: iris_data.data[:,i] for i in range(len(iris_data.data[1,:]))}
+
+We also add the species of each sample:
+
+.. code:: python
+
     data["target"] = iris_data.target
 
-We can take the dictionary to create a ``DataFrame`` object out of it
+Now we can take the dictionary to create a ``DataFrame`` object by
 using:
 
 .. code:: python
 
     frame = DataFrame(**data)
 
-Notice that we use the ``**kwargs`` syntax to give a ``dict()`` to the
-constructor. Alternatively you can just call the constructor like this:
+Notice that we use the ``**kwargs`` syntax to give keyword arguments to
+the constructor. Alternatively you can just call the constructor like
+this:
 
 .. code:: python
 
@@ -105,14 +117,14 @@ Note that upon instantiation the column names are sorted alphabetically.
 Using the DataFrame class
 -------------------------
 
-Basically ``DataFrame`` has four nice features. I will explain them one
-at a time.
+Basically ``DataFrame`` has four nice features. We will use them one
+after another.
 
 Subsetting DataFrame columns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-``subset`` lets you select some columns from the original DataFrame and
-returns a new DataFrame object:
+``subset`` lets you select some columns from the original ``DataFrame``
+and returns a new ``DataFrame`` object:
 
 .. code:: python
 
@@ -141,12 +153,12 @@ Aggregating DataFrame columns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ``aggregate`` takes one or multiple columns and computes an aggregation
-function. With the aggregated values a new DataFrame object is returned.
-**Beware** that your aggregation function returns a **scalar**, e.g. a
-``float``. First we need to write a class that extends ``Callable`` and
-overwrites ``__call__``. Some basic functions are alread implemented.
-For the sake of illustration let's write a class that calculates the
-mean of a list:
+function. With the aggregated values a new ``DataFrame`` object is
+returned. **Beware** that your aggregation function returns a
+**scalar**, e.g. a ``float``. First we need to write a class that
+extends ``Callable`` and that overwrites ``__call__``. Some basic
+functions are already implemented. For the sake of illustration let's
+write a class that calculates the mean of a list:
 
 .. code:: python
 
@@ -198,7 +210,7 @@ return a **list** and not a scalar. For example:
 
 
 So if we call ``modify`` on a column in our ``frame`` the result has to
-be of length ``150``. As an example lets standardize the column
+be of length ``150``. As an example let's standardize the column
 ``pentallength``.
 
 .. code:: python
@@ -231,7 +243,7 @@ be of length ``150``. As an example lets standardize the column
     +-------------+------------+-------------+------------+--------+---------------------+
 
 
-I noticed that ``scipy`` calculates other values that when I standardize
+I noticed that ``scipy`` calculates other values than when I standardize
 using ``R``. Maybe you have the same issue.
 
 Grouping the DataFrame
@@ -277,7 +289,8 @@ Basically ``GroupedDataFrame`` has the same features as ``DataFrame``
 since both inherit from the same superclass ``ADataFrame``. So the
 routines do the same things, only on every **group** and not on the
 **whole** ``DataFrame`` object. We start out with a plain ``DataFrame``
-and work through all the important methods.
+and work through all the important methods. Since it is the same methods
+as in ``DataFrame`` I just show some examples.
 
 Subsetting GroupedDataFrame columns
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
