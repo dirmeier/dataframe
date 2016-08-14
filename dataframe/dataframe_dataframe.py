@@ -1,4 +1,8 @@
+# @author = 'Simon Dirmeier'
+# @email = 'rafstraumur@simon-dirmeier.net'
+
 import dataframe
+
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_column_set import DataFrameColumnSet, DataFrameColumn
 from ._check import is_none, is_callable, has_elements

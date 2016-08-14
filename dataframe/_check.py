@@ -1,11 +1,11 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
 
-from .callable import Callable
+import dataframe
 
 
 def is_callable(f):
-    if not issubclass(f, Callable):
+    if not issubclass(f, dataframe.Callable):
         raise TypeError("f must be subclass of Callable!")
     return True
 

@@ -2,9 +2,7 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 
 import unittest
-import pytest
-from dataframe.dataframe_dataframe import DataFrame
-from dataframe.dataframe_grouped_dataframe import GroupedDataFrame
+import dataframe
 from dataframe import Callable
 from statistics import mean
 import scipy.stats as sps
@@ -25,7 +23,7 @@ class Zscore(Callable):
 class TestDataFrame(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.__table = DataFrame(a=[1, 2, 3] * 10, b=["a", "b", "c"] * 10)
+        self.__table = dataframe.DataFrame(a=[1, 2, 3] * 10, b=["a", "b", "c"] * 10)
         self.__selected = self.__table.subset("a")
 
     def test_nrow(self):
@@ -48,7 +46,7 @@ class TestDataFrame(unittest.TestCase):
 
     def test_grouping_class(self):
         gr = self.__table.group("a")
-        assert isinstance(gr, GroupedDataFrame)
+        assert isinstance(gr, dataframe.GroupedDataFrame)
 
     def test_grp_size(self):
         tab = self.__table.group("a")

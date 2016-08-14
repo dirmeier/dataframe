@@ -7,17 +7,16 @@ from collections import Counter
 
 import unittest
 import pytest
-from dataframe.dataframe_dataframe import DataFrame
-from dataframe import Callable
-from statistics import mean
-import scipy.stats as sps
 
-class Mean(Callable):
+import dataframe
+from statistics import mean
+
+class Mean(dataframe.Callable):
     def __call__(self, *args):
         vals = args[0].values()
         return mean(vals)
 
-class Exp(Callable):
+class Exp(dataframe.Callable):
     def __call__(self, *args):
         vals = args[0].values()
         a = map(lambda x: x * x, vals)
@@ -26,7 +25,7 @@ class Exp(Callable):
 class TestGroupedDataFrame(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.__table = DataFrame(a=list(range(30)), b=["a", "b", "c"] * 10).group("b")
+        self.__table = dataframe.DataFrame(a=list(range(30)), b=["a", "b", "c"] * 10).group("b")
 
     def test_aggregate_error(self):
         with pytest.raises(TypeError):

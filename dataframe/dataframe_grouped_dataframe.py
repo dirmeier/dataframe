@@ -3,6 +3,7 @@
 import copy
 import itertools
 import dataframe
+
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_grouping import DataFrameGrouping
 from ._check import is_callable, is_none, has_elements, disjoint

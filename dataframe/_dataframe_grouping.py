@@ -3,7 +3,6 @@
 import numpy
 from prettytable import PrettyTable
 import dataframe
-
 from ._dataframe_group import DataFrameGroup
 
 

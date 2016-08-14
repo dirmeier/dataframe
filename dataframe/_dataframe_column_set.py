@@ -2,6 +2,7 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 from itertools import chain
 from prettytable import PrettyTable
+
 from ._dataframe_column import DataFrameColumn
 from ._dataframe_row import DataFrameRow
 
