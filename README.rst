@@ -7,7 +7,8 @@ dataframe
 .. image:: https://codecov.io/gh/rafstraumur/dataframe/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/rafstraumur/dataframe
 
-Efficient data-frame implementations in python.
+Efficient data-frame_ implementations in python.
+
 
 Introduction
 ============
@@ -17,36 +18,43 @@ Programming in ``R`` has become way nicer since Hadley Wickham's ``data.table`` 
 Installation
 ============
 
-There are three ways to install the library. Either you can install directly from ``pip`` using:
-
-.. code-block:: bash
- 
-   pip install dataframe
-
-Alternatively just call:
+Install the library using:
 
 .. code-block:: bash
  
    pip install git+git://github.com/rafstraumur/dataframe.git
 
-The third option is two clone or download the repository and install with ``setup.py``, for example when you want to fork the library:
+from command line. This will install the library in your local environment. This gives you the newest *git commit*. You can of course also install using ``pip``:
 
 .. code-block:: bash
- 
-   pip setup.py install
 
-Usage
-=====
+   pip install dataframe
 
-Detailed documentation is found at `pythonhosted.org <http://pythonhosted.org/dataframe/>`. If you want to have the docs locally, you can also install the documentation using `sphinx`. Change folder to ``docs`` and use:
+
+Documentation
+=============
+
+Detailed documentation is found at pythonhosted.org_. If you want to have the docs locally, you can also install the documentation using `sphinx`. Change folder to ``docs`` and use:
 
 .. code-block:: bash
  
    make html
 
-Then open ``docs/build/html/index.html`` using the web-browers of your choice. 
+Then open ``docs/build/html/index.html`` using the web-browers of your choice.
+
+The most convenient way, however, is to use the provided jupyter notebook in ``examples`` which you can use interactively.
+
+.. code-block:: bash
+
+   cd examples
+   jupyter notebook
+
+This of course requires you to install jupyter!
 
 Author
 ======
 
 - Simon Dirmeier <simon.dirmeier@gmx.de>
+
+.. _data-frame: https://pypi.python.org/pypi/dataframe/
+.. _pythonhosted.org: http://pythonhosted.org/dataframe/>`
