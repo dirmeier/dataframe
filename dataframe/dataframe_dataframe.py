@@ -1,7 +1,6 @@
+import dataframe
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_column_set import DataFrameColumnSet, DataFrameColumn
-from .dataframe_grouped_dataframe import GroupedDataFrame
-
 from ._check import is_none, is_callable, has_elements
 
 class DataFrame(ADataFrame):
@@ -121,7 +120,7 @@ class DataFrame(ADataFrame):
         :return: returns a dataframe that has grouping information
         :rtype: GroupedDataFrame
         """
-        return GroupedDataFrame(self, *args)
+        return dataframe.GroupedDataFrame(self, *args)
 
     def modify(self, clazz, new_col, *args):
         """

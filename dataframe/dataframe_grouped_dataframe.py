@@ -2,11 +2,10 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 import copy
 import itertools
-
+import dataframe
 from ._dataframe_abstract import ADataFrame
-from ._check import is_callable, is_none, has_elements, disjoint
 from ._dataframe_grouping import DataFrameGrouping
-import dataframe.dataframe_dataframe
+from ._check import is_callable, is_none, has_elements, disjoint
 
 
 class GroupedDataFrame(ADataFrame):

@@ -4,3 +4,4 @@
 from dataframe.callable import Callable
 from dataframe.dataframe_dataframe import DataFrame
 from dataframe.dataframe_grouped_dataframe import GroupedDataFrame
+from dataframe.search_tree.search_tree import SearchTree
