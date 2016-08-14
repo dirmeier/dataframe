@@ -2,8 +2,9 @@
 # @email = 'rafstraumur@simon-dirmeier.net'
 import numpy
 from prettytable import PrettyTable
+import dataframe
+
 from ._dataframe_group import DataFrameGroup
-from .search_tree.search_tree import SearchTree
 
 
 class DataFrameGrouping:
@@ -20,7 +21,7 @@ class DataFrameGrouping:
         # the array if values that produces a group ( e.g. 0 -> [0,1], 1 -> [1,0], etc.)
         self.__grouping_values = {}
         # indexing tree for logarithmic lookup of group index
-        self.__search_tree = SearchTree()
+        self.__search_tree = dataframe.SearchTree()
         # array of group indexes for every row, i.e. every element is the group index the row belongs to
         self.__group_idxs = numpy.zeros(obj.nrow()).astype(int)
         # groups: maps from grp index to group object
