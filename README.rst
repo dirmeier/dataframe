@@ -51,5 +51,5 @@ Author
 - Simon Dirmeier <simon.dirmeier@gmx.de>
 
 .. _data-frame: https://pypi.python.org/pypi/dataframe/
-.. _pythonhosted.org: http://pythonhosted.org/dataframe/>`
+.. _pythonhosted.org: http://pythonhosted.org/dataframe/
 
