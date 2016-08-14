@@ -91,7 +91,7 @@ class DataFrameGrouping:
             group_columns = {x: self.__dataframe[x][row_idxs] for x in self.__dataframe.colnames()}
             # add the rows to a new group
             self.__groups[str(grp_idx)] = DataFrameGroup(grp_idx,
-                                                         row_idxs,
+
                                                          self.__grouping_values[str(grp_idx)],
                                                          self.__grouping_col_names,
                                                          **group_columns)
