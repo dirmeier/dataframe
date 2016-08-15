@@ -13,7 +13,7 @@ setup(
     description='Efficient data-frame implementation in python',
     long_description=readme(),
     url='https://github.com/rafstraumur/dataframe',
-    download_url='https://github.com/rafstraumur/dataframe/tarball/0.1.1',
+    download_url='https://github.com/rafstraumur/dataframe/tarball/0.1.2',
     author='Simon Dirmeier',
     author_email='simon.dirmeier@gmx.de',
     license='GPLv3',
