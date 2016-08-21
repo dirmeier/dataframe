@@ -6,6 +6,8 @@ dataframe
    :target: https://travis-ci.org/rafstraumur/dataframe/
 .. image:: https://codecov.io/gh/rafstraumur/dataframe/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/rafstraumur/dataframe
+.. image:: https://badge.fury.io/py/dataframe.svg
+   :target: https://badge.fury.io/py/dataframe
 
 Efficient data-frame_ implementations in python.
 
