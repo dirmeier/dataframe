@@ -4,7 +4,7 @@
 import dataframe
 
 from ._dataframe_abstract import ADataFrame
-from ._dataframe_column_set import DataFrameColumnSet, DataFrameColumn
+from ._dataframe_column_set import DataFrameColumnSet
 from ._check import is_none, is_callable, has_elements
 
 class DataFrame(ADataFrame):
