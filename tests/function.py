@@ -1,6 +1,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'rafstraumur@simon-dirmeier.net'
 
+
 class Function:
     def __init__(self, func, args=(), kwargs={}, unique=True, min_arg=None):
         self.__func = func
@@ -21,7 +22,7 @@ class Function:
             else:
                 return Function(self.__func, _args, _kwargs, self.__unique, self.__min_arg)
         else:
-            return self.__func(*self._args, **self.__kwargs)
+            return self.__func(*self.__args, **self.__kwargs)
 
     def __ror__(self, arg):
         return self.__func(*(self.__args + (arg,)),
