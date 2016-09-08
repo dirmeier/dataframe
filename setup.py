@@ -4,7 +4,7 @@ from pip.req import parse_requirements
 def readme():
     with open('README.rst') as f:
         return f.read()
-        
+
 reqs = [str(ir.req) for ir in parse_requirements('requirements.txt', session=False)]
 
 setup(
@@ -12,8 +12,8 @@ setup(
     version='0.1.2',
     description='Implementation of efficient data-frame classes and methods.',
     long_description=readme(),
-    url='https://github.com/rafstraumur/dataframe',
-    download_url='https://github.com/rafstraumur/dataframe/tarball/0.1.2',
+    url='https://github.com/dirmeier/dataframe',
+    download_url='https://github.com/dirmeier/dataframe/tarball/0.1.2',
     author='Simon Dirmeier',
     author_email='simon.dirmeier@gmx.de',
     license='GPLv3',

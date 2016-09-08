@@ -2,12 +2,14 @@
 dataframe
 *********
 
-.. image:: https://travis-ci.org/rafstraumur/dataframe.svg?branch=master
-   :target: https://travis-ci.org/rafstraumur/dataframe/
-.. image:: https://codecov.io/gh/rafstraumur/dataframe/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/rafstraumur/dataframe
+.. image:: https://travis-ci.org/dirmeier/dataframe.svg?branch=master
+   :target: https://travis-ci.org/dirmeier/dataframe/
+.. image:: https://codecov.io/gh/dirmeier/dataframe/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/dirmeier/dataframe
 .. image:: https://badge.fury.io/py/dataframe.svg
    :target: https://badge.fury.io/py/dataframe
+.. image:: https://api.codacy.com/project/badge/Grade/3787d3068c2f472bb337665ff67d7068   
+   :target: https://www.codacy.com/app/simon-dirmeier/dataframe?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/dataframe&amp;utm_campaign=Badge_Grade
 
 Efficient data-frame_ implementations in python.
 
@@ -25,7 +27,7 @@ Install the library using:
 
 .. code-block:: bash
  
-   pip install git+git://github.com/rafstraumur/dataframe.git
+   pip install git+git://github.com/dirmeier/dataframe.git
 
 from command line. This will install the library in your local environment and gives you the newest *git commit*. You can of course also install using ``pip``:
 

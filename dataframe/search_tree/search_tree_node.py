@@ -3,8 +3,8 @@
 
 
 class SearchTreeNode:
-    def __init__(self, id):
-        self.__id = id
+    def __init__(self, nid):
+        self.__id = nid
         self.__children = dict()
         self.__value = -1
 
@@ -28,5 +28,5 @@ class SearchTreeNode:
     def has_child(self, val):
         return val in self.__children
 
-    def get_child(self, id):
-        return self.__children[id]
+    def get_child(self, nid):
+        return self.__children[nid]

@@ -3,7 +3,7 @@
 
 
 class Function:
-    def __init__(self, func, args=(), kwargs={}, unique=True, min_arg=None):
+    def __init__(self, func, args=(), kwargs=None, unique=True, min_arg=None):
         self.__func = func
         self.__args = args
         self.__kwargs = kwargs

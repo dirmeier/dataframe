@@ -3,7 +3,6 @@
 import numpy
 from prettytable import PrettyTable
 from ._dataframe_group import DataFrameGroup
-from ._check import contains_all
 from dataframe.search_tree import SearchTree
 
 __DISJOINT_SETS_ERROR__ = "Subsetting on non-available columns!"
