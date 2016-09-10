@@ -28,5 +28,5 @@ class TestUtil(unittest.TestCase):
             self.__table.aggregate(D, None, "a")
 
     def test_has_elems_error(self):
-        with pytest.raises(TypeError):
+        with pytest.raises(ValueError):
             self.__table.aggregate(D, "c")
