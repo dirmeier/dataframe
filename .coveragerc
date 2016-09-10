@@ -12,7 +12,7 @@ exclude_lines =
     pass
     def __str_
     def __hash__
-    def __eq___
+    def __eq__
     def __iter__
     def __getitem__
 ignore_errors = True
