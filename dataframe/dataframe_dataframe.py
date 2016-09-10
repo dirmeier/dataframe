@@ -7,9 +7,11 @@ from ._dataframe_abstract import ADataFrame
 from ._dataframe_column_set import DataFrameColumnSet
 from ._check import is_none, is_callable, has_elements
 
+
 class DataFrame(ADataFrame):
     """
     The base DataFrame class.
+
     """
 
     def __init__(self, **kwargs):

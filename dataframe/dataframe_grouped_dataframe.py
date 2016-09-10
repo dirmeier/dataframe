@@ -9,6 +9,7 @@ from ._check import is_callable, is_none, has_elements, is_disjoint
 
 __DISJOINT_SETS_ERROR__ = "Cannot aggregate grouping variable(s)!"
 
+
 class GroupedDataFrame(ADataFrame):
     """
     The base GroupedDataFrame class. Subsets a DataFrame object into several groups given several columns.
@@ -107,16 +108,16 @@ class GroupedDataFrame(ADataFrame):
             return self.__do_modify(clazz, new_col, *args)
 
     def __do_modify(self, clazz, new_col, *col_names):
-        df = copy.deepcopy(self.__grouping.ungroup())
-        new_rows = [None] * df.nrow()
+        dfr = copy.deepcopy(self.__grouping.ungroup())
+        new_rows = [None] * dfr.nrow()
         for _, group in self.__grouping:
             colvals = [group[x] for x in col_names]
             res = clazz()(*colvals)
             if len(res) != len(colvals[0].values()):
                 raise ValueError("The function you provided yields an array of false length!")
-            for i, e in enumerate(group.row_idxs()):
-                new_rows[e] = res[i]
-        return df.cbind(**{new_col: new_rows}).group(*self.__grouping.grouping_colnames())
+            for i, row in enumerate(group.row_idxs()):
+                new_rows[row] = res[i]
+        return dfr.cbind(**{new_col: new_rows}).group(*self.__grouping.grouping_colnames())
 
     def aggregate(self, clazz, new_col, *args):
         """

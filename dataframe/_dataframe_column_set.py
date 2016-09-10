@@ -23,13 +23,13 @@ class DataFrameColumnSet:
             yield col
 
     def __str__(self):
-        pt = PrettyTable()
-        for e in self.__data_columns:
-            vals = e.values()
+        pta = PrettyTable()
+        for col in self.__data_columns:
+            vals = col.values()
             if len(vals) > 10:
                 vals = list(chain(vals[:3], "...", vals[-3:]))
-            pt.add_column(e.colname(), vals)
-        return pt.__str__()
+            pta.add_column(col.colname(), vals)
+        return pta.__str__()
 
     def nrow(self):
         return self.__nrow
@@ -44,6 +44,12 @@ class DataFrameColumnSet:
         return [self.row(i) for i in idxs]
 
     def row(self, idx):
+        """
+        Returns DataFrameRow of the DataFrame given its index.
+
+        :param idx: the index of the row in the DataFrame.
+        :return: returns a DataFrameRow
+        """
         return DataFrameRow(idx, [x[idx] for x in self], self.colnames())
 
     def which_colnames(self, *args):

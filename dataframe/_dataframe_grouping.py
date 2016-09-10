@@ -52,7 +52,13 @@ class DataFrameGrouping:
                 pt.add_row(["---"] * len(self.__dataframe.colnames()))
         return pt.__str__()
 
+    @property
     def grouping_colnames(self):
+        """
+        Getter for the grouping column names.
+
+        :return: returns the grouping column names
+        """
         return self.__grouping_col_names
 
     def groups(self):

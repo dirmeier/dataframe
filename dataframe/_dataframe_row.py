@@ -25,7 +25,13 @@ class DataFrameRow:
     def __repr__(self):
         return self.__str__()
 
+    @property
     def idx(self):
+        """
+        Getter for the index of the DataFrameRow.
+
+        :return: returns the index of the row
+        """
         return self.__idx
 
     def values(self):

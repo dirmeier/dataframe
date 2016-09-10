@@ -5,6 +5,10 @@ from abc import ABCMeta, abstractmethod
 
 
 class ADataFrame(metaclass=ABCMeta):
+    """
+    Abstract base class for dataframe.
+
+    """
     @abstractmethod
     def subset(self, *args):
         pass
