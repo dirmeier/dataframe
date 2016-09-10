@@ -36,25 +36,8 @@ class Chainable:
     def __ror__(self, arg):
         return self.__func(*(self.__args + (arg,)), **self.__kwargs)
 
-    def __add__(self, other):
-        if not isinstance(other, Chainable):
-            raise TypeError("Cannot compose a chainable with a non-chainable function")
-
-        def compute(*args, **kwargs):
-            return other.__func(*(other.__myArgs + (self.__func(*args, **kwargs),)),
-                                **other.__myKwArgs)
-
-        return Chainable(compute, self.__args, self.__kwargs, self.__unique, self.__minargs)
-
 def cur(f, min_args=None):
     return Chainable(f, (), {}, True, min_args)
 
 def curr(f, min_args=None):
     return Chainable(f, (), {}, False, min_args)
-
-map = cur(map, 2)
-filter = cur(filter, 2)
-
-
-s = range(41) | filter(lambda i: i % 2) | map(lambda i: i * i)
-print(list(s))
