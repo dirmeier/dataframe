@@ -10,7 +10,11 @@ exclude_lines =
     raise NotImplementedError
     if __name__ == .__main__.:
     pass
-    def __str__
+    def __str_
+    def __hash__
+    def __eq___
+    def __iter__
+    def __getitem__
 ignore_errors = True
 omit =
     tests/*
