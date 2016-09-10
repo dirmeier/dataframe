@@ -10,13 +10,13 @@ import scipy.stats as sps
 
 class Mean(Callable):
     def __call__(self, *args):
-        vals = args[0].values()
+        vals = args[0].values
         return mean(vals)
 
 
 class Zscore(Callable):
     def __call__(self, *args):
-        vals = args[0].values()
+        vals = args[0].values
         return sps.zscore(vals).tolist()
 
 
@@ -27,22 +27,22 @@ class TestDataFrame(unittest.TestCase):
         self.__selected = self.__table.subset("a")
 
     def test_nrow(self):
-        assert self.__table.nrow() == 30
+        assert self.__table.nrow == 30
 
     def test_ncol(self):
-        assert self.__table.ncol() == 2
+        assert self.__table.ncol == 2
 
     def test_colnames(self):
-        assert self.__table.colnames() == ["a", "b"]
+        assert self.__table.colnames == ["a", "b"]
 
     def test_select_nrow(self):
-        assert self.__selected.nrow() == 30
+        assert self.__selected.nrow == 30
 
     def test_select_ncol(self):
-        assert self.__selected.ncol() == 1
+        assert self.__selected.ncol == 1
 
     def test_selected_colnames(self):
-        assert self.__selected.colnames() == ["a"]
+        assert self.__selected.colnames == ["a"]
 
     def test_grouping_class(self):
         gr = self.__table.group("a")

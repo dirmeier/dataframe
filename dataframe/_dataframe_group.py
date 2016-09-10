@@ -26,8 +26,8 @@ class DataFrameGroup:
         :rtype: DataFrameColumn
         """
 
-        if isinstance(item, str) and item in self.__data_columns.colnames():
-            return self.__data_columns[self.__data_columns.colnames().index(item)]
+        if isinstance(item, str) and item in self.__data_columns.colnames:
+            return self.__data_columns[self.__data_columns.colnames.index(item)]
         raise TypeError("Wrong idx (either no string or item is not in DataFrame!")
 
     def __iter__(self):
@@ -37,9 +37,11 @@ class DataFrameGroup:
     def cbind(self, **kwargs):
         self.__data_columns.cbind(**kwargs)
 
+    @property
     def grp_idx(self):
         return self.__grp_idx
 
+    @property
     def grouping_values(self):
         return self.__grouping_values
 

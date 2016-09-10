@@ -31,14 +31,17 @@ class DataFrameColumnSet:
             pta.add_column(col.colname(), vals)
         return pta.__str__()
 
+    @property
     def nrow(self):
         return self.__nrow
 
+    @property
     def ncol(self):
-        return len(self.colnames())
+        return len(self.colnames)
 
+    @property
     def colnames(self):
-        return [x.colname() for x in self.__data_columns]
+        return [x.colname for x in self.__data_columns]
 
     def rows(self, idxs):
         return [self.row(i) for i in idxs]
@@ -50,12 +53,12 @@ class DataFrameColumnSet:
         :param idx: the index of the row in the DataFrame.
         :return: returns a DataFrameRow
         """
-        return DataFrameRow(idx, [x[idx] for x in self], self.colnames())
+        return DataFrameRow(idx, [x[idx] for x in self], self.colnames)
 
     def which_colnames(self, *args):
         idx = []
         for i in range(len(self.__data_columns)):
-            if self.colnames()[i] in args:
+            if self.colnames[i] in args:
                 idx.append(i)
         return idx
 
@@ -65,7 +68,7 @@ class DataFrameColumnSet:
             self.__cbind(DataFrameColumn(str(k), columns.get(k)))
 
     def __cbind(self, column):
-        if column.colname in self.colnames():
+        if column.colname in self.colnames:
             ValueError("Appending duplicate col-name!")
         self.__data_columns.append(column)
         self.__nrow = self.__data_columns[-1].size()

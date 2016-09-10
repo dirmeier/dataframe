@@ -34,6 +34,7 @@ class GroupedDataFrame(ADataFrame):
         for _, v in self.__grouping:
             yield v
 
+    @property
     def colnames(self):
         """
         Getter for the column names of the DataFrame.
@@ -41,8 +42,9 @@ class GroupedDataFrame(ADataFrame):
         :return: returns column names
         :rtype: list(str)
         """
-        return self.__grouping.ungroup().colnames()
+        return self.__grouping.ungroup().colnames
 
+    @property
     def groups(self):
         """
         Getter for all groups.
@@ -50,7 +52,7 @@ class GroupedDataFrame(ADataFrame):
         :return: returns the groups
         :rtype: list(DataFrameGroup)
         """
-        return self.__grouping.groups()
+        return self.__grouping.groups
 
     def ungroup(self):
         """
@@ -71,9 +73,9 @@ class GroupedDataFrame(ADataFrame):
         :rtype: DataFrame
         """
         args = list(args)
-        args.extend([x for x in self.__grouping.grouping_colnames() if x not in args])
+        args.extend([x for x in self.__grouping.grouping_colnames if x not in args])
         return GroupedDataFrame(self.__grouping.ungroup().subset(*args),
-                                *self.__grouping.grouping_colnames())
+                                *self.__grouping.grouping_colnames)
 
     def group(self, *args):
         """
@@ -85,7 +87,7 @@ class GroupedDataFrame(ADataFrame):
         :rtype: GroupedDataFrame
         """
         args = list(args)
-        args.extend([x for x in self.__grouping.grouping_colnames() if x not in args])
+        args.extend([x for x in self.__grouping.grouping_colnames if x not in args])
         return GroupedDataFrame(self.__grouping.ungroup(), *args)
 
     def modify(self, clazz, new_col, *args):
@@ -104,20 +106,20 @@ class GroupedDataFrame(ADataFrame):
         if is_callable(clazz) \
                 and not is_none(new_col) \
                 and has_elements(*args) \
-                and is_disjoint(self.__grouping.grouping_colnames(), args, __DISJOINT_SETS_ERROR__):
+                and is_disjoint(self.__grouping.grouping_colnames, args, __DISJOINT_SETS_ERROR__):
             return self.__do_modify(clazz, new_col, *args)
 
     def __do_modify(self, clazz, new_col, *col_names):
         dfr = copy.deepcopy(self.__grouping.ungroup())
-        new_rows = [None] * dfr.nrow()
+        new_rows = [None] * dfr.nrow
         for _, group in self.__grouping:
             colvals = [group[x] for x in col_names]
             res = clazz()(*colvals)
-            if len(res) != len(colvals[0].values()):
+            if len(res) != len(colvals[0].values):
                 raise ValueError("The function you provided yields an array of false length!")
             for i, row in enumerate(group.row_idxs()):
                 new_rows[row] = res[i]
-        return dfr.cbind(**{new_col: new_rows}).group(*self.__grouping.grouping_colnames())
+        return dfr.cbind(**{new_col: new_rows}).group(*self.__grouping.grouping_colnames)
 
     def aggregate(self, clazz, new_col, *args):
         """
@@ -135,12 +137,12 @@ class GroupedDataFrame(ADataFrame):
         if is_callable(clazz) \
                 and not is_none(new_col) \
                 and has_elements(*args) \
-                and is_disjoint(self.__grouping.grouping_colnames(), args, __DISJOINT_SETS_ERROR__):
+                and is_disjoint(self.__grouping.grouping_colnames, args, __DISJOINT_SETS_ERROR__):
             return self.__do_aggregate(clazz, new_col, *args)
 
     def __do_aggregate(self, clazz, new_col, *col_names):
         # init a dictionary of lists where the keys are the grouping colnames + the new column name
-        resvals = {i: [] for i in self.__grouping.grouping_colnames() }
+        resvals = {i: [] for i in self.__grouping.grouping_colnames}
         resvals[new_col] = []
         # iterate over every group
         for _, group in self.__grouping:
@@ -152,7 +154,7 @@ class GroupedDataFrame(ADataFrame):
                 raise ValueError("The function you provided yields an array of false length!")
             # append the result and the grouping values to the dictionary values (i.e. the lists)
             resvals[new_col].append(res)
-            for i, e in enumerate(group.grouping_colnames()):
-                resvals[e].append(group.grouping_values()[i])
+            for i, e in enumerate(group.grouping_colnames):
+                resvals[e].append(group.grouping_values[i])
         # create a new UN-GROUPED data-frame object
         return dataframe.DataFrame(**resvals)

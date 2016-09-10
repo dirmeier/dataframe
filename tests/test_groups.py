@@ -12,13 +12,13 @@ from statistics import mean
 
 class Mean(dataframe.Callable):
     def __call__(self, *args):
-        vals = args[0].values()
+        vals = args[0].values
         return mean(vals)
 
 
 class Exp(dataframe.Callable):
     def __call__(self, *args):
-        vals = args[0].values()
+        vals = args[0].values
         a = map(lambda x: x * x, vals)
         return list(a)
 
@@ -38,10 +38,10 @@ class TestGroupedDataFrame(unittest.TestCase):
 
     def test_subset_ncol(self):
         a = self.__table.subset("b")
-        assert a.ungroup().ncol() == 1
+        assert a.ungroup().ncol == 1
 
     def test_selected_colnames(self):
-        assert self.__table.subset("b").colnames() == ["b"]
+        assert self.__table.subset("b").colnames == ["b"]
 
     def test_modify(self):
         a = self.__table.modify(Exp, "mean", "a")

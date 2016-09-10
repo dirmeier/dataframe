@@ -32,7 +32,7 @@ class DataFrame(ADataFrame):
         :return: returns a row from the DataFrame
         :rtype: DataFrameRow
         """
-        for i in range(self.nrow()):
+        for i in range(self.nrow):
             yield self.__row(i)
 
     def __getitem__(self, item):
@@ -45,12 +45,12 @@ class DataFrame(ADataFrame):
         :rtype: DataFrameColumn
         """
 
-        if isinstance(item, str) and item in self.colnames():
-            return self.__data_columns[self.colnames().index(item)]
+        if isinstance(item, str) and item in self.colnames:
+            return self.__data_columns[self.colnames.index(item)]
         elif isinstance(item, int):
             return self.__row(item)
         elif isinstance(item, slice):
-            return self.__rows(list(range(*item.indices(self.nrow()))))
+            return self.__rows(list(range(*item.indices(self.nrow))))
         elif isinstance(item, tuple):
             return self.__rows(list(item))
         elif isinstance(item, list):
@@ -112,9 +112,9 @@ class DataFrame(ADataFrame):
         :rtype: DataFrame
         """
         cols = {}
-        for k in self.colnames():
+        for k in self.colnames:
             if k in args:
-                cols[str(k)] = self.__data_columns[self.colnames().index(k)].values()
+                cols[str(k)] = self.__data_columns[self.colnames.index(k)].values
         return DataFrame(**cols)
 
     def group(self, *args):
@@ -151,12 +151,13 @@ class DataFrame(ADataFrame):
         # instantiate class and call
         res = clazz()(*colvals)
         res = [res] if not isinstance(res, list) else res
-        if len(res) != len(colvals[0].values()):
+        if len(res) != len(colvals[0].values):
             raise ValueError("The function you provided yields an array of false length!")
-        cols = {column.colname(): column.values() for column in self.__data_columns}
+        cols = {column.colname: column.values for column in self.__data_columns}
         cols[new_col] = res
         return DataFrame(**cols)
 
+    @property
     def nrow(self):
         """
         Getter for the number of rows in the DataFrame.
@@ -164,8 +165,9 @@ class DataFrame(ADataFrame):
         :return: returns the number of rows
         :rtype: int
         """
-        return self.__data_columns.nrow()
+        return self.__data_columns.nrow
 
+    @property
     def ncol(self):
         """
         Getter for the number of columns in the DataFrame.
@@ -173,8 +175,9 @@ class DataFrame(ADataFrame):
         :return: returns the number of columns
         :rtype: int
         """
-        return self.__data_columns.ncol()
+        return self.__data_columns.ncol
 
+    @property
     def colnames(self):
         """
         Getter for the columns names of the DataFrame.
@@ -182,7 +185,7 @@ class DataFrame(ADataFrame):
         :return: returns a list of column names
         :rtype: list(str)
         """
-        return self.__data_columns.colnames()
+        return self.__data_columns.colnames
 
     def which_colnames(self, *args):
         """

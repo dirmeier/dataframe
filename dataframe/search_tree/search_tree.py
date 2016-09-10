@@ -30,9 +30,9 @@ class SearchTree:
                 curr_node.add_child(child)
         if idx == len(args) - 1:
             curr_node = curr_node.get_child(key)
-            if curr_node.get_value() == -1:
+            if curr_node.get_value == -1:
                 curr_node.set_value(self.idx())
-            return curr_node.get_value()
+            return curr_node.get_value
         else:
             return self.__traverse(curr_node.get_child(key), idx + 1, *args)
 

@@ -16,7 +16,7 @@ class DataFrameGrouping:
     def __init__(self, obj, *args):
         self.__dataframe = obj
         for arg in args:
-            if arg not in obj.colnames():
+            if arg not in obj.colnames:
                 raise ValueError("Argument '{}' not in colnames".format(arg))
         # the indexes of the columns of the original table that are used for grouping
         self.__grouping_col_idx = obj.which_colnames(*args)
@@ -27,7 +27,7 @@ class DataFrameGrouping:
         # indexing tree for logarithmic lookup of group index
         self.__search_tree = SearchTree()
         # array of group indexes for every row, i.e. every element is the group index the row belongs to
-        self.__group_idxs = numpy.zeros(obj.nrow()).astype(int)
+        self.__group_idxs = numpy.zeros(obj.nrow).astype(int)
         # groups: maps from grp index to group object
         self.__groups = dict()
         self.__group_by()
@@ -88,7 +88,7 @@ class DataFrameGrouping:
         for row in self.__dataframe:
             els = [row[x] for x in self.__grouping_col_idx]
             grp_idx = self.__search_tree.find(*els)
-            self.__group_idxs[row.idx()] = grp_idx
+            self.__group_idxs[row.idx] = grp_idx
             self.__grouping_values[str(grp_idx)] = els
 
     def __set_groups(self):
@@ -99,7 +99,7 @@ class DataFrameGrouping:
             # get the row indexes of the original data frame that belong to group 'grp_idx' and cast to list
             row_idxs = list(numpy.where(self.__group_idxs == grp_idx)[0])
             # get the columns with the respective indexes from the dataframe
-            group_columns = {x: self.__dataframe[x][row_idxs] for x in self.__dataframe.colnames()}
+            group_columns = {x: self.__dataframe[x][row_idxs] for x in self.__dataframe.colnames}
             # add the rows to a new group
             self.__groups[str(grp_idx)] = DataFrameGroup(grp_idx,
                                                          row_idxs,
