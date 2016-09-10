@@ -50,7 +50,7 @@ class TestDataFrame(unittest.TestCase):
 
     def test_grp_size(self):
         tab = self.__table.group("a")
-        assert len(tab.groups()) == 3
+        assert len(tab.groups) == 3
 
     def test_aggregate(self):
         v = self.__table.aggregate(Mean, "mean", "a")

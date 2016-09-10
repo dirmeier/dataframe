@@ -33,24 +33,24 @@ class DataFrameGrouping:
         self.__group_by()
 
     def __iter__(self):
-        for k, v in self.__groups.items():
-            yield k, v
+        for key, value in self.__groups.items():
+            yield key, value
 
     def __getitem__(self, item):
         if isinstance(item, str):
             return self.__groups[item]
 
     def __str__(self):
-        pt = PrettyTable(self.__dataframe.colnames())
-        for i, group in enumerate(self.__groups.values()):
+        ptr = PrettyTable(self.__dataframe.colnames())
+        for i, group in enumerate(self.__groups.values):
             if i > 1:
                 break
             for j, row in enumerate(group):
                 if j < 5:
-                    pt.add_row(row.values())
+                    ptr.add_row(row.values())
             if i == 0:
-                pt.add_row(["---"] * len(self.__dataframe.colnames()))
-        return pt.__str__()
+                ptr.add_row(["---"] * len(self.__dataframe.colnames))
+        return ptr.__str__()
 
     @property
     def grouping_colnames(self):
@@ -61,6 +61,7 @@ class DataFrameGrouping:
         """
         return self.__grouping_col_names
 
+    @property
     def groups(self):
         """
         Getter the values of the group dictionary, i.e. the Group objects

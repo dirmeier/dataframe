@@ -50,7 +50,7 @@ class TestGroupedDataFrame(unittest.TestCase):
 
     def test_group(self):
         a = self.__table.group("a")
-        assert len(a.groups()) == 30
+        assert len(a.groups) == 30
 
     def test_group_error(self):
         with pytest.raises(ValueError):

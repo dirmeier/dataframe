@@ -4,14 +4,14 @@
 import dataframe
 
 
-def is_callable(f):
+def is_callable(func):
     """
     Check if a function extends callable.
 
-    :param f: the function to be checked
+    :param func: the function to be checked
     :return: returns true if the function is callable
     """
-    if not issubclass(f, dataframe.Callable):
+    if not issubclass(func, dataframe.Callable):
         raise TypeError("f must be subclass of Callable!")
     return True
 
@@ -64,7 +64,7 @@ def contains_all(set1, set2, warn):
     :param warn: the error message that should be thrown when the sets are not containd
     :return: returns true if all values of set2 are in set1
     """
-    for el in set2:
-        if el not in set1:
+    for elem in set2:
+        if elem not in set1:
             raise ValueError(warn)
     return True

@@ -31,8 +31,8 @@ class GroupedDataFrame(ADataFrame):
         return self.__grouping.__str__()
 
     def __iter__(self):
-        for _, v in self.__grouping:
-            yield v
+        for _, group in self.__grouping:
+            yield group
 
     @property
     def colnames(self):
@@ -117,7 +117,7 @@ class GroupedDataFrame(ADataFrame):
             res = clazz()(*colvals)
             if len(res) != len(colvals[0].values):
                 raise ValueError("The function you provided yields an array of false length!")
-            for i, row in enumerate(group.row_idxs()):
+            for i, row in enumerate(group.row_idxs):
                 new_rows[row] = res[i]
         return dfr.cbind(**{new_col: new_rows}).group(*self.__grouping.grouping_colnames)
 

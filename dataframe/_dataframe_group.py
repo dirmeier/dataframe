@@ -31,7 +31,7 @@ class DataFrameGroup:
         raise TypeError("Wrong idx (either no string or item is not in DataFrame!")
 
     def __iter__(self):
-        for i in range(self.__data_columns.nrow()):
+        for i in range(self.__data_columns.nrow):
             yield self.__data_columns.row(i)
 
     def cbind(self, **kwargs):
@@ -54,5 +54,6 @@ class DataFrameGroup:
         """
         return self.__grouping_colnames
 
+    @property
     def row_idxs(self):
         return self.__row_idxs
