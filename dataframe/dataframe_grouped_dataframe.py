@@ -154,7 +154,7 @@ class GroupedDataFrame(ADataFrame):
                 raise ValueError("The function you provided yields an array of false length!")
             # append the result and the grouping values to the dictionary values (i.e. the lists)
             resvals[new_col].append(res)
-            for i, e in enumerate(group.grouping_colnames):
-                resvals[e].append(group.grouping_values[i])
+            for i, colname in enumerate(group.grouping_colnames):
+                resvals[colname].append(group.grouping_values[i])
         # create a new UN-GROUPED data-frame object
         return dataframe.DataFrame(**resvals)
