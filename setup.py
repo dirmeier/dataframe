@@ -10,7 +10,7 @@ reqs = [str(ir.req) for ir in parse_requirements('requirements.txt', session=Fal
 setup(
     name='dataframe',
     version='0.1.2.1',
-    description='Implementation of efficient data-frame classes and methods.',
+    description='An efficient data-frame implementation in python.',
     long_description=readme(),
     url='https://github.com/dirmeier/dataframe',
     download_url='https://github.com/dirmeier/dataframe/tarball/0.1.2.1',

@@ -11,7 +11,7 @@ dataframe
 .. image:: https://api.codacy.com/project/badge/Grade/3787d3068c2f472bb337665ff67d7068   
    :target: https://www.codacy.com/app/simon-dirmeier/dataframe?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/dataframe&amp;utm_campaign=Badge_Grade
 
-Efficient data-frame_ implementations in python.
+An efficient data-frame_ implementation in python.
 
 Introduction
 ============
