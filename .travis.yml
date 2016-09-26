@@ -2,11 +2,13 @@ language: python
 
 sudo: false
 
+cache: packages
+
 python:
   - "3.5"
 
 install:
-  - pip install -r requirements
+  - pip install -r requirements.txt
   - pip install -e .
   - pip install codecov
   - pip install pytest-cov
