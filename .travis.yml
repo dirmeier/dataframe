@@ -3,7 +3,7 @@ language: python
 sudo: false
 
 python:
-  - "3.4"
+  - "3.5"
 
 before_install:
   - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
@@ -14,14 +14,13 @@ before_install:
   - conda update --yes conda
 
 install:
-  - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy scipy nose
+  - conda install --yes python=$TRAVIS_PYTHON_VERSION numpy scipy
   - pip install -e .
   - pip install codecov
   - pip install pytest-cov
 
 script: 
-  - nosetests --with-coverage
-  - py.test
+  - py.test --cov=./
 
 after_success:
   - codecov
