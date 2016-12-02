@@ -16,7 +16,7 @@ An efficient data-frame_ implementation in python.
 Introduction
 ============
 
-Large-scale data-analysis is getting increasingly important in statistics and computer science. For matrix-shaped data-sets ```dataframe``` offers an easy to use framework for analysis, reshaping and modification of data in ```Python```.
+Large-scale data-analysis is getting increasingly important in statistics and computer science. For matrix-shaped data-sets ``dataframe`` offers an easy to use framework for analysis, reshaping and modification of data in ``Python``.
 ``dataframe`` is easy to use, has basic *grouping*, *aggregation*, *subsetting* and *modification* functions and is (in the near future maybe) extended to C++ and Fortran.
 
 Installation
