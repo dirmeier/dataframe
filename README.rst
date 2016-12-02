@@ -16,8 +16,7 @@ An efficient data-frame_ implementation in python.
 Introduction
 ============
 
-Data-analysis in ``R`` has become way nicer since ``data.table`` and ``dplyr``, ``tidyr``, etc. (if you did't like ``R``, you will now). 
-The same should exist for python! Although there probably is software that does the same exact thing already (e.g. ``pandas``) , here is another one (primarily for me to check out **pypi**!). 
+With novel data large-scale data-analysis is getting increasingly important. For matrix-shaped data-sets ```dataframe``` offers an easy to use framework for analysis, reshaping and modification of data in ```Python```.
 ``dataframe`` is easy to use, has basic *grouping*, *aggregation*, *subsetting* and *modification* functions and is (in the near future maybe) extended to C++ and Fortran.
 
 Installation
