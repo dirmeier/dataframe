@@ -8,10 +8,10 @@ dataframe
    :target: https://travis-ci.org/dirmeier/dataframe/
 .. image:: https://codecov.io/gh/dirmeier/dataframe/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/dirmeier/dataframe
-.. image:: https://badge.fury.io/py/dataframe.svg
-   :target: https://badge.fury.io/py/dataframe
 .. image:: https://api.codacy.com/project/badge/Grade/3787d3068c2f472bb337665ff67d7068   
    :target: https://www.codacy.com/app/simon-dirmeier/dataframe?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/dataframe&amp;utm_campaign=Badge_Grade
+.. image:: https://badge.fury.io/py/dataframe.svg
+   :target: https://badge.fury.io/py/dataframe
 
 An efficient data-frame_ implementation in python.
 
