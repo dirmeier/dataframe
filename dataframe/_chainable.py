@@ -28,7 +28,7 @@ class Chainable:
 
     """
 
-    def __init__(self, func, args=(), kwargs=None, minargs = None):
+    def __init__(self, func, args=(), kwargs=None, minargs=None):
         """
         Constructor for chainable.
 
@@ -47,17 +47,22 @@ class Chainable:
             new_kwargs = dict.copy(self.__kwargs)
             new_kwargs.update(kwargs)
             # Evaluate function
-            if self.__minargs is not None and self.__minargs <= len(new_args) + len(new_kwargs):
+            if self.__minargs is not None and \
+               self.__minargs <= len(new_args) + len(new_kwargs):
                 return self.__func(*new_args, **new_kwargs)
             # create new chainable
             else:
-                return Chainable(self.__func, new_args, new_kwargs, self.__minargs)
+                return Chainable(self.__func,
+                                 new_args,
+                                 new_kwargs,
+                                 self.__minargs)
         # do call
         else:
             return self.__func(*self.__args, **self.__kwargs)
 
     def __ror__(self, arg):
         return self.__func(*(self.__args + (arg,)), **self.__kwargs)
+
 
 def chain(func, min_args=None):
     """

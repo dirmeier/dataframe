@@ -39,7 +39,8 @@ class D(dataframe.Callable):
 class TestUtil(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.__table = dataframe.DataFrame(a=list(range(30)), b=["a", "b", "c"] * 10).group("b")
+        self.__table = dataframe.DataFrame( \
+            a=list(range(30)), b=["a", "b", "c"] * 10).group("b")
 
     def test_callable_error(self):
         with pytest.raises(TypeError):
