@@ -95,6 +95,9 @@ class DataFrame(ADataFrame):
         """
         return self.__data_columns.__str__()
 
+    def __rshift__(self, other):
+        return None
+
     def aggregate(self, clazz, new_col, *args):
         """
         Aggregate the rows of the DataFrame into a single value.

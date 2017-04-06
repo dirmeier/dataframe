@@ -5,7 +5,7 @@
 from dataframe import DataFrame
 from sklearn import datasets
 import re
-from dataframe import Chainable
+from dataframe import chainable
 
 iris_data = datasets.load_iris()
 features = [re.sub("\s|cm|\(|\)", "", x) for x in iris_data.feature_names]
@@ -18,5 +18,15 @@ print(frame)
 
 fg = frame.group("target")
 
+class Bla:
+    def __init__(self, x):
+        self.x = x
 
-chain(DataFrame)
+    def __ror__(self, other):
+        return other.x < self.x
+
+
+a = Bla(1)
+b = Bla(2)
+
+print(a | b

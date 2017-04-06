@@ -49,6 +49,7 @@ class Chainable:
             # Evaluate function
             if self.__minargs is not None and \
                self.__minargs <= len(new_args) + len(new_kwargs):
+                print(*new_args)
                 return self.__func(*new_args, **new_kwargs)
             # create new chainable
             else:
@@ -73,3 +74,4 @@ def chain(func, min_args=None):
     :return: returns the function as chainable function
     """
     return Chainable(func, (), {}, min_args)
+
