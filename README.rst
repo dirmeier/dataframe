@@ -13,7 +13,7 @@ dataframe
 .. image:: https://api.codacy.com/project/badge/Grade/3787d3068c2f472bb337665ff67d7068   
    :target: https://www.codacy.com/app/simon-dirmeier/dataframe?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/dataframe&amp;utm_campaign=Badge_Grade
 
-An efficient data-frame_ implementation in python.
+A data-frame_ implementation using method chaining in python.
 
 Introduction
 ============
@@ -50,7 +50,7 @@ This of course requires you to install jupyter!
 Author
 ======
 
-- Simon Dirmeier <simon.dirmeier@gmx.de>
+- Simon Dirmeier <mail@simon-dirmeier.net>
 
 .. _data-frame: https://pypi.python.org/pypi/dataframe/
 .. _pythonhosted.org: http://pythonhosted.org/dataframe/

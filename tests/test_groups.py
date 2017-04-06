@@ -44,7 +44,8 @@ class Exp(dataframe.Callable):
 class TestGroupedDataFrame(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.__table = dataframe.DataFrame(a=list(range(30)), b=["a", "b", "c"] * 10).group("b")
+        self.__table = dataframe.DataFrame(a=list(range(30)),
+                                           b=["a", "b", "c"] * 10).group("b")
 
     def test_aggregate_error(self):
         with pytest.raises(TypeError):

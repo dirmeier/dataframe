@@ -19,7 +19,7 @@
 #
 #
 # @author = 'Simon Dirmeier'
-# @email = 'rafstraumur@simon-dirmeier.net'
+# @email = 'mail@simon-dirmeier.net'
 
 import numpy
 from prettytable import PrettyTable
@@ -62,8 +62,8 @@ class DataFrameGrouping:
             return self.__groups[item]
 
     def __str__(self):
-        ptr = PrettyTable(self.__dataframe.colnames())
-        for i, group in enumerate(self.__groups.values):
+        ptr = PrettyTable(self.__dataframe.colnames)
+        for i, group in enumerate(self.__groups.values()):
             if i > 1:
                 break
             for j, row in enumerate(group):

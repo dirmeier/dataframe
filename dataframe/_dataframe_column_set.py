@@ -19,7 +19,7 @@
 #
 #
 # @author = 'Simon Dirmeier'
-# @email = 'rafstraumur@simon-dirmeier.net'
+# @email = 'mail@simon-dirmeier.net'
 
 from itertools import chain
 from prettytable import PrettyTable
@@ -46,10 +46,10 @@ class DataFrameColumnSet:
     def __str__(self):
         pta = PrettyTable()
         for col in self.__data_columns:
-            vals = col.values()
+            vals = col.values
             if len(vals) > 10:
                 vals = list(chain(vals[:3], "...", vals[-3:]))
-            pta.add_column(col.colname(), vals)
+            pta.add_column(col.colname, vals)
         return pta.__str__()
 
     @property

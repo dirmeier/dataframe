@@ -19,7 +19,7 @@
 #
 #
 # @author = 'Simon Dirmeier'
-# @email = 'rafstraumur@simon-dirmeier.net'
+# @email = 'mail@simon-dirmeier.net'
 
 from ._dataframe_column_set import DataFrameColumnSet
 

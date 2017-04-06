@@ -23,9 +23,9 @@
 
 import unittest
 import dataframe
+import scipy.stats as sps
 from dataframe import Callable
 from statistics import mean
-import scipy.stats as sps
 
 
 class Mean(Callable):
@@ -43,7 +43,8 @@ class Zscore(Callable):
 class TestDataFrame(unittest.TestCase):
     def setUp(self):
         unittest.TestCase.setUp(self)
-        self.__table = dataframe.DataFrame(a=[1, 2, 3] * 10, b=["a", "b", "c"] * 10)
+        self.__table = dataframe.DataFrame(a=[1, 2, 3] * 10,
+                                           b=["a", "b", "c"] * 10)
         self.__selected = self.__table.subset("a")
 
     def test_nrow(self):

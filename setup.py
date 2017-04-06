@@ -1,6 +1,7 @@
 from setuptools import setup
 from pip.req import parse_requirements
 
+
 def readme():
     with open('README.rst') as f:
         return f.read()
@@ -10,12 +11,12 @@ reqs = [str(ir.req) for ir in parse_requirements('requirements.txt', session=Fal
 setup(
     name='dataframe',
     version='0.1.2.1',
-    description='An efficient data-frame implementation in python.',
+    description='A data-frame implementation using method chaining.',
     long_description=readme(),
     url='https://github.com/dirmeier/dataframe',
     download_url='https://github.com/dirmeier/dataframe/tarball/0.1.2.1',
     author='Simon Dirmeier',
-    author_email='simon.dirmeier@gmx.de',
+    author_email='mail@simon-dirmeier.net',
     license='GPLv3',
     keywords=['table', 'dataframe', 'datatable'],
     packages=['dataframe'],
