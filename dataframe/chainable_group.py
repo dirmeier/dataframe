@@ -36,10 +36,9 @@ def group(*args):
     :return: returns a grouped dataframe
     :rtype: DataFrame
     """
+
     if args and isinstance(args[0], DataFrame):
         return args[0].group(*args[1:])
-    elif isinstance(args[0], DataFrame):
-        raise ValueError("todo")
     else:
         return ChainableGroup(*args)
 
