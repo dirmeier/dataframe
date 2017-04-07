@@ -22,7 +22,8 @@
 # @email = 'mail@simon-dirmeier.net'
 
 
-from dataframe import DataFrame
+import dataframe
+from ._piping_exception import PipingException
 
 
 def group(*args):
@@ -37,7 +38,7 @@ def group(*args):
     :rtype: DataFrame
     """
 
-    if args and isinstance(args[0], DataFrame):
+    if args and isinstance(args[0], dataframe.DataFrame):
         return args[0].group(*args[1:])
     else:
         return ChainableGroup(*args)
@@ -56,13 +57,14 @@ class ChainableGroup:
         
         :param args: tuple of params
         """
-        if args and isinstance(args[0], DataFrame):
-            self.__df = args[0]
+        if args and isinstance(args[0], dataframe.DataFrame):
+            raise PipingException("")
         else:
             self.__args = args
 
-    def __call__(self, *args):
-        return self.__df.group(*args)
+    # def __call__(self, *args):
+    #     return 1
+    #     # return self.__df.group(*args)
 
     def __rrshift__(self, other):
         return other.group(*self.__args)

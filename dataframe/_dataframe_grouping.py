@@ -21,6 +21,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'mail@simon-dirmeier.net'
 
+
 import numpy
 from prettytable import PrettyTable
 from ._dataframe_group import DataFrameGroup
