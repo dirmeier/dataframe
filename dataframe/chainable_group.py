@@ -58,7 +58,7 @@ class ChainableGroup:
         :param args: tuple of params
         """
         if args and isinstance(args[0], dataframe.DataFrame):
-            raise PipingException("")
+            raise PipingException("Wrong instantiation")
         else:
             self.__args = args
 

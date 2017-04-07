@@ -26,7 +26,8 @@
 # @email = 'mail@simon-dirmeier.net'
 
 
-from dataframe import DataFrame
+import dataframe
+from ._piping_exception import PipingException
 from sklearn import datasets
 import re
 
@@ -52,7 +53,7 @@ def aggregate(*args):
     :rtype: DataFrame
     """
 
-    if args and isinstance(args[0], DataFrame):
+    if args and isinstance(args[0], dataframe.DataFrame):
         return args[0].aggregate(args[1], args[2], *args[3:])
     else:
         return ChainableAggregate(*args)
@@ -71,8 +72,8 @@ class ChainableAggregate:
 
         :param args: tuple of params
         """
-        if args and isinstance(args[0], DataFrame):
-            self.__df = args[0]
+        if args and isinstance(args[0], dataframe.DataFrame):
+            raise PipingException("Wrong instantiation")
         else:
             self.__args = args
 
