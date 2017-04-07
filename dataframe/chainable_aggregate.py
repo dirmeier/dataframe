@@ -1,7 +1,3 @@
-# __author__ = 'Simon Dirmeier'
-# __email__  = 'simon.dirmeier@bsse.ethz.ch'
-# __date__   = 07.04.17
-
 # dataframe: an efficient data-frame implementation in python
 #
 # Copyright (C) 2016 Simon Dirmeier
@@ -27,7 +23,7 @@
 
 
 import dataframe
-from ._piping_exception import PipingException
+from dataframe import _piping_exception
 from sklearn import datasets
 import re
 
@@ -37,7 +33,7 @@ features = [re.sub("\s|cm|\(|\)", "", x) for x in iris_data.feature_names]
 data = {features[i]: iris_data.data[:, i] for i in
         range(len(iris_data.data[1, :]))}
 data["target"] = iris_data.target
-frame = DataFrame(**data)
+frame = dataframe.DataFrame(**data)
 
 
 def aggregate(*args):
@@ -73,18 +69,25 @@ class ChainableAggregate:
         :param args: tuple of params
         """
         if args and isinstance(args[0], dataframe.DataFrame):
-            raise PipingException("Wrong instantiation")
+            raise _piping_exception.PipingException("Wrong instantiation")
         else:
             self.__args = args
 
-    def __call__(self, *args):
-        return self.__df.group(*args)
+    # def __call__(self, *args):
+    #     return self.__df.group(*args)
 
     def __rrshift__(self, other):
-        return other.group(*self.__args)
+        return other.aggregate(self.__args[0], self.__args[1], *self.__args[2:])
+
+from statistics import mean
+
+class Mean(dataframe.Callable):
+    def __call__(self, *args):
+        vals = args[0].values
+        return mean(vals)
 
 
-k = group(frame, "target")
+k = aggregate(frame, Mean, "mean", "target")
 print(k)
-k = frame >> group("target")
+k = frame >> aggregate(Mean, "mean", "petalwidth")
 print(k)
