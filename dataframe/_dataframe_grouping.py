@@ -31,7 +31,8 @@ __DISJOINT_SETS_ERROR__ = "Subsetting on non-available columns!"
 
 class DataFrameGrouping:
     """
-    Class that holds information o how every row in a data frame is grouped into subsets.
+    Class that holds information o how every row in a data frame is grouped
+    into subsets.
     """
 
     def __init__(self, obj, *args):
@@ -39,15 +40,18 @@ class DataFrameGrouping:
         for arg in args:
             if arg not in obj.colnames:
                 raise ValueError("Argument '{}' not in colnames".format(arg))
-        # the indexes of the columns of the original table that are used for grouping
+        # the indexes of the columns of the original table
+        # that are used for grouping
         self.__grouping_col_idx = obj.which_colnames(*args)
         # the column names of the original table that are used for grouping
         self.__grouping_col_names = [x for x in args]
-        # the array if values that produces a group ( e.g. 0 -> [0,1], 1 -> [1,0], etc.)
+        # the array if values that produces a group
+        # ( e.g. 0 -> [0,1], 1 -> [1,0], etc.)
         self.__grouping_values = {}
         # indexing tree for logarithmic lookup of group index
         self.__search_tree = SearchTree()
-        # array of group indexes for every row, i.e. every element is the group index the row belongs to
+        # array of group indexes for every row,
+        # i.e. every element is the group index the row belongs to
         self.__group_idxs = numpy.zeros(obj.nrow).astype(int)
         # groups: maps from grp index to group object
         self.__groups = dict()
@@ -62,6 +66,8 @@ class DataFrameGrouping:
             return self.__groups[item]
 
     def __str__(self):
+        str = "A dataframe grouped by (" + \
+              ", ".join(self.__grouping_col_names) + ")"
         ptr = PrettyTable(self.__dataframe.colnames)
         for i, group in enumerate(self.__groups.values()):
             if i > 1:
@@ -71,7 +77,7 @@ class DataFrameGrouping:
                     ptr.add_row(row.values())
             if i == 0:
                 ptr.add_row(["---"] * len(self.__dataframe.colnames))
-        return ptr.__str__()
+        return str + "\n\n" + ptr.__str__()
 
     @property
     def grouping_colnames(self):
@@ -106,7 +112,8 @@ class DataFrameGrouping:
         self.__set_groups()
 
     def __set_grp_idxs(self):
-        # iterate over all rows from the dataframe and assign each row a group index
+        # iterate over all rows from the dataframe and
+        # assign each row a group index
         for row in self.__dataframe:
             els = [row[x] for x in self.__grouping_col_idx]
             grp_idx = self.__search_tree.find(*els)
@@ -118,13 +125,16 @@ class DataFrameGrouping:
         # add each row of the original DataFrame to the specific group
         # get unique group indexes
         for grp_idx in numpy.unique(self.__group_idxs):
-            # get the row indexes of the original data frame that belong to group 'grp_idx' and cast to list
+            # get the row indexes of the original data frame that belong
+            # to group 'grp_idx' and cast to list
             row_idxs = list(numpy.where(self.__group_idxs == grp_idx)[0])
             # get the columns with the respective indexes from the dataframe
-            group_columns = {x: self.__dataframe[x][row_idxs] for x in self.__dataframe.colnames}
+            group_columns = {x: self.__dataframe[x][row_idxs]
+                             for x in self.__dataframe.colnames}
             # add the rows to a new group
-            self.__groups[str(grp_idx)] = DataFrameGroup(grp_idx,
-                                                         row_idxs,
-                                                         self.__grouping_values[str(grp_idx)],
-                                                         self.__grouping_col_names,
-                                                         **group_columns)
+            self.__groups[str(grp_idx)] = \
+                DataFrameGroup(grp_idx,
+                               row_idxs,
+                               self.__grouping_values[str(grp_idx)],
+                               self.__grouping_col_names,
+                               **group_columns)

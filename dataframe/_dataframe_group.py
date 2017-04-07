@@ -29,7 +29,8 @@ class DataFrameGroup:
     Class that represents a group within a DataFrame given a grouping vector.
 
     """
-    def __init__(self, grp_idx, row_idxs, grouping_values, grouping_colnames, **kwargs):
+    def __init__(self, grp_idx, row_idxs, grouping_values,
+                 grouping_colnames, **kwargs):
         self.__grp_idx = grp_idx
         self.__row_idxs = row_idxs
         self.__grouping_values = grouping_values
@@ -48,7 +49,8 @@ class DataFrameGroup:
 
         if isinstance(item, str) and item in self.__data_columns.colnames:
             return self.__data_columns[self.__data_columns.colnames.index(item)]
-        raise TypeError("Wrong idx (either no string or item is not in DataFrame!")
+        raise TypeError("Wrong idx " +
+                        "(either no string or item is not in DataFrame!")
 
     def __iter__(self):
         for i in range(self.__data_columns.nrow):

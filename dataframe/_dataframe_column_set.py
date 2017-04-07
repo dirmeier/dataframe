@@ -44,13 +44,14 @@ class DataFrameColumnSet:
             yield col
 
     def __str__(self):
+        str = "A dataframe"
         pta = PrettyTable()
         for col in self.__data_columns:
             vals = col.values
             if len(vals) > 10:
                 vals = list(chain(vals[:3], "...", vals[-3:]))
             pta.add_column(col.colname, vals)
-        return pta.__str__()
+        return str + "\n\n" +pta.__str__()
 
     @property
     def nrow(self):

@@ -21,6 +21,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'mail@simon-dirmeier.net'
 
+from dataframe.chainable_group import group
 from dataframe.callable import Callable
 from dataframe.chainable import Chainable
 from dataframe.dataframe_dataframe import DataFrame

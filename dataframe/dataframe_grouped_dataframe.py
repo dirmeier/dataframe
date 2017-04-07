@@ -21,9 +21,9 @@
 # @author = 'Simon Dirmeier'
 # @email = 'mail@simon-dirmeier.net'
 
+
 import copy
 import dataframe
-
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_grouping import DataFrameGrouping
 from ._check import is_callable, is_none, has_elements, is_disjoint
@@ -33,7 +33,8 @@ __DISJOINT_SETS_ERROR__ = "Cannot aggregate grouping variable(s)!"
 
 class GroupedDataFrame(ADataFrame):
     """
-    The base GroupedDataFrame class. Subsets a DataFrame object into several groups given several columns.
+    The base GroupedDataFrame class. 
+    Subsets a DataFrame object into several groups given several columns.
     """
 
     def __init__(self, obj, *args):
@@ -94,7 +95,8 @@ class GroupedDataFrame(ADataFrame):
         :rtype: DataFrame
         """
         args = list(args)
-        args.extend([x for x in self.__grouping.grouping_colnames if x not in args])
+        args.extend([x for x in
+                     self.__grouping.grouping_colnames if x not in args])
         return GroupedDataFrame(self.__grouping.ungroup().subset(*args),
                                 *self.__grouping.grouping_colnames)
 
@@ -108,26 +110,32 @@ class GroupedDataFrame(ADataFrame):
         :rtype: GroupedDataFrame
         """
         args = list(args)
-        args.extend([x for x in self.__grouping.grouping_colnames if x not in args])
+        args.extend([x for x in
+                     self.__grouping.grouping_colnames if x not in args])
         return GroupedDataFrame(self.__grouping.ungroup(), *args)
 
     def modify(self, clazz, new_col, *args):
         """
-        Modify some columns (i.e. apply a function) and add the result to the table.
+        Modify some columns (i.e. apply a function) 
+         and add the result to the table.
 
         :param clazz: name of a class that extends class Callable
         :type clazz: class
         :param new_col: name of the new column
         :type new_col: str
-        :param args: list of column names of the object that function should be applied to
+        :param args: list of column names of the object that 
+         function should be applied to
         :type args: tuple
-        :return: returns a new GroupedDataFrame object with the modified values, i.e. the new column of values
+        :return: returns a new GroupedDataFrame object with the modified
+          values, i.e. the new column of values
         :rtype: GroupedDataFrame
         """
         if is_callable(clazz) \
                 and not is_none(new_col) \
                 and has_elements(*args) \
-                and is_disjoint(self.__grouping.grouping_colnames, args, __DISJOINT_SETS_ERROR__):
+                and is_disjoint(self.__grouping.grouping_colnames,
+                                args,
+                                __DISJOINT_SETS_ERROR__):
             return self.__do_modify(clazz, new_col, *args)
 
     def __do_modify(self, clazz, new_col, *col_names):
@@ -137,10 +145,12 @@ class GroupedDataFrame(ADataFrame):
             colvals = [group[x] for x in col_names]
             res = clazz()(*colvals)
             if len(res) != len(colvals[0].values):
-                raise ValueError("The function you provided yields an array of false length!")
+                raise ValueError("The function you provided yields " +
+                                 "an array of false length!")
             for i, row in enumerate(group.row_idxs):
                 new_rows[row] = res[i]
-        return dfr.cbind(**{new_col: new_rows}).group(*self.__grouping.grouping_colnames)
+        return dfr.cbind(**{new_col: new_rows}).group(
+            *self.__grouping.grouping_colnames)
 
     def aggregate(self, clazz, new_col, *args):
         """
@@ -150,7 +160,8 @@ class GroupedDataFrame(ADataFrame):
         :type clazz: class
         :param new_col: name of the new column
         :type new_col: str
-        :param args: list of column names of the object that function should be applied to
+        :param args: list of column names of the object that
+         function should be applied to
         :type args: varargs
         :return: returns a new dataframe object with the aggregated value
         :rtype: DataFrame
@@ -158,11 +169,14 @@ class GroupedDataFrame(ADataFrame):
         if is_callable(clazz) \
                 and not is_none(new_col) \
                 and has_elements(*args) \
-                and is_disjoint(self.__grouping.grouping_colnames, args, __DISJOINT_SETS_ERROR__):
+                and is_disjoint(self.__grouping.grouping_colnames,
+                                args,
+                                __DISJOINT_SETS_ERROR__):
             return self.__do_aggregate(clazz, new_col, *args)
 
     def __do_aggregate(self, clazz, new_col, *col_names):
-        # init a dictionary of lists where the keys are the grouping colnames + the new column name
+        # init a dictionary of lists where the keys are the grouping
+        # colnames + the new column name
         resvals = {i: [] for i in self.__grouping.grouping_colnames}
         resvals[new_col] = []
         # iterate over every group
@@ -172,8 +186,9 @@ class GroupedDataFrame(ADataFrame):
             # cal the result
             res = clazz()(*colvals)
             if hasattr(res, "__len__"):
-                raise ValueError("The function you provided yields an array of false length!")
-            # append the result and the grouping values to the dictionary values (i.e. the lists)
+                raise ValueError(
+                    "The function you provided yields an array " +
+                    "of false length!")
             resvals[new_col].append(res)
             for i, colname in enumerate(group.grouping_colnames):
                 resvals[colname].append(group.grouping_values[i])

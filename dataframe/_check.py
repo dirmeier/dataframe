@@ -21,6 +21,7 @@
 # @author = 'Simon Dirmeier'
 # @email = 'mail@simon-dirmeier.net'
 
+
 import dataframe
 
 
@@ -66,7 +67,8 @@ def is_disjoint(set1, set2, warn):
 
     :param set1: a set of values
     :param set2: a set of values
-    :param warn: the error message that should be thrown when the sets are NOT disjoint
+    :param warn: the error message that should be thrown 
+     when the sets are NOT disjoint
     :return: returns true no elements of set2 are in set1
     """
     for elem in set2:
@@ -81,7 +83,8 @@ def contains_all(set1, set2, warn):
 
     :param set1:  a set of values
     :param set2:  a set of values
-    :param warn: the error message that should be thrown when the sets are not containd
+    :param warn: the error message that should be thrown 
+     when the sets are not containd
     :return: returns true if all values of set2 are in set1
     """
     for elem in set2:

@@ -21,11 +21,12 @@
 # @author = 'Simon Dirmeier'
 # @email = 'mail@simon-dirmeier.net'
 
-import dataframe
 
+import dataframe
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_column_set import DataFrameColumnSet
 from ._check import is_none, is_callable, has_elements
+from ._piping_exception import PipingException
 
 
 class DataFrame(ADataFrame):
@@ -47,7 +48,8 @@ class DataFrame(ADataFrame):
 
     def __iter__(self):
         """
-        Iterator implementation for DataFrame. Every iteration yields one row of the DataFrame.
+        Iterator implementation for DataFrame. 
+        Every iteration yields one row of the DataFrame.
 
         :return: returns a row from the DataFrame
         :rtype: DataFrameRow
@@ -95,8 +97,8 @@ class DataFrame(ADataFrame):
         """
         return self.__data_columns.__str__()
 
-    def __rshift__(self, other):
-        return None
+    def __rrshift__(self, other):
+        raise PipingException("")
 
     def aggregate(self, clazz, new_col, *args):
         """
@@ -106,7 +108,8 @@ class DataFrame(ADataFrame):
         :type clazz: class
         :param new_col: name of the new column
         :type new_col: str
-        :param args: list of column names of the object that function should be applied to
+        :param args: list of column names of the object that function 
+        should be applied to
         :type args: tuple
         :return: returns a new dataframe object with the aggregated value
         :rtype: DataFrame
@@ -122,7 +125,8 @@ class DataFrame(ADataFrame):
         # instantiate class and call
         res = [clazz()(*colvals)]
         if len(res) != 1:
-            raise ValueError("The function you provided yields an array of false length!")
+            raise ValueError("The function you provided " +
+                             "yields an array of false length!")
         return DataFrame(**{new_col: res})
 
     def subset(self, *args):
@@ -137,7 +141,8 @@ class DataFrame(ADataFrame):
         cols = {}
         for k in self.colnames:
             if k in args:
-                cols[str(k)] = self.__data_columns[self.colnames.index(k)].values
+                cols[str(k)] = \
+                    self.__data_columns[self.colnames.index(k)].values
         return DataFrame(**cols)
 
     def group(self, *args):
@@ -153,15 +158,18 @@ class DataFrame(ADataFrame):
 
     def modify(self, clazz, new_col, *args):
         """
-        Modify some columns (i.e. apply a function) and add the result to the table.
+        Modify some columns (i.e. apply a function) and add the 
+        result to the table.
 
         :param clazz: name of a class that extends class Callable
         :type clazz: class
         :param new_col: name of the new column
         :type new_col: str
-        :param args: list of column names of the object that function should be applied to
+        :param args: list of column names of the object that 
+        function should be applied to
         :type args: tuple
-        :return: returns a new dataframe object with the modiefied values, i.e. the new column
+        :return: returns a new dataframe object with the modiefied values,
+         i.e. the new column
         :rtype: DataFrame
         """
         if is_callable(clazz) and not is_none(new_col) and has_elements(*args):
@@ -175,7 +183,8 @@ class DataFrame(ADataFrame):
         res = clazz()(*colvals)
         res = [res] if not isinstance(res, list) else res
         if len(res) != len(colvals[0].values):
-            raise ValueError("The function you provided yields an array of false length!")
+            raise ValueError("The function you provided " +
+                             "yields an array of false length!")
         cols = {column.colname: column.values for column in self.__data_columns}
         cols[new_col] = res
         return DataFrame(**cols)
