@@ -58,16 +58,14 @@ class Pipeable:
             self.__args = args
 
     def __rrshift__(self, other):
-        if self.__piping_method == dataframe.PipingMethod.GROUP:
+        if self.__piping_method == PipingMethod.GROUP:
             return other.group(*self.__args)
-        if self.__piping_method == dataframe.PipingMethod.AGGREGATE:
+        if self.__piping_method == PipingMethod.AGGREGATE:
             return other.aggregate(self.__args[0],
                                    self.__args[1],
                                    *self.__args[2:])
-        if self.__piping_method == dataframe.PipingMethod.SUBSET:
-            return other.subset(self.__args[0],
-                                self.__args[1],
-                                *self.__args[2:])
+        if self.__piping_method == PipingMethod.SUBSET:
+            return other.subset(*self.__args)
         if self.__piping_method == PipingMethod.MODIFY:
             return other.modify(self.__args[0],
                                 self.__args[1],

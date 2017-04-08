@@ -65,3 +65,6 @@ class DataFrameColumn:
         elif isinstance(index, list):
             return [self.__vals[x] for x in index]
         return self.__vals[index]
+
+    def __len__(self):
+        return len(self.__vals)

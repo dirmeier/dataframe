@@ -23,7 +23,7 @@
 
 
 import dataframe
-from .pipeable import PipingMethod, Pipeable
+from dataframe import pipeable
 
 
 def group(*args):
@@ -43,7 +43,7 @@ def group(*args):
     elif not args:
         raise ValueError("No arguments provided")
     else:
-        return Pipeable(PipingMethod.GROUP, *args)
+        return pipeable.Pipeable(pipeable.PipingMethod.GROUP, *args)
 
 
 def aggregate(*args):
@@ -64,7 +64,7 @@ def aggregate(*args):
     elif not args:
         raise ValueError("No arguments provided")
     else:
-        return Pipeable(PipingMethod.AGGREGATE, *args)
+        return pipeable.Pipeable(pipeable.PipingMethod.AGGREGATE, *args)
 
 
 def subset(*args):
@@ -85,7 +85,7 @@ def subset(*args):
     elif not args:
         raise ValueError("No arguments provided")
     else:
-        return Pipeable(PipingMethod.SUBSET, *args)
+        return pipeable.Pipeable(pipeable.PipingMethod.SUBSET, *args)
 
 
 def modify(*args):
@@ -106,4 +106,4 @@ def modify(*args):
     elif not args:
         raise ValueError("No arguments provided")
     else:
-        return Pipeable(PipingMethod.SUBSET, *args)
+        return pipeable.Pipeable(pipeable.PipingMethod.MODIFY, *args)

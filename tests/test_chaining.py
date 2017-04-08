@@ -25,9 +25,23 @@
 import pytest
 import unittest
 import dataframe
+import scipy.stats as sps
 from dataframe import group, modify, subset, aggregate
 from sklearn import datasets
+from statistics import mean
 import re
+
+
+class Mean(dataframe.Callable):
+    def __call__(self, *args):
+        vals = args[0].values
+        return mean(vals)
+
+
+class Zscore(dataframe.Callable):
+    def __call__(self, *args):
+        vals = args[0].values
+        return sps.zscore(vals).tolist()
 
 
 class TestPipes(unittest.TestCase):
@@ -40,6 +54,68 @@ class TestPipes(unittest.TestCase):
         data["target"] = iris_data.target
         self.__frame = dataframe.DataFrame(**data)
 
+    def test_group_piped(self):
+        tab = self.__frame >> group("target")
+        assert len(tab.groups) == 3
+
     def test_group(self):
-        k = self.__frame >> group("target")
-        print(k)
+        tab = group(self.__frame, "target")
+        assert len(tab.groups) == 3
+
+    def test_group_double(self):
+        tab = group(self.__frame, "target") >> group("petalwidth")
+        assert isinstance(tab, dataframe.GroupedDataFrame)
+
+    def test_aggregate(self):
+        tab = aggregate(self.__frame, Mean, "mean", "petalwidth")
+        assert len(tab["mean"]) == 1
+
+    def test_aggregate_piped(self):
+        tab = self.__frame >> aggregate(Mean, "mean", "petalwidth")
+        assert len(tab["mean"]) == 1
+
+    def test_group_aggregate(self):
+        tab = self.__frame >> \
+              group("target") >> \
+              aggregate(Mean, "mean", "petalwidth")
+        assert len(tab["mean"]) == 3
+
+    def test_modify_piped(self):
+        tab = self.__frame >> modify(Zscore, "z", "petalwidth")
+        assert tab.nrow == self.__frame.nrow
+
+    def test_modify(self):
+        tab = modify(self.__frame, Zscore, "z", "petalwidth")
+        assert tab.nrow == self.__frame.nrow
+
+    def test_subset_piped(self):
+        tab = self.__frame >> subset("petalwidth")
+        assert tab.ncol == 1
+
+    def test_subset(self):
+        tab =  subset(self.__frame , "petalwidth")
+        assert tab.ncol == 1
+
+    def test_modify_subset(self):
+        tab = modify(self.__frame, Zscore, "z", "target") >> \
+              subset("z")
+        assert tab.ncol == 1
+
+    def test_modify_subset(self):
+        tab = modify(self.__frame, Zscore, "z", "target") >> \
+              subset("z")
+        assert tab.ncol == 1
+
+    def test_aggregate_subset(self):
+        tab = aggregate(self.__frame, Mean, "m", "target") >> \
+              subset("m")
+        assert tab.nrow == 1
+
+    def test_random_pipeing(self):
+        tab = self.__frame >> \
+                group("target") >> \
+                modify(Zscore, "z", "petalwidth") >> \
+                subset("z") >> \
+                aggregate(Mean, "m", "z")
+        assert tab.ncol == 2 and tab.nrow == 3
+
