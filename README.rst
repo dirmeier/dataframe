@@ -15,7 +15,7 @@ dataframe
 
 A data-frame_ implementation using method piping in python.
 
-.. image:: https://github.com/dirmeier/R--/blob/master/_fig/demo.gif
+.. image:: https://github.com/dirmeier/dataframe/blob/master/_fig/demo.gif
    :target: dataframe
 
 Introduction
