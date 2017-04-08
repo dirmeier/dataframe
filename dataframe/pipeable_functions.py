@@ -87,7 +87,6 @@ def subset(*args):
     else:
         return pipeable.Pipeable(pipeable.PipingMethod.SUBSET, *args)
 
-
 def modify(*args):
     """
     Chainable subset method. Takes either a dataframe and a list of 
@@ -106,4 +105,4 @@ def modify(*args):
     elif not args:
         raise ValueError("No arguments provided")
     else:
-        return pipeable.Pipeable(pipeable.PipingMethod.MODIFY, *args)
+        return pipeable.Pipeable(pipeable.PipingMethod.SUBSET, *args)

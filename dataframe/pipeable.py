@@ -22,9 +22,9 @@
 # @email = 'mail@simon-dirmeier.net'
 
 
-
 from enum import Enum
 import dataframe
+
 from ._piping_exception import PipingException
 
 

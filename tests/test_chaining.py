@@ -22,31 +22,22 @@
 # @email = 'mail@simon-dirmeier.net'
 
 
-from dataframe import DataFrame
-from sklearn import datasets
-import re
-from dataframe import pipeable
-
-iris_data = datasets.load_iris()
-features = [re.sub("\s|cm|\(|\)", "", x) for x in iris_data.feature_names]
-
-data = {features[i]: iris_data.data[:,i] for i in range(len(iris_data.data[1,:]))}
-data["target"] = iris_data.target
-frame = DataFrame(**data)
-
-print(frame)
-
-fg = frame.group("target")
-
-class Bla:
-    def __init__(self, x):
-        self.x = x
-
-    def __ror__(self, other):
-        return other.x < self.x
-
-
-a = Bla(1)
-b = Bla(2)
-
-print(a | b
+# import pytest
+# import unittest
+# import dataframe
+# from sklearn import datasets
+# import re
+#
+#
+# class TestPipes(unittest.TestCase):
+#     def setUp(self):
+#         iris_data = datasets.load_iris()
+#         features = [re.sub("\s|cm|\(|\)", "", x) for x in
+#                     iris_data.feature_names]
+#         data = {features[i]: iris_data.data[:, i] for i in
+#                 range(len(iris_data.data[1, :]))}
+#         data["target"] = iris_data.target
+#         self.__frame = dataframe.DataFrame(**data)
+#
+#     def test_group(self):
+#         self.__frame >> group("target")
