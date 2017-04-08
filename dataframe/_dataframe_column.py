@@ -1,4 +1,4 @@
-# dataframe: an efficient data-frame implementation in python
+# dataframe: a data-frame implementation using method piping
 #
 # Copyright (C) 2016 Simon Dirmeier
 #

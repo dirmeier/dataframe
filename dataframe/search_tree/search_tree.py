@@ -1,4 +1,4 @@
-# dataframe: an efficient data-frame implementation in python
+# dataframe: a data-frame implementation using method piping
 #
 # Copyright (C) 2016 Simon Dirmeier
 #
@@ -19,7 +19,8 @@
 #
 #
 # @author = 'Simon Dirmeier'
-# @email = 'rafstraumur@simon-dirmeier.net'
+# @email = 'mail@simon-dirmeier.net'
+
 
 from .search_tree_node import SearchTreeNode
 
