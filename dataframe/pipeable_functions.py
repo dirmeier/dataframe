@@ -37,6 +37,9 @@ def group(*args):
     :Example:
         
     group(dataframe, "column")
+    
+    :Example:
+    
     dataframe >> group("column")
     
     :param args: tuple of arguments
@@ -65,6 +68,9 @@ def aggregate(*args):
     :Example:
         
     aggregate(dataframe, Function, "new_col_name", "old_col_name")
+    
+    :Example:
+    
     dataframe >> aggregate(Function, "new_col_name", "old_col_name")
 
     :param args: tuple of arguments
@@ -92,6 +98,9 @@ def subset(*args):
     :Example:
         
     subset(dataframe, "column")
+    
+    :Example:
+    
     dataframe >> subset("column")
 
     :param args: tuple of arguments
@@ -119,7 +128,10 @@ def modify(*args):
 
     :Example:
         
-    modify(dataframe, Function, "new_col_name", "old_col_name")
+    modify(dataframe, Function, "new_col_name", "old_col_name") 
+    
+    :Example:
+    
     dataframe >> modify(Function, "new_col_name", "old_col_name")
 
     :param args: tuple of arguments
