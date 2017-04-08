@@ -18,7 +18,13 @@ A data-frame_ implementation using method piping in python.
 Introduction
 ============
 
-Large-scale data-analysis is getting increasingly important in statistics and computer science. For matrix-shaped data-sets ``dataframe`` offers an easy to use framework for analysis, reshaping and modification of data in ``Python``. ``dataframe`` has a simple *API*, basic *grouping*, *aggregation*, *subsetting* and *modification* functions and is (in the near future maybe) extended to C++ and Fortran. With newer version method pipeing will also be introduced.
+Large-scale data-analysis is getting increasingly important in statistics and
+computer science. For matrix-shaped data-sets ``dataframe`` offers an easy to
+use framework for analysis, reshaping and modification of data in ``Python``.
+``dataframe`` has a simple *API*, basic *grouping*, *aggregation*, *subsetting*
+and *modification* functions and is (in the near future maybe) extended to C++
+and Fortran. In the lastest version ``dataframe`` offers method pipeing as in
+the `unix`-commandline or `R`'s `magrittr` package.
 
 Installation
 ============
@@ -29,7 +35,8 @@ Install the library using:
  
    pip install git+git://github.com/dirmeier/dataframe.git
 
-from command line. This will install the library in your local environment and gives you the newest *git commit*. You can of course also install using ``pip``:
+from command line. This will install the library in your local environment and
+ gives you the newest *git commit*. You can of course also install using ``pip``:
 
 .. code-block:: bash
 
@@ -38,7 +45,9 @@ from command line. This will install the library in your local environment and g
 Documentation
 =============
 
-Detailed documentation is found at pythonhosted.org_. A more convenient way to learn the ``dataframe`` API, however, is to use the provided jupyter notebook in ``examples``:
+Detailed documentation is found at pythonhosted.org_. A more convenient way to
+learn the ``dataframe`` API, however, is to use the provided jupyter notebook
+in ``examples``:
 
 .. code-block:: bash
 
