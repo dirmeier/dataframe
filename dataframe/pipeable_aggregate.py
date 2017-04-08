@@ -23,30 +23,33 @@
 
 
 import dataframe
-from ._piping_exception import PipingException
+from dataframe import _piping_exception
 
 
-def group(*args):
+def aggregate(*args):
     """
-    Chainable group method. Takes either a dataframe and a list of strings for
-    grouping or only a list of strings if a dataframe has already been piped
-    into.
-    
+    Chainable aggregation method. Takes either a dataframe and a list of 
+    arguments required for aggregation or only the latter if a 
+    dataframe has already been piped into.
+
     :param args: tuple of arguments
-    :type args: tuple of (DataFrame, str, str, ...) or tuple of (str, str, ...)
-    :return: returns a grouped dataframe
+    :type args: tuple of (DataFrame, clazz, str, ...) or tuple 
+    of (clazz, str, ...)
+    :return: returns a dataframe
     :rtype: DataFrame
     """
 
     if args and isinstance(args[0], dataframe.DataFrame):
-        return args[0].group(*args[1:])
+        return args[0].aggregate(args[1], args[2], *args[3:])
+    elif not args:
+        raise ValueError("No arguments provided")
     else:
-        return ChainableGroup(*args)
+        return PipeableAggregate(*args)
 
 
-class ChainableGroup:
+class PipeableAggregate(dataframe.Pipeable):
     """
-    Class that allows chaining of methods. 
+    Class that allows chaining of aggregation methods. 
 
     """
 
@@ -54,17 +57,13 @@ class ChainableGroup:
         """
         Constructor for chainable. Takes a tuple which is either a dataframe
         and column names to group by or only the column names
-        
+
         :param args: tuple of params
         """
         if args and isinstance(args[0], dataframe.DataFrame):
-            raise PipingException("Wrong instantiation")
+            raise _piping_exception.PipingException("Wrong instantiation")
         else:
             self.__args = args
 
-    # def __call__(self, *args):
-    #     return 1
-    #     # return self.__df.group(*args)
-
     def __rrshift__(self, other):
-        return other.group(*self.__args)
+        return other.aggregate(self.__args[0], self.__args[1], *self.__args[2:])

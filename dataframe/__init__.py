@@ -21,9 +21,10 @@
 # @author = 'Simon Dirmeier'
 # @email = 'mail@simon-dirmeier.net'
 
-from dataframe.chainable_group import group
+
+from dataframe.pipeable_functions import group, aggregate, subset, modify
 from dataframe.callable import Callable
-from dataframe.chainable import Chainable
-from dataframe.dataframe_dataframe import DataFrame
-from dataframe.dataframe_grouped_dataframe import GroupedDataFrame
+from dataframe.pipeable import Pipeable
+from dataframe.dataframe import DataFrame
+from dataframe.grouped_dataframe import GroupedDataFrame
 

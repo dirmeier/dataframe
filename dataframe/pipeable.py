@@ -22,31 +22,43 @@
 # @email = 'mail@simon-dirmeier.net'
 
 
-from dataframe import DataFrame
+from enum import Enum
+
+
+import dataframe
+from dataframe import _piping_exception
 from sklearn import datasets
 import re
-from dataframe import pipeable
-
-iris_data = datasets.load_iris()
-features = [re.sub("\s|cm|\(|\)", "", x) for x in iris_data.feature_names]
-
-data = {features[i]: iris_data.data[:,i] for i in range(len(iris_data.data[1,:]))}
-data["target"] = iris_data.target
-frame = DataFrame(**data)
-
-print(frame)
-
-fg = frame.group("target")
-
-class Bla:
-    def __init__(self, x):
-        self.x = x
-
-    def __ror__(self, other):
-        return other.x < self.x
 
 
-a = Bla(1)
-b = Bla(2)
+class PipingMethod(Enum):
+    GROUP = 0
+    MODIFY = 1
+    AGGREGATE = 2
+    SUBSET = 3
 
-print(a | b
+
+class Pipeable:
+    """
+    Class that allows piping of methods.     
+
+    """
+
+    def __init__(self, piping_method, *args):
+        """
+        Constructor for chainable. Takes a tuple which is either a dataframe
+        and column names to group by or only the column names
+
+        :param args: tuple of params
+        """
+
+        self.__piping_method = piping_method
+        if args and isinstance(args[0], dataframe.DataFrame):
+            raise _piping_exception.PipingException("Wrong instantiation")
+        elif not args:
+
+        else:
+            self.__args = args
+
+    def __rrshift__(self, other):
+        return other.aggregate(self.__args[0], self.__args[1], *self.__args[2:])

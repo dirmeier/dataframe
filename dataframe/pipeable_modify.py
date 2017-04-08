@@ -22,6 +22,7 @@
 # @email = 'mail@simon-dirmeier.net'
 
 
+
 import dataframe
 from dataframe import _piping_exception
 from sklearn import datasets
@@ -51,11 +52,13 @@ def aggregate(*args):
 
     if args and isinstance(args[0], dataframe.DataFrame):
         return args[0].aggregate(args[1], args[2], *args[3:])
+    elif not args:
+        raise ValueError("No arguments provided")
     else:
-        return ChainableAggregate(*args)
+        return PipeableAggregate(*args)
 
 
-class ChainableAggregate:
+class PipeableModify(dataframe.Pipeable):
     """
     Class that allows chaining of methods. 
 
@@ -85,9 +88,3 @@ class Mean(dataframe.Callable):
     def __call__(self, *args):
         vals = args[0].values
         return mean(vals)
-
-
-k = aggregate(frame, Mean, "mean", "target")
-print(k)
-k = frame >> aggregate(Mean, "mean", "petalwidth")
-print(k)
