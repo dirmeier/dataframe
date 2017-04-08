@@ -76,10 +76,14 @@ frame = dataframe.DataFrame(**data)
 #        aggregate(Mean, "mz", "zscore")
 # print(k)
 
-k = frame >> \
-     group("target") >> \
-     modify(Zscore, "z", "petalwidth") >> \
-     subset("z") >> \
-     aggregate(Mean, "m", "z")
+# k = frame >> \
+#      group("target") >> \
+#      modify(Zscore, "z", "petalwidth") >> \
+#      subset("z") >> \
+#      aggregate(Mean, "m", "z")
+#
+# print(k)
+frame = dataframe.DataFrame(**data)
+k = frame.aggregate(Mean, "mean", "petallength")
 
 print(k)

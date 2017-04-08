@@ -1,6 +1,11 @@
 Versions
 ========
 
+### v0.2
+
+* Added method piping
+* Unit-tests for pipes
+
 ### v0.1
 
 * Basic DataFrame and GroupedDataFrame utilities
@@ -10,4 +15,4 @@ Versions
 
 ### Author
 
-* Simon Dirmeier <a href="mailto:simon.dirmeier@gmx.de">simon.dirmeier@gmx.de</a>
+* Simon Dirmeier <a href="mailto:mail@simon-dirmeier.net">mail@simon-dirmeier.net</a>
