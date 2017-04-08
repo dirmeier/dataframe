@@ -83,6 +83,8 @@ and we have to enter the arguments manually.
 .. parsed-literal::
 
     Frame kwargs:
+    A dataframe
+    
     +-------------+------------+-------------+------------+--------+
     | petallength | petalwidth | sepallength | sepalwidth | target |
     +-------------+------------+-------------+------------+--------+
@@ -97,6 +99,8 @@ and we have to enter the arguments manually.
     |     5.1     |    1.8     |     5.9     |    3.0     |   2    |
     +-------------+------------+-------------+------------+--------+
     Frame verbose:
+    A dataframe
+    
     +-------------+------------+-------------+------------+--------+
     | petallength | petalwidth | sepallength | sepalwidth | target |
     +-------------+------------+-------------+------------+--------+
@@ -134,6 +138,8 @@ and returns a new ``DataFrame`` object:
 
 .. parsed-literal::
 
+    A dataframe
+    
     +--------+
     | target |
     +--------+
@@ -167,19 +173,37 @@ write a class that calculates the mean of a list:
     
     class Mean(Callable):
         def __call__(self, *args):
-            vals = args[0].values()
+            vals = args[0].values
             return numpy.mean(vals)
 
 Now you can aggregate the frame like this:
 
 .. code:: python
 
+    print(frame)
     agg_frame = frame.aggregate(Mean, "mean", "petallength")
     print(agg_frame)
 
 
 .. parsed-literal::
 
+    A dataframe
+    
+    +-------------+------------+-------------+------------+--------+
+    | petallength | petalwidth | sepallength | sepalwidth | target |
+    +-------------+------------+-------------+------------+--------+
+    |     1.4     |    0.2     |     5.1     |    3.5     |   0    |
+    |     1.4     |    0.2     |     4.9     |    3.0     |   0    |
+    |     1.3     |    0.2     |     4.7     |    3.2     |   0    |
+    |      .      |     .      |      .      |     .      |   .    |
+    |      .      |     .      |      .      |     .      |   .    |
+    |      .      |     .      |      .      |     .      |   .    |
+    |     5.2     |    2.0     |     6.5     |    3.0     |   2    |
+    |     5.4     |    2.3     |     6.2     |    3.4     |   2    |
+    |     5.1     |    1.8     |     5.9     |    3.0     |   2    |
+    +-------------+------------+-------------+------------+--------+
+    A dataframe
+    
     +---------------+
     |      mean     |
     +---------------+
@@ -201,7 +225,7 @@ return a **list** and not a scalar. For example:
 
 .. code:: python
 
-    print(len(frame["target"].values()))
+    print(len(frame["target"].values))
 
 
 .. parsed-literal::
@@ -219,7 +243,7 @@ be of length ``150``. As an example let's standardize the column
     
     class Zscore(Callable):
         def __call__(self, *args):
-            vals = args[0].values()
+            vals = args[0].values
             return sps.zscore(vals).tolist()
         
     mod_frame = frame.modify(Zscore, "zscore", "petallength")
@@ -228,6 +252,8 @@ be of length ``150``. As an example let's standardize the column
 
 .. parsed-literal::
 
+    A dataframe
+    
     +-------------+------------+-------------+------------+--------+---------------------+
     | petallength | petalwidth | sepallength | sepalwidth | target |        zscore       |
     +-------------+------------+-------------+------------+--------+---------------------+
@@ -260,20 +286,22 @@ single rows into groups, creating a ``GroupedDataFrame`` object.
 
 .. parsed-literal::
 
+    A dataframe grouped by (target)
+    
     +-------------+------------+-------------+------------+--------+
     | petallength | petalwidth | sepallength | sepalwidth | target |
     +-------------+------------+-------------+------------+--------+
+    |     6.0     |    2.5     |     6.3     |    3.3     |   2    |
+    |     5.1     |    1.9     |     5.8     |    2.7     |   2    |
+    |     5.9     |    2.1     |     7.1     |    3.0     |   2    |
+    |     5.6     |    1.8     |     6.3     |    2.9     |   2    |
+    |     5.8     |    2.2     |     6.5     |    3.0     |   2    |
+    |     ---     |    ---     |     ---     |    ---     |  ---   |
     |     1.4     |    0.2     |     5.1     |    3.5     |   0    |
     |     1.4     |    0.2     |     4.9     |    3.0     |   0    |
     |     1.3     |    0.2     |     4.7     |    3.2     |   0    |
     |     1.5     |    0.2     |     4.6     |    3.1     |   0    |
     |     1.4     |    0.2     |     5.0     |    3.6     |   0    |
-    |     ---     |    ---     |     ---     |    ---     |  ---   |
-    |     4.7     |    1.4     |     7.0     |    3.2     |   1    |
-    |     4.5     |    1.5     |     6.4     |    3.2     |   1    |
-    |     4.9     |    1.5     |     6.9     |    3.1     |   1    |
-    |     4.0     |    1.3     |     5.5     |    2.3     |   1    |
-    |     4.6     |    1.5     |     6.5     |    2.8     |   1    |
     +-------------+------------+-------------+------------+--------+
 
 
@@ -303,20 +331,22 @@ Subsetting GroupedDataFrame columns
 
 .. parsed-literal::
 
+    A dataframe grouped by (target)
+    
     +-------------+--------+
     | petallength | target |
     +-------------+--------+
+    |     6.0     |   2    |
+    |     5.1     |   2    |
+    |     5.9     |   2    |
+    |     5.6     |   2    |
+    |     5.8     |   2    |
+    |     ---     |  ---   |
     |     1.4     |   0    |
     |     1.4     |   0    |
     |     1.3     |   0    |
     |     1.5     |   0    |
     |     1.4     |   0    |
-    |     ---     |  ---   |
-    |     4.7     |   1    |
-    |     4.5     |   1    |
-    |     4.9     |   1    |
-    |     4.0     |   1    |
-    |     4.6     |   1    |
     +-------------+--------+
 
 
@@ -331,12 +361,14 @@ Aggregating GroupedDataFrame columns
 
 .. parsed-literal::
 
+    A dataframe
+    
     +-------+--------+
     |  mean | target |
     +-------+--------+
+    | 2.026 |   2    |
     | 0.244 |   0    |
     | 1.326 |   1    |
-    | 2.026 |   2    |
     +-------+--------+
 
 
@@ -351,20 +383,22 @@ Modifying GroupedDataFrame columns
 
 .. parsed-literal::
 
+    A dataframe grouped by (target)
+    
     +-------------+------------+-------------+------------+--------+----------------------+
     | petallength | petalwidth | sepallength | sepalwidth | target |        zscore        |
     +-------------+------------+-------------+------------+--------+----------------------+
+    |     6.0     |    2.5     |     6.3     |    3.3     |   2    |  0.8199903777203909  |
+    |     5.1     |    1.9     |     5.8     |    2.7     |   2    | -0.8273117203786111  |
+    |     5.9     |    2.1     |     7.1     |    3.0     |   2    |  0.636956811264947   |
+    |     5.6     |    1.8     |     6.3     |    2.9     |   2    | 0.08785611189861185  |
+    |     5.8     |    2.2     |     6.5     |    3.0     |   2    | 0.45392324480950136  |
+    |     ---     |    ---     |     ---     |    ---     |  ---   |         ---          |
     |     1.4     |    0.2     |     5.1     |    3.5     |   0    | -0.37259714626609813 |
     |     1.4     |    0.2     |     4.9     |    3.0     |   0    | -0.37259714626609813 |
     |     1.3     |    0.2     |     4.7     |    3.2     |   0    | -0.9547801873068752  |
     |     1.5     |    0.2     |     4.6     |    3.1     |   0    |  0.2095858947746802  |
     |     1.4     |    0.2     |     5.0     |    3.6     |   0    | -0.37259714626609813 |
-    |     ---     |    ---     |     ---     |    ---     |  ---   |         ---          |
-    |     4.7     |    1.4     |     7.0     |    3.2     |   1    |  0.9458538768631659  |
-    |     4.5     |    1.5     |     6.4     |    3.2     |   1    |  0.5159202964708177  |
-    |     4.9     |    1.5     |     6.9     |    3.1     |   1    |  1.375787457255514   |
-    |     4.0     |    1.3     |     5.5     |    2.3     |   1    | -0.5589136545100516  |
-    |     4.6     |    1.5     |     6.5     |    2.8     |   1    |  0.7308870866669909  |
     +-------------+------------+-------------+------------+--------+----------------------+
 
 
@@ -379,15 +413,211 @@ Grouping GroupedDataFrame columns
 
 .. parsed-literal::
 
+    A dataframe grouped by (petallength, target)
+    
     +-------------+------------+-------------+------------+--------+
     | petallength | petalwidth | sepallength | sepalwidth | target |
     +-------------+------------+-------------+------------+--------+
-    |     6.1     |    2.5     |     7.2     |    3.6     |   2    |
-    |     6.1     |    1.9     |     7.4     |    2.8     |   2    |
-    |     6.1     |    2.3     |     7.7     |    3.0     |   2    |
+    |     5.2     |    2.3     |     6.7     |    3.0     |   2    |
+    |     5.2     |    2.0     |     6.5     |    3.0     |   2    |
     |     ---     |    ---     |     ---     |    ---     |  ---   |
     |     5.5     |    2.1     |     6.8     |    3.0     |   2    |
     |     5.5     |    1.8     |     6.5     |    3.0     |   2    |
     |     5.5     |    1.8     |     6.4     |    3.1     |   2    |
     +-------------+------------+-------------+------------+--------+
+
+
+Piping
+------
+
+One of the many great features of the ``unix``-commandline is method
+piping. For example
+
+.. code:: bash
+
+      grep -i "^daemon" /etc/passwd | sed 's/:/ /g' | cut -f1 -d' ' | tr -s 'dae' 'si'
+
+(This is rather inefficient, but for the sake of demostration it works).
+In order for ``python`` to support this, we overloaded the ``>>``
+operator such that instead of calling
+
+.. code:: python
+
+       frame.method(*args)
+
+you can alternatively call a method like this now
+
+.. code:: python
+
+       method(frame, *args)
+
+This sofar only works for the four main methods for dataframes
+(``subset``, ...). In the following are a few examples.
+
+Using the pipe operator
+~~~~~~~~~~~~~~~~~~~~~~~
+
+We start with the frame we initialized earlier:
+
+.. code:: python
+
+    print(frame)
+
+
+.. parsed-literal::
+
+    A dataframe
+    
+    +-------------+------------+-------------+------------+--------+
+    | petallength | petalwidth | sepallength | sepalwidth | target |
+    +-------------+------------+-------------+------------+--------+
+    |     1.4     |    0.2     |     5.1     |    3.5     |   0    |
+    |     1.4     |    0.2     |     4.9     |    3.0     |   0    |
+    |     1.3     |    0.2     |     4.7     |    3.2     |   0    |
+    |      .      |     .      |      .      |     .      |   .    |
+    |      .      |     .      |      .      |     .      |   .    |
+    |      .      |     .      |      .      |     .      |   .    |
+    |     5.2     |    2.0     |     6.5     |    3.0     |   2    |
+    |     5.4     |    2.3     |     6.2     |    3.4     |   2    |
+    |     5.1     |    1.8     |     5.9     |    3.0     |   2    |
+    +-------------+------------+-------------+------------+--------+
+
+
+``>>`` is implemented for the four dataframe methods ``group``,
+``subset``, ``aggregate`` and ``modify``. Let's first just subset the
+``frame``.
+
+.. code:: python
+
+    from dataframe import group, modify, subset, aggregate
+    
+    obj = frame >> subset("target")
+    print(obj)
+
+
+.. parsed-literal::
+
+    A dataframe
+    
+    +--------+
+    | target |
+    +--------+
+    |   0    |
+    |   0    |
+    |   0    |
+    |   .    |
+    |   .    |
+    |   .    |
+    |   2    |
+    |   2    |
+    |   2    |
+    +--------+
+
+
+Or you can directly put it into the method.
+
+.. code:: python
+
+    obj = subset(frame, "target")
+    print(obj)
+
+
+.. parsed-literal::
+
+    A dataframe
+    
+    +--------+
+    | target |
+    +--------+
+    |   0    |
+    |   0    |
+    |   0    |
+    |   .    |
+    |   .    |
+    |   .    |
+    |   2    |
+    |   2    |
+    |   2    |
+    +--------+
+
+
+Of course we can chain multiple times, too. Here we first group the data
+by the ``target`` column and the aggregate the groups using the
+``mean``:
+
+.. code:: python
+
+    obj = frame >> \
+          group("target") >> \
+          aggregate(Mean, "m", "sepallength")
+    print(obj)
+
+
+.. parsed-literal::
+
+    A dataframe
+    
+    +-------+--------+
+    |   m   | target |
+    +-------+--------+
+    | 6.588 |   2    |
+    | 5.006 |   0    |
+    | 5.936 |   1    |
+    +-------+--------+
+
+
+Group the data again and then modify it by taking *Z-scores*:
+
+.. code:: python
+
+    obj = frame >> \
+          group("target") >> \
+          modify(Zscore, "zs", "petalwidth")
+    print(obj)
+
+
+.. parsed-literal::
+
+    A dataframe grouped by (target)
+    
+    +-------------+------------+-------------+------------+--------+----------------------+
+    | petallength | petalwidth | sepallength | sepalwidth | target |          zs          |
+    +-------------+------------+-------------+------------+--------+----------------------+
+    |     6.0     |    2.5     |     6.3     |    3.3     |   2    |  1.7433541202378822  |
+    |     5.1     |    1.9     |     5.8     |    2.7     |   2    | -0.4634232471518436  |
+    |     5.9     |    2.1     |     7.1     |    3.0     |   2    |  0.2721692086447322  |
+    |     5.6     |    1.8     |     6.3     |    2.9     |   2    | -0.8312194750501306  |
+    |     5.8     |    2.2     |     6.5     |    3.0     |   2    |  0.6399654365430201  |
+    |     ---     |    ---     |     ---     |    ---     |  ---   |         ---          |
+    |     1.4     |    0.2     |     5.1     |    3.5     |   0    | -0.41457809879442475 |
+    |     1.4     |    0.2     |     4.9     |    3.0     |   0    | -0.41457809879442475 |
+    |     1.3     |    0.2     |     4.7     |    3.2     |   0    | -0.41457809879442475 |
+    |     1.5     |    0.2     |     4.6     |    3.1     |   0    | -0.41457809879442475 |
+    |     1.4     |    0.2     |     5.0     |    3.6     |   0    | -0.41457809879442475 |
+    +-------------+------------+-------------+------------+--------+----------------------+
+
+
+Finally a last example using all the methods:
+
+.. code:: python
+
+    obj = frame >> \
+          subset("target", "petalwidth") >> \
+          group("target") >> \
+          modify(Zscore, "zs", "petalwidth") >> \
+          aggregate(Mean, "m", "zs")
+    print(obj)
+
+
+.. parsed-literal::
+
+    A dataframe
+    
+    +--------------------+--------+
+    |         m          | target |
+    +--------------------+--------+
+    | -9.30366894636e-16 |   2    |
+    |  1.1990408666e-16  |   0    |
+    |  8.3044682242e-16  |   1    |
+    +--------------------+--------+
 
