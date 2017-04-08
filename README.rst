@@ -23,7 +23,7 @@ computer science. For matrix-shaped data-sets ``dataframe`` offers an easy to
 use framework for analysis, reshaping and modification of data in ``Python``.
 ``dataframe`` has a simple *API*, basic *grouping*, *aggregation*, *subsetting*
 and *modification* functions and is (in the near future maybe) extended to C++
-and Fortran. In the lastest version ``dataframe`` offers method pipeing as in
+and Fortran. In the latest version ``dataframe`` offers method piping as in
 the `unix`-commandline or `R`'s `magrittr` package.
 
 Installation

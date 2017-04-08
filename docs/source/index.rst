@@ -2,18 +2,13 @@
 The dataframe handbook
 =======================
 
-``dataframe`` is a Python libary for (yet only semi-) efficient computations for data-sets that are in table-format, just like a ``mySQL`` table. I will step by step (i.e. version after version) include new functionalities to the ``dataframe`` package. Right now only grouping, modifying, aggegating and subsetting is supported. Sooner or later the library will be extended to C++.
-
-Requirements
-============
-
-* Python 3
-* scipy 0.18.0
-* numpy 1.11.0
-* pytest 2.9.2
-* nose 1.3.7
-* sphinx 1.4.5
-* scikit-learn 0.17.0
+Large-scale data-analysis is getting increasingly important in statistics and
+computer science. For matrix-shaped data-sets ``dataframe`` offers an easy to
+use framework for analysis, reshaping and modification of data in ``Python``.
+``dataframe`` has a simple *API*, basic *grouping*, *aggregation*, *subsetting*
+and *modification* functions and is (in the near future maybe) extended to C++
+and Fortran. In the latest version ``dataframe`` offers method piping as in
+the `unix`-commandline or `R`'s `magrittr` package.
 
 
 Contents

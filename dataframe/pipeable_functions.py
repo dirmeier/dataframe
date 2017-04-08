@@ -28,14 +28,21 @@ from dataframe import pipeable
 
 def group(*args):
     """
-    Chainable group method. Takes either a dataframe and a list of strings for
-    grouping or only a list of strings if a dataframe has already been piped
-    into.
+    Pipeable grouping method. 
+    
+    Takes either 
+      - a dataframe and a tuple of strings for grouping,
+      - a tuple of strings if a dataframe has already been piped into.
+    
+    :Example:
+        
+    group(dataframe, "column")
+    dataframe >> group("column")
     
     :param args: tuple of arguments
-    :type args: tuple of (DataFrame, str, str, ...) or tuple of (str, str, ...)
-    :return: returns a grouped dataframe
-    :rtype: DataFrame
+    :type args: tuple
+    :return: returns a grouped dataframe object
+    :rtype: GroupedDataFrame
     """
 
     if args and isinstance(args[0], dataframe.DataFrame):
@@ -48,14 +55,21 @@ def group(*args):
 
 def aggregate(*args):
     """
-    Chainable aggregation method. Takes either a dataframe and a list of 
-    arguments required for aggregation or only the latter if a 
-    dataframe has already been piped into.
+    Pipeable aggregation method.
+     
+    Takes either 
+     - a dataframe and a tuple of arguments required for aggregation,
+     - a tuple of arguments if a dataframe has already been piped into.
+    In any case one argument has to be a class that extends callable.
+
+    :Example:
+        
+    aggregate(dataframe, Function, "new_col_name", "old_col_name")
+    dataframe >> aggregate(Function, "new_col_name", "old_col_name")
 
     :param args: tuple of arguments
-    :type args: tuple of (DataFrame, clazz, str, ...) or tuple of (clazz, str, 
-    ...)
-    :return: returns a dataframe
+    :type args: tuple
+    :return: returns a dataframe object
     :rtype: DataFrame
     """
 
@@ -69,14 +83,20 @@ def aggregate(*args):
 
 def subset(*args):
     """
-    Chainable subset method. Takes either a dataframe and a list of 
-    arguments required for aggregation or only the latter if a 
-    dataframe has already been piped into.
+    Pipeable subsetting method.
+     
+    Takes either
+     - a dataframe and a tuple of arguments required for subsetting,
+     - a tuple of arguments if a dataframe has already been piped into.
+
+    :Example:
+        
+    subset(dataframe, "column")
+    dataframe >> subset("column")
 
     :param args: tuple of arguments
-    :type args: tuple of (DataFrame, clazz, str, ...) or tuple of (clazz, str, 
-    ...)
-    :return: returns a dataframe
+    :type args: tuple
+    :return: returns a dataframe object
     :rtype: DataFrame
     """
 
@@ -90,14 +110,21 @@ def subset(*args):
 
 def modify(*args):
     """
-    Chainable subset method. Takes either a dataframe and a list of 
-    arguments required for aggregation or only the latter if a 
-    dataframe has already been piped into.
+    Pipeable modification method. 
+    
+    Takes either 
+     - a dataframe and a tuple of arguments required for modification,
+     - a tuple of arguments if a dataframe has already been piped into.
+    In any case one argument has to be a class that extends callable.
+
+    :Example:
+        
+    modify(dataframe, Function, "new_col_name", "old_col_name")
+    dataframe >> modify(Function, "new_col_name", "old_col_name")
 
     :param args: tuple of arguments
-    :type args: tuple of (DataFrame, clazz, str, ...) or tuple of (clazz, str, 
-    ...)
-    :return: returns a dataframe
+    :type args: tuple
+    :return: returns a dataframe object
     :rtype: DataFrame
     """
 

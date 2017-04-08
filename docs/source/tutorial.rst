@@ -4,7 +4,8 @@ Tutorial
 The tutorial pages will explain how ``dataframe`` is used. The library exports two classes:
 
 - DataFrame: basic class that represents your data,
-- GroupedDataFrame: extension of ``DataFrame`` class with grouping information, i.e. rows are grouped into sets.
+- GroupedDataFrame: extension of ``DataFrame`` class with grouping
+information, i.e. rows are grouped into sets.
 
 Installation
 ------------
@@ -15,7 +16,8 @@ Install the library using:
  
    pip install git+git://github.com/rafstraumur/dataframe.git
 
-from command line. This will install the library in your local environment and gives you the newest *git commit*. You can of course also install using ``pip``:
+from command line. This will install the library in your local environment and
+gives you the newest *git commit*. You can of course also install using ``pip``:
 
 .. code-block:: bash
 
