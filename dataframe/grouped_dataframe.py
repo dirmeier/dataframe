@@ -27,6 +27,7 @@ import dataframe
 from ._dataframe_abstract import ADataFrame
 from ._dataframe_grouping import DataFrameGrouping
 from ._check import is_callable, is_none, has_elements, is_disjoint
+from ._piping_exception import PipingException
 
 __DISJOINT_SETS_ERROR__ = "Cannot aggregate grouping variable(s)!"
 
@@ -55,6 +56,9 @@ class GroupedDataFrame(ADataFrame):
     def __iter__(self):
         for _, group in self.__grouping:
             yield group
+
+    def __rrshift__(self, other):
+        raise PipingException("")
 
     @property
     def colnames(self):

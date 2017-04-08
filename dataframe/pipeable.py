@@ -22,13 +22,10 @@
 # @email = 'mail@simon-dirmeier.net'
 
 
+
 from enum import Enum
-
-
 import dataframe
-from dataframe import _piping_exception
-from sklearn import datasets
-import re
+from ._piping_exception import PipingException
 
 
 class PipingMethod(Enum):
@@ -54,11 +51,25 @@ class Pipeable:
 
         self.__piping_method = piping_method
         if args and isinstance(args[0], dataframe.DataFrame):
-            raise _piping_exception.PipingException("Wrong instantiation")
+            raise PipingException("Wrong instantiation.")
         elif not args:
-
+            raise ValueError("No arguments provided.")
         else:
             self.__args = args
 
     def __rrshift__(self, other):
-        return other.aggregate(self.__args[0], self.__args[1], *self.__args[2:])
+        if self.__piping_method == dataframe.PipingMethod.GROUP:
+            return other.group(*self.__args)
+        if self.__piping_method == dataframe.PipingMethod.AGGREGATE:
+            return other.aggregate(self.__args[0],
+                                   self.__args[1],
+                                   *self.__args[2:])
+        if self.__piping_method == dataframe.PipingMethod.SUBSET:
+            return other.subset(self.__args[0],
+                                self.__args[1],
+                                *self.__args[2:])
+        if self.__piping_method == PipingMethod.MODIFY:
+            return other.modify(self.__args[0],
+                                self.__args[1],
+                                *self.__args[2:])
+        raise PipingException("Error when executing pipe.")
