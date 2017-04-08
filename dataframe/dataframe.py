@@ -48,7 +48,7 @@ class DataFrame(ADataFrame):
 
     def __iter__(self):
         """
-        Iterator implementation for DataFrame. 
+        Iterator implementation for DataFrame.
         Every iteration yields one row of the DataFrame.
 
         :return: returns a row from the DataFrame
@@ -158,14 +158,14 @@ class DataFrame(ADataFrame):
 
     def modify(self, clazz, new_col, *args):
         """
-        Modify some columns (i.e. apply a function) and add the 
+        Modify some columns (i.e. apply a function) and add the
         result to the table.
 
         :param clazz: name of a class that extends class Callable
         :type clazz: class
         :param new_col: name of the new column
         :type new_col: str
-        :param args: list of column names of the object that 
+        :param args: list of column names of the object that
         function should be applied to
         :type args: tuple
         :return: returns a new dataframe object with the modiefied values,

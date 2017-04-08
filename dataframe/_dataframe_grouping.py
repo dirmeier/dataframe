@@ -67,7 +67,7 @@ class DataFrameGrouping:
             return self.__groups[item]
 
     def __str__(self):
-        str = "A dataframe grouped by (" + \
+        stri = "A dataframe grouped by (" + \
               ", ".join(self.__grouping_col_names) + ")"
         ptr = PrettyTable(self.__dataframe.colnames)
         for i, group in enumerate(self.__groups.values()):
@@ -78,7 +78,7 @@ class DataFrameGrouping:
                     ptr.add_row(row.values())
             if i == 0:
                 ptr.add_row(["---"] * len(self.__dataframe.colnames))
-        return str + "\n\n" + ptr.__str__()
+        return stri + "\n\n" + ptr.__str__()
 
     @property
     def grouping_colnames(self):

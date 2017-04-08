@@ -28,9 +28,9 @@ from dataframe import pipeable
 
 def group(*args):
     """
-    Pipeable grouping method. 
-    
-    Takes either 
+    Pipeable grouping method.
+
+    Takes either
       - a dataframe and a tuple of strings for grouping,
       - a tuple of strings if a dataframe has already been piped into.
     
@@ -59,18 +59,18 @@ def group(*args):
 def aggregate(*args):
     """
     Pipeable aggregation method.
-     
+    
     Takes either 
      - a dataframe and a tuple of arguments required for aggregation,
      - a tuple of arguments if a dataframe has already been piped into.
     In any case one argument has to be a class that extends callable.
 
     :Example:
-        
+
     aggregate(dataframe, Function, "new_col_name", "old_col_name")
-    
+
     :Example:
-    
+
     dataframe >> aggregate(Function, "new_col_name", "old_col_name")
 
     :param args: tuple of arguments
@@ -90,7 +90,7 @@ def aggregate(*args):
 def subset(*args):
     """
     Pipeable subsetting method.
-     
+
     Takes either
      - a dataframe and a tuple of arguments required for subsetting,
      - a tuple of arguments if a dataframe has already been piped into.
@@ -119,7 +119,7 @@ def subset(*args):
 
 def modify(*args):
     """
-    Pipeable modification method. 
+    Pipeable modification method 
     
     Takes either 
      - a dataframe and a tuple of arguments required for modification,
@@ -127,11 +127,11 @@ def modify(*args):
     In any case one argument has to be a class that extends callable.
 
     :Example:
-        
-    modify(dataframe, Function, "new_col_name", "old_col_name") 
+
+    modify(dataframe, Function, "new_col_name", "old_col_name")
     
     :Example:
-    
+
     dataframe >> modify(Function, "new_col_name", "old_col_name")
 
     :param args: tuple of arguments

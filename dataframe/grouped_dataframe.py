@@ -34,7 +34,7 @@ __DISJOINT_SETS_ERROR__ = "Cannot aggregate grouping variable(s)!"
 
 class GroupedDataFrame(ADataFrame):
     """
-    The base GroupedDataFrame class. 
+    The base GroupedDataFrame class.
     Subsets a DataFrame object into several groups given several columns.
     """
 
@@ -120,14 +120,14 @@ class GroupedDataFrame(ADataFrame):
 
     def modify(self, clazz, new_col, *args):
         """
-        Modify some columns (i.e. apply a function) 
+        Modify some columns (i.e. apply a function)
          and add the result to the table.
 
         :param clazz: name of a class that extends class Callable
         :type clazz: class
         :param new_col: name of the new column
         :type new_col: str
-        :param args: list of column names of the object that 
+        :param args: list of column names of the object that
          function should be applied to
         :type args: tuple
         :return: returns a new GroupedDataFrame object with the modified
