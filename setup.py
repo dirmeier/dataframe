@@ -1,26 +1,29 @@
 from setuptools import setup
-from pip.req import parse_requirements
-
 
 def readme():
     with open('README.rst') as f:
         return f.read()
 
-reqs = [str(ir.req) for ir in parse_requirements('requirements.txt', session=False)]
-
 setup(
     name='dataframe',
-    version='0.2',
+    version='0.2.1',
     description='A data-frame implementation using method piping.',
     long_description=readme(),
     url='https://github.com/dirmeier/dataframe',
-    download_url='https://github.com/dirmeier/dataframe/tarball/0.2',
+    download_url='https://github.com/dirmeier/dataframe/tarball/0.2.1',
     author='Simon Dirmeier',
     author_email='mail@simon-dirmeier.net',
     license='GPLv3',
     keywords=['table', 'dataframe', 'datatable'],
     packages=['dataframe'],
-    install_requires=reqs,
+    install_requires=[
+         'prettytable>=0.7.2',
+         'numpy>=1.11.0',
+         'scipy>=0.18.0',
+         'pytest>=2.9.2',
+         'nose==1.3.7',
+         'sphinx>=1.4.5'
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
