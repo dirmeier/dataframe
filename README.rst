@@ -15,7 +15,7 @@ dataframe
 
 A data-frame_ implementation using method piping in python.
 
-.. image:: https://github.com/dirmeier/R--/blob/master/_fig/demo.gif
+.. image:: https://github.com/dirmeier/dataframe/blob/master/_fig/demo.gif
    :target: dataframe
 
 Introduction
@@ -24,7 +24,7 @@ Introduction
 Large-scale data-analysis is getting increasingly important in statistics and
 computer science. For matrix-shaped data-sets ``dataframe`` offers an easy to
 use framework for analysis, reshaping and modification of data in ``Python``.
-``dataframe`` has a simple *API*, basic *grouping*, *aggregation*, *subsetting*
+``dataframe`` hasbasic *grouping*, *aggregation*, *subsetting*
 and *modification* functions and is (in the near future maybe) extended to C++
 and Fortran. In the latest version ``dataframe`` offers method piping as in
 the `unix`-commandline or `R`'s `magrittr` package.
@@ -49,7 +49,7 @@ Documentation
 =============
 
 Detailed documentation is found at pythonhosted.org_. A more convenient way to
-learn the ``dataframe`` API, however, is to use the provided jupyter notebook
+learn ``dataframe``, however, is to use the provided jupyter notebook
 in ``examples``:
 
 .. code-block:: bash
