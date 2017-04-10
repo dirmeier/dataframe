@@ -1,11 +1,13 @@
 package:
   name: dataframe
-  version: "0.2.1"
+  version: "0.2.1.1"
 
 source:
-  fn: dataframe-0.2.1.1.tar.gz
-  url: https://pypi.python.org/packages/29/ee/3899b14feaff64d11c61405b3bd2a53ab71d42e1545e9ef869220a2bdeca/dataframe-0.2.1.tar.gz
-  md5: 8028eb66477243c40277c9a4967f87d0
+  git_rev: 0.2.1.1
+  git_url: https://github.com/dirmeier/dataframe.git
+
+build:
+  number: 0
 
 requirements:
   build:
