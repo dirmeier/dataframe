@@ -6,11 +6,11 @@ def readme():
 
 setup(
     name='dataframe',
-    version='0.2.1',
+    version='0.2.1.1',
     description='A data-frame implementation using method piping.',
     long_description=readme(),
     url='https://github.com/dirmeier/dataframe',
-    download_url='https://github.com/dirmeier/dataframe/tarball/0.2.1',
+    download_url='https://github.com/dirmeier/dataframe/tarball/0.2.1.1',
     author='Simon Dirmeier',
     author_email='mail@simon-dirmeier.net',
     license='GPLv3',
