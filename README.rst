@@ -29,14 +29,7 @@ the `unix`-commandline or `R`'s `magrittr` package.
 Installation
 ============
 
-Install the library using:
-
-.. code-block:: bash
-
-   pip install git+git://github.com/dirmeier/dataframe.git
-
-from command line. This will install the library in your local environment and
- gives you the newest *git commit*. You can of course also install using ``pip``:
+I recommend installing the library using:
 
 .. code-block:: bash
 
