@@ -23,7 +23,7 @@
 
 
 import numpy
-from prettytable import PrettyTable
+import tabulate
 from ._dataframe_group import DataFrameGroup
 from dataframe.search_tree import SearchTree
 
@@ -67,18 +67,19 @@ class DataFrameGrouping:
             return self.__groups[item]
 
     def __str__(self):
-        stri = "A dataframe grouped by (" + \
+        stri = "\nA dataframe grouped by (" + \
               ", ".join(self.__grouping_col_names) + ")"
-        ptr = PrettyTable(self.__dataframe.colnames)
+        ta = []
         for i, group in enumerate(self.__groups.values()):
             if i > 1:
                 break
             for j, row in enumerate(group):
                 if j < 5:
-                    ptr.add_row(row.values())
+                    ta.append(row.values())
             if i == 0:
-                ptr.add_row(["---"] * len(self.__dataframe.colnames))
-        return stri + "\n\n" + ptr.__str__()
+                ta.append(["---"] * len(self.__dataframe.colnames))
+        ta = tabulate.tabulate(ta, headers=self.__dataframe.colnames)
+        return stri + "\n\n" + ta.__str__()
 
     @property
     def grouping_colnames(self):

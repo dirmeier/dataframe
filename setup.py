@@ -17,7 +17,7 @@ setup(
     keywords=['table', 'dataframe', 'datatable'],
     packages=['dataframe'],
     install_requires=[
-         'prettytable>=0.7.2',
+         'tabulate>=0.7.7',
          'numpy>=1.11.0',
          'scipy>=0.18.0',
          'pytest>=2.9.2',

@@ -23,8 +23,7 @@
 
 
 from itertools import chain
-from prettytable import PrettyTable
-
+import tabulate
 from ._dataframe_column import DataFrameColumn
 from ._dataframe_row import DataFrameRow
 
@@ -45,14 +44,15 @@ class DataFrameColumnSet:
             yield col
 
     def __str__(self):
-        stri = "A dataframe"
-        pta = PrettyTable()
+        stri = "\nA dataframe"
+        ta = []
         for col in self.__data_columns:
             vals = col.values
             if len(vals) > 10:
                 vals = list(chain(vals[:3], "...", vals[-3:]))
-            pta.add_column(col.colname, vals)
-        return stri + "\n\n" +pta.__str__()
+            ta.append(vals)
+        ta = tabulate.tabulate(zip(*ta), headers=self.colnames)
+        return stri + "\n\n" + ta.__str__()
 
     @property
     def nrow(self):

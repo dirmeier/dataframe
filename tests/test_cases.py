@@ -52,7 +52,9 @@ features = [re.sub("\s|cm|\(|\)", "", x) for x in
 data = {features[i]: iris_data.data[:, i] for i in
         range(len(iris_data.data[1, :]))}
 data["target"] = iris_data.target
-frame = dataframe.DataFrame(**data)
+frame = dataframe.DataFrame(**data) >> group("target")
+
+print(frame)
 
 # k = frame >> group("target")
 # print(k)
@@ -102,7 +104,7 @@ frame = dataframe.DataFrame(**data)
 #      aggregate(Mean, "m", "z")
 #
 # print(k)
-frame = dataframe.DataFrame(**data)
-k = frame.aggregate(Mean, "mean", "petallength")
-
-print(k)
+# frame = dataframe.DataFrame(**data)
+# k = frame.aggregate(Mean, "mean", "petallength")
+#
+# print(k)

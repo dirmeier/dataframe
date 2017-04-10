@@ -3,7 +3,7 @@ package:
   version: "0.2.1"
 
 source:
-  fn: dataframe-0.2.1.tar.gz
+  fn: dataframe-0.2.1.1.tar.gz
   url: https://pypi.python.org/packages/29/ee/3899b14feaff64d11c61405b3bd2a53ab71d42e1545e9ef869220a2bdeca/dataframe-0.2.1.tar.gz
   md5: 8028eb66477243c40277c9a4967f87d0
 
@@ -11,7 +11,7 @@ requirements:
   build:
     - python
     - setuptools
-    - prettytable >=0.7.2
+    - tabulate >=0.7.7
     - numpy >=1.11.0
     - scipy >=0.18.0
     - pytest >=2.9.2
@@ -19,7 +19,7 @@ requirements:
     - sphinx >=1.4.5
   run:
     - python
-    - prettytable >=0.7.2
+    - tabulate >=0.7.7
     - numpy >=1.11.0
     - scipy >=0.18.0
     - pytest >=2.9.2
