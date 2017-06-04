@@ -15,6 +15,11 @@ dataframe
 
 A data-frame_ implementation using method piping in python.
 
+.. image:: https://rawgit.com/dirmeier/dataframe/master/_fig/demo.svg
+   :height: 600px
+   :align: center
+   :target: https://rawgit.com/dirmeier/dataframe/master/_fig/demo.svg
+ 
 Introduction
 ============
 
