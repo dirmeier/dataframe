@@ -5,6 +5,7 @@ Versions
 
 * Added method piping
 * Unit-tests for pipes
+* Published to conda
 
 ### v0.1
 

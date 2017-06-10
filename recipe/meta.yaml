@@ -1,5 +1,5 @@
 {% set name = "dataframe"  %}
-{% set version = "0.2.1.2" %}
+{% set version = "0.2.1.3" %}
 
 package:
   name: "{{ name }}"
@@ -8,6 +8,7 @@ package:
 source:
   fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: f6c4b86132337790fbb31bf47cbb9a6d6e29e810ad4a62d2e81cb2f1b5780407
 
 build:
   number: 0
@@ -40,5 +41,8 @@ test:
 about:
   home: https://github.com/dirmeier/dataframe
   license: GNU General Public License v3 (GPLv3)
+  license_file: LICENSE
   summary: 'A data-frame implementation using method piping.'
+  doc_url: https://pythonhosted.org/dataframe/
+  dev_url: https://github.com/dirmeier/dataframe
 

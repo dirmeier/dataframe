@@ -12,6 +12,8 @@ dataframe
    :target: https://www.codacy.com/app/simon-dirmeier/dataframe?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dirmeier/dataframe&amp;utm_campaign=Badge_Grade
 .. image:: https://badge.fury.io/py/dataframe.svg
    :target: https://badge.fury.io/py/dataframe
+.. image:: https://anaconda.org/dirmeier/dataframe/badges/installer/conda.svg
+   :target: https://anaconda.org/dirmeier/dataframe
 
 A data-frame_ implementation using method piping in python.
 
