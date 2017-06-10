@@ -36,11 +36,15 @@ the `unix`-commandline or `R`'s `magrittr` package.
 Installation
 ============
 
-I recommend installing the library using:
+I recommend installing the library either using `pypi` or `conda`:
 
 .. code-block:: bash
 
    pip install dataframe
+
+.. code-block:: bash
+
+   conda install -c dirmeier dataframe
 
 Documentation
 =============
