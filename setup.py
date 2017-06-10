@@ -6,7 +6,7 @@ def readme():
 
 setup(
     name='dataframe',
-    version='0.2.1.1',
+    version='0.2.1.2',
     description='A data-frame implementation using method piping.',
     long_description=readme(),
     url='https://github.com/dirmeier/dataframe',
@@ -15,7 +15,7 @@ setup(
     author_email='mail@simon-dirmeier.net',
     license='GPLv3',
     keywords=['table', 'dataframe', 'datatable'],
-    packages=['dataframe'],
+    packages=['dataframe', 'dataframe.search_tree'],
     install_requires=[
          'tabulate>=0.7.7',
          'numpy>=1.11.0',

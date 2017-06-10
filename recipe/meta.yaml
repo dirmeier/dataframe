@@ -1,18 +1,23 @@
+{% set name = "dataframe"  %}
+{% set version = "0.2.1.2" %}
+
 package:
-  name: dataframe
-  version: "0.2.1.1"
+  name: "{{ name }}"
+  version: {{ version }}
 
 source:
-  git_rev: 0.2.1.1
-  git_url: https://github.com/dirmeier/dataframe.git
+  fn: {{ name }}-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
 
 build:
   number: 0
+  script: python setup.py install  --single-version-externally-managed --record=record.txt
 
 requirements:
   build:
     - python
     - setuptools
+    - toolchain
     - tabulate >=0.7.7
     - numpy >=1.11.0
     - scipy >=0.18.0
@@ -36,5 +41,4 @@ about:
   home: https://github.com/dirmeier/dataframe
   license: GNU General Public License v3 (GPLv3)
   summary: 'A data-frame implementation using method piping.'
-  license_family: GPL3
 
