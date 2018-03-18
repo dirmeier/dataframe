@@ -2,8 +2,8 @@
 dataframe
 *********
 
-.. image:: http://www.repostatus.org/badges/latest/active.svg
-   :target: http://www.repostatus.org/#active
+.. image:: http://www.repostatus.org/badges/latest/inactive.svg
+   :target: http://www.repostatus.org/#inactive
 .. image:: https://travis-ci.org/dirmeier/dataframe.svg?branch=master
    :target: https://travis-ci.org/dirmeier/dataframe/
 .. image:: https://codecov.io/gh/dirmeier/dataframe/branch/master/graph/badge.svg
