@@ -34,4 +34,4 @@ the `unix`-commandline or `R`'s `magrittr` package.
 Author
 ======
 
-Simon Dirmeier <simon.dirmeier @ protonmail com>
+Simon Dirmeier <sfyrbnd @ pm me>
